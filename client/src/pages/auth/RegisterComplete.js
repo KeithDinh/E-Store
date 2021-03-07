@@ -1,20 +1,18 @@
-import { auth, googleAuthProvider } from "../../firebase.js";
+import { auth } from "../../firebase.js";
 import { useState, useEffect } from "react";
 import { toast } from "react-toastify";
 import { useParams } from "react-router-dom";
 import { validators, errorDiv } from "../../utils/PasswordValidator";
 
 const RegisterComplete = ({ history }) => {
-  const [email, setEmail] = useState("");
-  const [password, setPassword] = useState("");
-  const [passwordErr, setPasswordErr] = useState([]);
   // useParams gets the parameter from the route, check out App.js on the route to this component for more info
-
   const params = useParams();
+  const email = params.email;
 
-  useEffect(() => {
-    setEmail(params.email);
-  }, []);
+  const [password, setPassword] = useState("");
+  const [passwordErrors, setPasswordErrors] = useState([]);
+
+  useEffect(() => {}, []);
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -24,7 +22,7 @@ const RegisterComplete = ({ history }) => {
       return;
     }
 
-    if (passwordErr.length > 0) {
+    if (passwordErrors.length > 0) {
       toast.error("Please create a stronger password!!");
       return;
     }
@@ -53,7 +51,7 @@ const RegisterComplete = ({ history }) => {
       toast.error(error.message);
     }
   };
-
+  // create a micro form component
   const completeRegistrationForm = () => (
     <form onSubmit={handleSubmit}>
       <input type="email" className="form-control" value={email} disabled />
@@ -65,7 +63,7 @@ const RegisterComplete = ({ history }) => {
         autoFocus
         onChange={(e) => {
           setPassword(e.target.value);
-          setPasswordErr(validators(e.target.value));
+          setPasswordErrors(validators(e.target.value));
         }}
       />
 
@@ -80,7 +78,7 @@ const RegisterComplete = ({ history }) => {
         <div className="col-md-6 offset-md-3">
           <h4>Register Complete</h4>
           {completeRegistrationForm()}
-          {errorDiv(passwordErr)}
+          {errorDiv(passwordErrors)}
         </div>
       </div>
     </div>

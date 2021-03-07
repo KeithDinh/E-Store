@@ -2,16 +2,27 @@ import React from "react";
 import ReactDOM from "react-dom";
 import App from "./App";
 import reportWebVitals from "./reportWebVitals";
+
 import { BrowserRouter as Router } from "react-router-dom";
 import "antd/dist/antd.css";
+
+import { createStore } from "redux";
+import { Provider } from "react-redux";
+import { composeWithDevTools } from "redux-devtools-extension";
+import rootReducer from "./reducers";
+
+// store
+const store = createStore(rootReducer, composeWithDevTools());
 
 // simple hack to prevent manually having import React from 'react' in multiple files
 window.React = React;
 
 ReactDOM.render(
-  <Router>
-    <App />
-  </Router>,
+  <Provider store={store}>
+    <Router>
+      <App />
+    </Router>
+  </Provider>,
   document.getElementById("root")
 );
 

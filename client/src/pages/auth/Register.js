@@ -1,9 +1,17 @@
 import { auth } from "../../firebase.js";
-import { useState } from "react";
+import { useState, useEffect } from "react";
+import { useSelector } from "react-redux";
 import { toast } from "react-toastify";
 
-const Register = () => {
+const Register = ({ history }) => {
   const [email, setEmail] = useState("");
+
+  // Restrict logged-in users from accessing this forgot password and redirect them to home
+  let { user } = useSelector((state) => ({ ...state }));
+  useEffect(() => {
+    if (user && user.token) history.push("/");
+  }, [user, history]);
+
   const handleSubmit = async (e) => {
     e.preventDefault();
 
@@ -25,6 +33,7 @@ const Register = () => {
     setEmail("");
   };
 
+  // create a micro form component
   const registerForm = () => (
     <form onSubmit={handleSubmit}>
       <input
@@ -33,13 +42,15 @@ const Register = () => {
         value={email}
         autoFocus
         onChange={(e) => setEmail(e.target.value)}
+        placeholder="Email"
       />
-
+      <br />
       <button type="submit" className="btn btn-raised">
         Register
       </button>
     </form>
   );
+
   return (
     <div className="container p-5">
       <div className="row">
