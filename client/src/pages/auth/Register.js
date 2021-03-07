@@ -1,4 +1,4 @@
-import { auth, googleAuthProvider } from "../../firebase.js";
+import { auth } from "../../firebase.js";
 import { useState } from "react";
 import { toast } from "react-toastify";
 

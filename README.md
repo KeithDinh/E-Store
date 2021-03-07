@@ -22,4 +22,6 @@
     <li>React-router Route: need keyword "exact"</li>
     <li>React.StrictMode may cause bugs, remove it won't cause problems</li>
     <li>readonly: not editable, but submitable | disabled: not editable nor submitable</li>
+    <li>localstorage: setItem(name, item), getItem(name), removeItem(name) </li>
+    <li>Env variable naming convention prefix: REACT_APP_</li>
 </ul>
