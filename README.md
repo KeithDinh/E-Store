@@ -1,6 +1,6 @@
 # API
 
-## COMMANDS
+## COMMANDS/PACKAGES
 
 - npm init
 - npm install:
@@ -17,7 +17,7 @@
 
 # CLIENT
 
-## COMMANDS
+## COMMANDS/PACKAGES
 
 - npx create-react-app
 - npm install:
@@ -40,7 +40,8 @@
 - React.StrictMode may cause bugs, remove it won't cause problems
 - readonly: not editable, but submitable | disabled: not editable nor submitable
 - localstorage: setItem(name, item), getItem(name), removeItem(name)
-- Env variable naming convention prefix: REACT*APP*
+- Env variable naming convention prefix: `REACT_APP_`
+- process.env gets vars from all files start with .env
 - history is used as props for only the Route from react router dom
 - Redux:
   - useDispatch: update the state
