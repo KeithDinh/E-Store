@@ -2,9 +2,8 @@
 
 # CLIENT
 
-## COMMANDS
-
 <ul>
+    ## COMMANDS
     <li> npx create-react-app </li>
     <li> npm install: </li>
     <ul>
@@ -17,14 +16,14 @@
         <li>react-redux: connections btw react and redux</li>
         <li>redux-devtools-extension: redux for chrome</li>
     </ul>
-<ul>
+    ## GENERALS
 
-## GENERALS
+    <ul>
+        <li>React-router Route: need keyword "exact"</li>
+        <li>React.StrictMode may cause bugs, remove it won't cause problems</li>
+        <li>readonly: not editable, but submitable | disabled: not editable nor submitable</li>
+        <li>localstorage: setItem(name, item), getItem(name), removeItem(name) </li>
+        <li>Env variable naming convention prefix: REACT_APP_</li>
+    </ul>
 
 <ul>
-    <li>React-router Route: need keyword "exact"</li>
-    <li>React.StrictMode may cause bugs, remove it won't cause problems</li>
-    <li>readonly: not editable, but submitable | disabled: not editable nor submitable</li>
-    <li>localstorage: setItem(name, item), getItem(name), removeItem(name) </li>
-    <li>Env variable naming convention prefix: REACT_APP_</li>
-</ul>
