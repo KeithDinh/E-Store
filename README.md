@@ -13,7 +13,10 @@
         <li>@ant-design/icons: for menu item icons</li>
         <li>firebase</li>
         <li>react-toastify</li>
-    
+        <li>redux</li>
+        <li>react-redux: connections btw react and redux</li>
+        <li>redux-devtools-extension: redux for chrome</li>
+    </ul>
 <ul>
 
 ## GENERALS

@@ -16,7 +16,6 @@ const validators = (password) => {
     result.push("Password must contain at least 1 lowercase letter!");
   }
   // uppercase
-
   if (!regexUppercase.test(password)) {
     result.push("Password must contain at least 1 uppercase letter!");
   }
