@@ -1,12 +1,24 @@
-import { auth, googleAuthProvider } from "../../firebase.js";
 import { useDispatch, useSelector } from "react-redux";
 import { useState, useEffect } from "react";
 import { toast } from "react-toastify";
 import { Link } from "react-router-dom";
+import { auth, googleAuthProvider } from "../../firebase.js";
+import axios from "axios";
 
 import { GoogleOutlined, MailOutlined } from "@ant-design/icons";
 import { Button } from "antd";
 
+const createOrUpdateUser = async (authtoken) => {
+  return await axios.post(
+    `${process.env.REACT_APP_API}/create-or-update-user`,
+    {},
+    {
+      headers: {
+        authtoken,
+      },
+    }
+  );
+};
 const Register = ({ history }) => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
@@ -33,14 +45,22 @@ const Register = ({ history }) => {
       const { user } = userCredential;
       const idTokenResult = await user.getIdTokenResult();
 
-      // dispatch an action to log user in
-      dispatch({
-        type: "LOGGED_IN_USER",
-        payload: {
-          email: user.email,
-          token: idTokenResult.token,
-        },
-      });
+      // send token to backend
+      await createOrUpdateUser(idTokenResult.token)
+        .then((res) => {
+          // dispatch an action to log user in
+          dispatch({
+            type: "LOGGED_IN_USER",
+            payload: {
+              name: res.data.name,
+              email: res.data.email,
+              token: idTokenResult.token,
+              role: res.data.role,
+              _id: res.data._id,
+            },
+          });
+        })
+        .catch((error) => toast.error(error.message));
 
       history.push("/");
     } catch (error) {
@@ -55,16 +75,23 @@ const Register = ({ history }) => {
         const { user } = userCredential;
         const idTokenResult = await user.getIdTokenResult();
 
-        // dispatch an action to log user in
-        dispatch({
-          type: "LOGGED_IN_USER",
-          payload: {
-            email: user.email,
-            token: idTokenResult.token,
-          },
-        });
+        await createOrUpdateUser(idTokenResult.token)
+          .then((res) => {
+            // dispatch an action to log user in
+            dispatch({
+              type: "LOGGED_IN_USER",
+              payload: {
+                name: res.data.name,
+                email: res.data.email,
+                token: idTokenResult.token,
+                role: res.data.role,
+                _id: res.data._id,
+              },
+            });
+          })
+          .catch((error) => toast.error(error.message));
 
-        history.push("/");
+        history.push("/login");
       })
       .catch((e) => {
         toast.error(e.message);
@@ -111,7 +138,11 @@ const Register = ({ history }) => {
     <div className="container p-5">
       <div className="row">
         <div className="col-md-6 offset-md-3">
-          <h4>{!loading ? "Login" : "Loading..."}</h4>
+          {!loading ? (
+            <h4>Login</h4>
+          ) : (
+            <h4 className="text-danger">Loading...</h4>
+          )}
           {loginForm()}
           <Button
             onClick={googleLogin}

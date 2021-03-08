@@ -4,6 +4,7 @@
   "description": "Server side for e-store",
   "main": "index.js",
   "scripts": {
+    "start": "nodemon server.js",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "author": "Kiet Dinh",
@@ -16,7 +17,7 @@
     "express-jwt": "^6.0.0",
     "firebase-admin": "^9.5.0",
     "jsonwebtoken": "^8.5.1",
-    "mongoose": "^5.11.19",
+    "mongoose": "^5.11.15",
     "morgan": "^1.10.0",
     "nodemon": "^2.0.7"
   }

@@ -5,7 +5,7 @@
 - npm init
 - npm install:
   - express: backend framework
-  - body-parser: parse content from request
+  - body-parser(DEPRECATED: use express.json() instead): parse content from request
   - mongoose: lib to communicate with mongodb
   - cors: cross-origin resource sharing, multiple apps on different ports
   - morgan: request logger for development
@@ -29,6 +29,7 @@
   - redux
   - react-redux: connections btw react and redux
   - redux-devtools-extension: redux for chrome
+  - axios: fetch data
 
 ## CONSTRAINTS/NEED TO IMPROVE
 
