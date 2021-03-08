@@ -1,4 +1,8 @@
 /node_modules
 .env.local
+<<<<<<< HEAD
 /config
 /.nyc_output
+=======
+/config
+>>>>>>> b9862f1... update gitignore
