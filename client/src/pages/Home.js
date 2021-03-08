@@ -1,5 +1,4 @@
 const Home = () => {
-  console.log(process.env);
   return <div>Home</div>;
 };
 
