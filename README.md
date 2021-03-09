@@ -43,9 +43,14 @@
 - localstorage: setItem(name, item), getItem(name), removeItem(name)
 - Env variable naming convention prefix: `REACT_APP_`
 - process.env gets vars from all files start with .env
-- history is used as props for only the Route from react router dom
+- history is passed as props if component is Route from react router dom
 - Redux:
   - useDispatch: update the state
   - useSelector: get data from the redux
+- Firebase:
+  - onAuthStateChanges: used when users refresh page, it tells firebase to call
+- clearInterval: remove the setInterval
+- [state, setState]: setState return a callback with default parameter state
+  - ex: setState((s) => --s)
 
 # MONGODB

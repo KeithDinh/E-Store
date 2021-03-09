@@ -2,23 +2,13 @@ import { useDispatch, useSelector } from "react-redux";
 import { useState, useEffect } from "react";
 import { toast } from "react-toastify";
 import { Link } from "react-router-dom";
+
 import { auth, googleAuthProvider } from "../../firebase.js";
-import axios from "axios";
+import { createOrUpdateUser } from "../../functions/Auth";
 
 import { GoogleOutlined, MailOutlined } from "@ant-design/icons";
 import { Button } from "antd";
 
-const createOrUpdateUser = async (authtoken) => {
-  return await axios.post(
-    `${process.env.REACT_APP_API}/create-or-update-user`,
-    {},
-    {
-      headers: {
-        authtoken,
-      },
-    }
-  );
-};
 const Register = ({ history }) => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
@@ -26,6 +16,15 @@ const Register = ({ history }) => {
 
   let dispatch = useDispatch();
   let { user } = useSelector((state) => ({ ...state }));
+
+  // redirect after login
+  const roleBasedRedirect = (res) => {
+    if (res.data.role === "admin") {
+      history.push("/admin/dashboard");
+    } else {
+      history.push("/user/history");
+    }
+  };
 
   // Restrict logged-in users from accessing this login and redirect them to home
   useEffect(() => {
@@ -59,10 +58,11 @@ const Register = ({ history }) => {
               _id: res.data._id,
             },
           });
+
+          // redirect based on role of user
+          roleBasedRedirect(res);
         })
         .catch((error) => toast.error(error.message));
-
-      history.push("/");
     } catch (error) {
       toast.error(error.message);
       setLoading(false);
@@ -88,10 +88,10 @@ const Register = ({ history }) => {
                 _id: res.data._id,
               },
             });
+            // redirect based on role of user
+            roleBasedRedirect(res);
           })
           .catch((error) => toast.error(error.message));
-
-        history.push("/login");
       })
       .catch((e) => {
         toast.error(e.message);

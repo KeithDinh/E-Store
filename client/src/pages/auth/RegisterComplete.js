@@ -2,7 +2,9 @@ import { auth } from "../../firebase.js";
 import { useState, useEffect } from "react";
 import { toast } from "react-toastify";
 import { useParams } from "react-router-dom";
+import { useDispatch } from "react-redux";
 import { validators, errorDiv } from "../../utils/PasswordValidator";
+import { createOrUpdateUser } from "../../functions/Auth";
 
 const RegisterComplete = ({ history }) => {
   // useParams gets the parameter from the route, check out App.js on the route to this component for more info
@@ -11,6 +13,8 @@ const RegisterComplete = ({ history }) => {
 
   const [password, setPassword] = useState("");
   const [passwordErrors, setPasswordErrors] = useState([]);
+
+  let dispatch = useDispatch();
 
   useEffect(() => {}, []);
 
@@ -43,7 +47,22 @@ const RegisterComplete = ({ history }) => {
 
         // get token result
         const idTokenResult = await user.getIdTokenResult();
-        console.log("user", user, "idTokenResult", idTokenResult);
+
+        await createOrUpdateUser(idTokenResult.token)
+          .then((res) => {
+            // dispatch an action to log user in
+            dispatch({
+              type: "LOGGED_IN_USER",
+              payload: {
+                name: res.data.name,
+                email: res.data.email,
+                token: idTokenResult.token,
+                role: res.data.role,
+                _id: res.data._id,
+              },
+            });
+          })
+          .catch((error) => toast.error(error.message));
         // redirect
         history.push("/");
       }
