@@ -49,7 +49,7 @@
   - useSelector: get data from the redux
 - Firebase:
   - onAuthStateChanges: used when users refresh page, it tells firebase to call
-- clearInterval: remove the setInterval
+- clearInterval: remove the setInterval, if not removing, the setInterval will keep continuing infinitely
 - [state, setState]: setState return a callback with default parameter state
   - ex: setState((s) => --s)
 
