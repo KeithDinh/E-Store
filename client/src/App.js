@@ -3,6 +3,8 @@ import { ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import { useEffect } from "react";
 
+import UserRoute from "./components/routes/UserRoute";
+import AdminRoute from "./components/routes/AdminRoute";
 import Home from "./pages/Home";
 import Register from "./pages/auth/Register";
 import Login from "./pages/auth/Login";
@@ -10,7 +12,9 @@ import Header from "./components/nav/Header";
 import RegisterComplete from "./pages/auth/RegisterComplete";
 import ForgotPassword from "./pages/auth/ForgotPassword";
 import History from "./pages/user/History";
-import UserRoute from "./components/routes/UserRoute";
+import Password from "./pages/user/Password";
+import Wishlist from "./pages/user/Wishlist";
+import AdminDashboard from "./pages/admin/AdminDashboard.";
 
 import { currentUser } from "./functions/Auth";
 import { auth } from "./firebase";
@@ -23,10 +27,7 @@ const App = () => {
   useEffect(() => {
     // onAuthStateChanged: persist user after refresh
     const unsubscribe = auth.onAuthStateChanged(async (user) => {
-      console.log(user);
-
       if (user) {
-        console.log(user.getIdTokenResult());
         const idTokenResult = await user.getIdTokenResult();
 
         await currentUser(idTokenResult.token)
@@ -59,6 +60,9 @@ const App = () => {
         <Route exact path="/register" component={Register} />
         <Route exact path="/forgot/password" component={ForgotPassword} />
         <UserRoute exact path="/user/history" component={History} />
+        <UserRoute exact path="/user/password" component={Password} />
+        <UserRoute exact path="/user/wishlist" component={Wishlist} />
+        <AdminRoute exact path="/admin/dashboard" component={AdminDashboard} />
         <Route
           strict
           path="/register/complete/:email"
