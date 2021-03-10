@@ -14,6 +14,8 @@
   - firebase-admin: used to process the token from front-end
   - nodemon: auto restart server when changed
   - dotenv: add, load variable to env file
+  - slugify: trim all special characters and convert space to dash
+    - ex: "mouse and keyboar" -> "mouse-and-keyboard"
 
 # CLIENT
 
