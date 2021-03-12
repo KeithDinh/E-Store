@@ -2,7 +2,7 @@ import { Route } from "react-router-dom";
 import { useSelector } from "react-redux";
 import { useEffect, useState } from "react";
 import LoadingToRedirect from "./LoadingToRedirect";
-import { currentAdmin } from "../../functions/Auth";
+import { currentAdmin } from "../../functions/auth";
 import { toast } from "react-toastify";
 
 const AdminRoute = ({ children, ...rest }) => {
@@ -14,7 +14,7 @@ const AdminRoute = ({ children, ...rest }) => {
       currentAdmin(user.token)
         .then((admin) => {
           setAuthorized(true);
-          toast.success("Authorized");
+          // toast.success("Authorized");
         })
         .catch((error) =>
           toast.error("You are not authorized to access this page")

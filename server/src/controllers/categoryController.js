@@ -24,7 +24,7 @@ exports.update = async (req, res) => {
     { new: true } // send the new updated to client instead of the old one
   ).exec((error, result) => {
     if (error) {
-      res.status(400).send("Failed to update category");
+      res.status(400).send("Failed to update category ");
     } else {
       res.json(result);
     }

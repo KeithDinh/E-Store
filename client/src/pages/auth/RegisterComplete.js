@@ -4,7 +4,7 @@ import { toast } from "react-toastify";
 import { useParams } from "react-router-dom";
 import { useDispatch } from "react-redux";
 import { validators, errorDiv } from "../../utils/PasswordValidator";
-import { createOrUpdateUser } from "../../functions/Auth";
+import { createOrUpdateUser } from "../../functions/auth";
 
 const RegisterComplete = ({ history }) => {
   // useParams gets the parameter from the route, check out App.js on the route to this component for more info
