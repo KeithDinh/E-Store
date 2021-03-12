@@ -15,8 +15,9 @@ import History from "./pages/user/History";
 import Password from "./pages/user/Password";
 import Wishlist from "./pages/user/Wishlist";
 import AdminDashboard from "./pages/admin/AdminDashboard.";
+import CategoryCreate from "./pages/admin/category/CategoryCreate";
 
-import { currentUser } from "./functions/Auth";
+import { currentUser } from "./functions/auth";
 import { auth } from "./firebase";
 import { useDispatch } from "react-redux";
 
@@ -29,17 +30,16 @@ const App = () => {
     const unsubscribe = auth.onAuthStateChanged(async (user) => {
       if (user) {
         const idTokenResult = await user.getIdTokenResult();
-
         await currentUser(idTokenResult.token)
           .then((res) => {
             dispatch({
               type: "LOGGED_IN_USER",
               payload: {
-                name: res.data.name.split("@")[0],
-                email: res.data.name,
+                name: res.data[0].name.split("@")[0],
+                email: res.data[0].name,
                 token: idTokenResult.token,
-                role: res.data.role,
-                _id: res.data._id,
+                role: res.data[0].role,
+                _id: res.data[0]._id,
               },
             });
           })
@@ -63,6 +63,7 @@ const App = () => {
         <UserRoute exact path="/user/password" component={Password} />
         <UserRoute exact path="/user/wishlist" component={Wishlist} />
         <AdminRoute exact path="/admin/dashboard" component={AdminDashboard} />
+        <AdminRoute exact path="/admin/category" component={CategoryCreate} />
         <Route
           strict
           path="/register/complete/:email"

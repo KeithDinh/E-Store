@@ -4,7 +4,7 @@ import { toast } from "react-toastify";
 import { Link } from "react-router-dom";
 
 import { auth, googleAuthProvider } from "../../firebase.js";
-import { createOrUpdateUser } from "../../functions/Auth";
+import { createOrUpdateUser } from "../../functions/auth";
 
 import { GoogleOutlined, MailOutlined } from "@ant-design/icons";
 import { Button } from "antd";

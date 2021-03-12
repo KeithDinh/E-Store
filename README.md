@@ -17,6 +17,10 @@
   - slugify: trim all special characters and convert space to dash
     - ex: "mouse and keyboar" -> "mouse-and-keyboard"
 
+## GENERALS
+
+- next(): if passing any variable to next, server will asssume it is error
+
 # CLIENT
 
 ## COMMANDS/PACKAGES
