@@ -12,17 +12,16 @@ const {
   update,
   remove,
   getAll,
-} = require("../controllers/categoryController");
+} = require("../controllers/subController");
 
 // route
-
-router.route("/category").post(authCheck, adminCheck, create);
+router.route("/sub").post(authCheck, adminCheck, create);
 router
-  .route("/category/:slug")
+  .route("/sub/:slug")
   .get(retrieve)
   .put(authCheck, adminCheck, update)
   .delete(authCheck, adminCheck, remove);
 
-router.route("/categories").get(getAll);
+router.route("/subs").get(getAll);
 
 module.exports = router;

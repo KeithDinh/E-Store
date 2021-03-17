@@ -10,20 +10,20 @@ exports.createOrUpdateUser = async (req, res) => {
   );
 
   if (user) {
-    res.json(user);
+    res.status(204).json(user);
   } else {
     const newUser = await new User({
       email,
       name: email.split("@")[0],
       picture,
     }).save();
-    res.json(newUser);
+    res.status(201).json(newUser);
   }
 };
 
 exports.currentUser = async (req, res) => {
   await User.find({ email: req.user.email }).exec((error, user) => {
     if (error || user.length > 1) throw new Error(error);
-    res.json(user);
+    res.status(200).json(user);
   });
 };

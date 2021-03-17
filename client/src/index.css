@@ -1,3 +1,7 @@
 form {
   margin-bottom: 0 !important;
 }
+
+.reset-padding {
+  padding: 0 !important;
+}
