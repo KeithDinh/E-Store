@@ -37,24 +37,13 @@ const CategoryCreate = ({ history, match }) => {
   };
 
   return (
-    <div className="container-fluid">
-      <div className="row">
-        <div className="col-md-2">
-          <AdminNav />
-        </div>
-        <div className="col">
-          {!loading ? (
-            <h4>Update category {match.params.slug}</h4>
-          ) : (
-            <h4 className="text-danger">Loading...</h4>
-          )}
-          <CategoryForm
-            handleSubmit={handleSubmit}
-            name={name}
-            setName={setName}
-          />
-        </div>
-      </div>
+    <div className="col">
+      {!loading ? (
+        <h4>Update category {match.params.slug}</h4>
+      ) : (
+        <h4 className="text-danger">Loading...</h4>
+      )}
+      <CategoryForm handleSubmit={handleSubmit} name={name} setName={setName} />
     </div>
   );
 };

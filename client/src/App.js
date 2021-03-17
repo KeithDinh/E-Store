@@ -21,6 +21,8 @@ import SubCreate from "./pages/admin/sub/SubCreate";
 import SubUpdate from "./pages/admin/sub/SubUpdate";
 import ProductCreate from "./pages/admin/product/ProductCreate";
 
+import AdminSideMenu from "./components/hoc/AdminSideMenu";
+
 import { currentUser } from "./functions/auth";
 import { auth } from "./firebase";
 import { useDispatch } from "react-redux";
@@ -66,16 +68,36 @@ const App = () => {
         <UserRoute exact path="/user/history" component={History} />
         <UserRoute exact path="/user/password" component={Password} />
         <UserRoute exact path="/user/wishlist" component={Wishlist} />
-        <AdminRoute exact path="/admin/dashboard" component={AdminDashboard} />
-        <AdminRoute exact path="/admin/category" component={CategoryCreate} />
+        <AdminRoute
+          exact
+          path="/admin/dashboard"
+          component={AdminSideMenu(AdminDashboard)}
+        />
+        <AdminRoute
+          exact
+          path="/admin/category"
+          component={AdminSideMenu(CategoryCreate)}
+        />
         <AdminRoute
           exact
           path="/admin/category/:slug"
-          component={CategoryUpdate}
+          component={AdminSideMenu(CategoryUpdate)}
         />
-        <AdminRoute exact path="/admin/sub" component={SubCreate} />
-        <AdminRoute exact path="/admin/sub/:slug" component={SubUpdate} />
-        <AdminRoute exact path="/admin/product/" component={ProductCreate} />
+        <AdminRoute
+          exact
+          path="/admin/sub"
+          component={AdminSideMenu(SubCreate)}
+        />
+        <AdminRoute
+          exact
+          path="/admin/sub/:slug"
+          component={AdminSideMenu(SubUpdate)}
+        />
+        <AdminRoute
+          exact
+          path="/admin/product/"
+          component={AdminSideMenu(ProductCreate)}
+        />
         <Route
           strict
           path="/register/complete/:email"
