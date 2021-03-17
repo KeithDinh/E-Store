@@ -76,76 +76,66 @@ const CategoryCreate = () => {
   };
 
   return (
-    <div className="container-fluid">
-      <div className="row">
-        <div className="col-md-2">
-          <AdminNav />
-        </div>
-        <div className="col">
-          {!loading ? (
-            <h4>Create sub category</h4>
-          ) : (
-            <h4 className="text-danger">Loading...</h4>
-          )}
-          <br />
-          <div className="form-group">
-            <Select
-              required
-              onChange={(e) => setCategory(e)}
-              name="category"
-              placeholder="Select the category"
-              className="form-control w-25"
-            >
-              <Option value="">Not Selecting</Option>
-              {categories.length > 0 &&
-                categories.map((c) => (
-                  <Option key={c._id} value={c._id}>
-                    {c.name}
-                  </Option>
-                ))}
-            </Select>
-          </div>
+    <div className="col">
+      {!loading ? (
+        <h4>Create sub category</h4>
+      ) : (
+        <h4 className="text-danger">Loading...</h4>
+      )}
+      <br />
+      <div className="form-group">
+        <Select
+          required
+          onChange={(e) => setCategory(e)}
+          name="category"
+          placeholder="Select the category"
+          className="form-control w-25"
+        >
+          <Option value="">Not Selecting</Option>
+          {categories.length > 0 &&
+            categories.map((c) => (
+              <Option key={c._id} value={c._id}>
+                {c.name}
+              </Option>
+            ))}
+        </Select>
+      </div>
 
-          {category.length > 0 && (
-            <CategoryForm
-              handleSubmit={handleSubmit}
-              name={name}
-              setName={setName}
-            />
-          )}
+      {category.length > 0 && (
+        <CategoryForm
+          handleSubmit={handleSubmit}
+          name={name}
+          setName={setName}
+        />
+      )}
 
-          <LocalSearch keyword={keyword} setKeyword={setKeyword} />
+      <LocalSearch keyword={keyword} setKeyword={setKeyword} />
 
-          <div className="d-flex ">
-            {subs
-              .filter((s) => (category !== "" ? s.parent === category : true))
-              .filter(searched(keyword))
-              .map((s, index) => (
-                <div
-                  className="m-2 alert alert-primary text-center"
-                  key={index}
-                >
-                  {s.name} <br />
-                  <Link
-                    to={{
-                      pathname: `/admin/sub/${s.slug}`,
-                      state: { categories },
-                    }}
-                  >
-                    <span className="btn btn-sm ">
-                      <EditOutlined className="text-warning" />
-                    </span>
-                  </Link>
-                  <span
-                    onClick={() => handleRemove(s.slug)}
-                    className="btn btn-sm "
-                  >
-                    <DeleteOutlined className="text-danger" />
-                  </span>
-                </div>
-              ))}
-          </div>
-        </div>
+      <div className="d-flex ">
+        {subs
+          .filter((s) => (category !== "" ? s.parent === category : true))
+          .filter(searched(keyword))
+          .map((s, index) => (
+            <div className="m-2 alert alert-primary text-center" key={index}>
+              {s.name} <br />
+              <Link
+                to={{
+                  pathname: `/admin/sub/${s.slug}`,
+                  state: { categories },
+                }}
+              >
+                <span className="btn btn-sm ">
+                  <EditOutlined className="text-warning" />
+                </span>
+              </Link>
+              <span
+                onClick={() => handleRemove(s.slug)}
+                className="btn btn-sm "
+              >
+                <DeleteOutlined className="text-danger" />
+              </span>
+            </div>
+          ))}
       </div>
     </div>
   );

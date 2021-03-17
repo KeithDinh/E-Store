@@ -68,46 +68,35 @@ const CategoryCreate = () => {
   };
 
   return (
-    <div className="container-fluid">
-      <div className="row">
-        <div className="col-md-2">
-          <AdminNav />
-        </div>
-        <div className="col">
-          {!loading ? (
-            <h4>Create category</h4>
-          ) : (
-            <h4 className="text-danger">Loading...</h4>
-          )}
-          <CategoryForm
-            handleSubmit={handleSubmit}
-            name={name}
-            setName={setName}
-          />
-          <LocalSearch keyword={keyword} setKeyword={setKeyword} />
+    <div className="col">
+      {!loading ? (
+        <h4>Create category</h4>
+      ) : (
+        <h4 className="text-danger">Loading...</h4>
+      )}
+      <CategoryForm handleSubmit={handleSubmit} name={name} setName={setName} />
+      <LocalSearch keyword={keyword} setKeyword={setKeyword} />
 
-          <div className="d-flex ">
-            {categories.filter(searched(keyword)).map((c, index) => (
-              <div
-                className="round m-2 alert alert-primary text-center"
-                key={index}
-              >
-                {c.name} <br />
-                <span
-                  onClick={() => handleRemove(c.slug)}
-                  className="btn btn-sm float-right"
-                >
-                  <DeleteOutlined className="text-danger" />
-                </span>
-                <Link to={`/admin/category/${c.slug}`}>
-                  <span className="btn btn-sm float-right">
-                    <EditOutlined className="text-warning" />
-                  </span>
-                </Link>
-              </div>
-            ))}
+      <div className="d-flex ">
+        {categories.filter(searched(keyword)).map((c, index) => (
+          <div
+            className="round m-2 alert alert-primary text-center"
+            key={index}
+          >
+            {c.name} <br />
+            <span
+              onClick={() => handleRemove(c.slug)}
+              className="btn btn-sm float-right"
+            >
+              <DeleteOutlined className="text-danger" />
+            </span>
+            <Link to={`/admin/category/${c.slug}`}>
+              <span className="btn btn-sm float-right">
+                <EditOutlined className="text-warning" />
+              </span>
+            </Link>
           </div>
-        </div>
+        ))}
       </div>
     </div>
   );
