@@ -1,7 +1,7 @@
 const Category = require("../models/category");
 const slugify = require("slugify");
 
-exports.create = async (req, res) => {
+exports.createCategory = async (req, res) => {
   try {
     const category = await new Category({
       name: req.body.name,
@@ -12,12 +12,12 @@ exports.create = async (req, res) => {
     res.status(400).send("Failed to create new category");
   }
 };
-exports.retrieve = async (req, res) => {
+exports.getCategory = async (req, res) => {
   res
     .status(200)
     .json(await Category.findOne({ slug: req.params.slug }).exec());
 };
-exports.update = async (req, res) => {
+exports.updateCategory = async (req, res) => {
   await Category.findOneAndUpdate(
     { slug: req.params.slug },
     { name: req.body.name, slug: slugify(req.body.name) },
@@ -30,7 +30,7 @@ exports.update = async (req, res) => {
     }
   });
 };
-exports.remove = async (req, res) => {
+exports.removeCategory = async (req, res) => {
   await Category.findOneAndDelete({ slug: req.params.slug }).exec(
     (error, result) => {
       if (error) {
@@ -41,6 +41,6 @@ exports.remove = async (req, res) => {
     }
   );
 };
-exports.getAll = async (req, res) => {
+exports.getCategories = async (req, res) => {
   res.status(200).json(await Category.find({}).sort({ createdAt: -1 }).exec());
 };

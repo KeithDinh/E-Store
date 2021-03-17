@@ -4,8 +4,8 @@ const router = express.Router();
 
 const { authCheck, adminCheck } = require("../middlewares/authMiddlewares");
 
-const { create } = require("../controllers/productController");
+const { createProduct } = require("../controllers/productController");
 
-router.post("/product", authCheck, adminCheck, create);
+router.post("/product", authCheck, adminCheck, createProduct);
 
 module.exports = router;
