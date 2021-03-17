@@ -20,6 +20,7 @@
 ## GENERALS
 
 - next(): if passing any variable to next, server will asssume it is error
+- 304 is not a problem. It simply means that your response is not modified and your browser turns to cache to fetch the resource
 
 # CLIENT
 
@@ -57,6 +58,9 @@
   - onAuthStateChanges: used when users refresh page, it tells firebase to call
 - clearInterval: remove the setInterval, if not removing, the setInterval will keep continuing infinitely
 - [state, setState]: setState return a callback with default parameter state
+
   - ex: setState((s) => --s)
+
+- useCallback: wrap around a function that call another function to avoid rerendering
 
 # MONGODB
