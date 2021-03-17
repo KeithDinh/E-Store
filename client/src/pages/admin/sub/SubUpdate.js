@@ -3,7 +3,6 @@ import { toast } from "react-toastify";
 import { useSelector } from "react-redux";
 import { updateSub, getSub } from "../../../functions/sub";
 
-import AdminNav from "../../../components/nav/AdminNav";
 import CategoryForm from "../../../components/forms/CategoryForm";
 
 const SubUpdate = ({ history, match, ...props }) => {
