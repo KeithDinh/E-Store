@@ -4,8 +4,6 @@ import { useSelector } from "react-redux";
 import { Link } from "react-router-dom";
 import { createProduct } from "../../../functions/product";
 
-import AdminNav from "../../../components/nav/AdminNav";
-
 const initialState = {
   title: "",
   description: "",

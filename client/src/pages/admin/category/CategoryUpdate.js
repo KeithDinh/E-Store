@@ -3,7 +3,6 @@ import { toast } from "react-toastify";
 import { useSelector } from "react-redux";
 import { updateCategory, getCategory } from "../../../functions/category";
 
-import AdminNav from "../../../components/nav/AdminNav";
 import CategoryForm from "../../../components/forms/CategoryForm";
 
 const CategoryCreate = ({ history, match }) => {

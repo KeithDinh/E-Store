@@ -7,7 +7,6 @@ import { createSub, removeSub, getSubs } from "../../../functions/sub";
 import { EditOutlined, DeleteOutlined } from "@ant-design/icons";
 import { Select } from "antd";
 
-import AdminNav from "../../../components/nav/AdminNav";
 import CategoryForm from "../../../components/forms/CategoryForm";
 import LocalSearch from "../../../components/forms/LocalSearch";
 
