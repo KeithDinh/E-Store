@@ -16,6 +16,7 @@
   - dotenv: add, load variable to env file
   - slugify: trim all special characters and convert space to dash
     - ex: "mouse and keyboar" -> "mouse-and-keyboard"
+  - setValues({ ...values, [e.target.name]: e.target.value })
 
 ## GENERALS
 
