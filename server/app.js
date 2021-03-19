@@ -11,16 +11,17 @@ app.use(morgan("dev"));
 app.use(express.json({ limit: "2mb" }));
 app.use(cors());
 
-// Route: loop all filse in dir routes, import and use routes
+// Route: loop all files in dir routes, import and use routes
 fs.readdirSync("./src/routes").map((route) =>
   app.use("/api", require("./src/routes/" + route))
 );
 
 // Handle non-existing routes
 app.all("*", (req, res, next) => {
-  const err = new Error(`Server hasn't support ${req.originalURL} yet!`);
+  const err = new Error(`Server hasn't support ${req.originalUrl} yet!`);
   err.status = "fail";
   err.statusCode = 404;
+  next(err);
 });
 
 // Global error handling middleware
