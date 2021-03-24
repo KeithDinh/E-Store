@@ -30,9 +30,8 @@ import { useDispatch } from "react-redux";
 const App = () => {
   let dispatch = useDispatch();
 
-  // to check firebase auth state
+  // check firebase auth state
   useEffect(() => {
-    // onAuthStateChanged: persist user after refresh
     const unsubscribe = auth.onAuthStateChanged(async (user) => {
       if (user) {
         const idTokenResult = await user.getIdTokenResult();
@@ -52,6 +51,7 @@ const App = () => {
           .catch((error) => console.log(error));
       }
     });
+
     // clean up
     return () => unsubscribe();
   }, [dispatch]);

@@ -12,6 +12,7 @@ const {
   updateCategory,
   removeCategory,
   getCategories,
+  getSubs,
 } = require("../controllers/categoryController");
 
 // route
@@ -24,5 +25,5 @@ router
   .delete(authCheck, adminCheck, removeCategory);
 
 router.route("/categories").get(getCategories);
-
+router.route("/category/subs/:_id").get(getSubs);
 module.exports = router;

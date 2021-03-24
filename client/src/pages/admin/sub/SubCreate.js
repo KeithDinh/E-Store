@@ -5,12 +5,9 @@ import { Link } from "react-router-dom";
 import { getCategories } from "../../../functions/category";
 import { createSub, removeSub, getSubs } from "../../../functions/sub";
 import { EditOutlined, DeleteOutlined } from "@ant-design/icons";
-import { Select } from "antd";
 
 import CategoryForm from "../../../components/forms/CategoryForm";
 import LocalSearch from "../../../components/forms/LocalSearch";
-
-const { Option } = Select;
 
 const CategoryCreate = () => {
   const { user } = useSelector((state) => ({ ...state }));
@@ -62,7 +59,7 @@ const CategoryCreate = () => {
         loadSubCategories();
       })
       .catch((error) => {
-        if (error.response.status === 400) toast.error(error.response.message);
+        if (error.response.status === 400) toast.error(error.response.data);
       })
       .finally(() => {
         setLoading(false);
@@ -83,21 +80,21 @@ const CategoryCreate = () => {
       )}
       <br />
       <div className="form-group">
-        <Select
+        <select
           required
-          onChange={(e) => setCategory(e)}
+          onChange={(e) => setCategory(e.target.value)}
           name="category"
           placeholder="Select the category"
-          className="form-control w-25"
+          className="custom-select custom-select-sm w-25"
         >
-          <Option value="">Not Selecting</Option>
+          <option value="">Not Selecting</option>
           {categories.length > 0 &&
             categories.map((c) => (
-              <Option key={c._id} value={c._id}>
+              <option key={c._id} value={c._id}>
                 {c.name}
-              </Option>
+              </option>
             ))}
-        </Select>
+        </select>
       </div>
 
       {category.length > 0 && (
@@ -110,7 +107,7 @@ const CategoryCreate = () => {
 
       <LocalSearch keyword={keyword} setKeyword={setKeyword} />
 
-      <div className="d-flex ">
+      <div className="d-flex flex-wrap">
         {subs
           .filter((s) => (category !== "" ? s.parent === category : true))
           .filter(searched(keyword))
