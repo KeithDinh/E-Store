@@ -11,6 +11,7 @@
   - morgan: request logger for development
   - jsonwebtoken: used for jwt only
   - express-jwt: build on top of jsonwebtoken with additional features (protected route also)
+  - onAuthStateChanged: persist user after refresh
   - firebase-admin: used to process the token from front-end
   - nodemon: auto restart server when changed
   - dotenv: add, load variable to env file

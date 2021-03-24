@@ -1,4 +1,5 @@
 const Category = require("../models/category");
+const Sub = require("../models/sub");
 const slugify = require("slugify");
 
 exports.createCategory = async (req, res) => {
@@ -43,4 +44,11 @@ exports.removeCategory = async (req, res) => {
 };
 exports.getCategories = async (req, res) => {
   res.status(200).json(await Category.find({}).sort({ createdAt: -1 }).exec());
+};
+
+exports.getSubs = async (req, res) => {
+  Sub.find({ parent: req.params._id }).exec((err, subs) => {
+    if (err) console.log(err);
+    res.json(subs);
+  });
 };

@@ -1,8 +1,8 @@
 import { useEffect, useState } from "react";
 import { toast } from "react-toastify";
 import { useSelector } from "react-redux";
-import { Link } from "react-router-dom";
-import { createProduct } from "../../../functions/product";
+import { createProduct, getCategorySubs } from "../../../functions/product";
+import { getCategories } from "../../../functions/category";
 
 import ProductCreateForm from "../../../components/forms/ProductCreateForm";
 
@@ -27,9 +27,30 @@ const ProductCreate = ({ history }) => {
 
   const [loading, setLoading] = useState(false);
   const [values, setValues] = useState(initialState);
+  const [subOptions, setSubOptions] = useState([]);
+
+  const loadCategories = () => {
+    getCategories().then((c) => setValues({ ...values, categories: c.data }));
+  };
+
+  useEffect(() => {
+    loadCategories();
+  }, []);
 
   const handleChange = (e) => {
     setValues({ ...values, [e.target.name]: e.target.value });
+  };
+
+  const handleCategoryChange = (e) => {
+    e.preventDefault();
+
+    setValues({ ...values, category: e.target.value });
+
+    getCategorySubs(e.target.value)
+      .then((res) => {
+        setSubOptions(res.data);
+      })
+      .catch((err) => console.log(err.data));
   };
 
   const handleSubmit = (e) => {
@@ -59,8 +80,11 @@ const ProductCreate = ({ history }) => {
       <hr />
       <ProductCreateForm
         handleSubmit={handleSubmit}
-        values={values}
         handleChange={handleChange}
+        handleCategoryChange={handleCategoryChange}
+        values={values}
+        subOptions={subOptions}
+        setValues={setValues}
       />
     </div>
   );

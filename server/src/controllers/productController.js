@@ -4,7 +4,6 @@ const slugify = require("slugify");
 exports.createProduct = async (req, res) => {
   try {
     req.body.slug = slugify(req.body.title);
-    console.log(req.body);
     res.status(201).json(await new Product(req.body).save());
   } catch (error) {
     res.status(400).json({

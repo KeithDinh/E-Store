@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useHistory } from "react-router-dom";
 import firebase from "firebase";
@@ -12,7 +12,7 @@ import {
   LogoutOutlined,
 } from "@ant-design/icons";
 
-const { SubMenu, Item } = Menu; //Menu.SubMenu
+const { SubMenu, Item } = Menu;
 
 const Header = () => {
   const [current, setCurrent] = useState("home");
@@ -24,17 +24,18 @@ const Header = () => {
     setCurrent(e.key);
   };
 
+  useEffect(() => {
+    console.log(user);
+  }, [user]);
   const logout = () => {
-    // log user out from firebase
     firebase.auth().signOut();
 
-    // dispatch action to remove current user from redux
+    // remove current user from redux
     dispatch({
       type: "LOGOUT",
       payload: null,
     });
 
-    // redirect user to log out page
     history.push("/login");
   };
 
@@ -79,7 +80,6 @@ const Header = () => {
               <Link to="/admin/dashboard">Dashboard</Link>
             </Item>
           )}
-          <Item key="setting:2">Option 2</Item>
           <Item icon={<LogoutOutlined />} onClick={logout}>
             Logout
           </Item>

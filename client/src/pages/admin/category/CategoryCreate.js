@@ -76,7 +76,7 @@ const CategoryCreate = () => {
       <CategoryForm handleSubmit={handleSubmit} name={name} setName={setName} />
       <LocalSearch keyword={keyword} setKeyword={setKeyword} />
 
-      <div className="d-flex ">
+      <div className="d-flex flex-wrap">
         {categories.filter(searched(keyword)).map((c, index) => (
           <div
             className="round m-2 alert alert-primary text-center"
