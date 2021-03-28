@@ -49,6 +49,7 @@ const ProductCreate = ({ history }) => {
     getCategorySubs(e.target.value)
       .then((res) => {
         setSubOptions(res.data);
+        setValues({ ...values, subs: [] });
       })
       .catch((err) => console.log(err.data));
   };
