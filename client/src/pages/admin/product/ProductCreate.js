@@ -5,6 +5,7 @@ import { createProduct, getCategorySubs } from "../../../functions/product";
 import { getCategories } from "../../../functions/category";
 
 import ProductCreateForm from "../../../components/forms/ProductCreateForm";
+import FileUpload from "../../../components/forms/FileUpload";
 
 const initialState = {
   title: "",
@@ -79,6 +80,9 @@ const ProductCreate = ({ history }) => {
           )} */}
       <h4>Product create</h4>
       <hr />
+      <div className="p-3">
+        <FileUpload />
+      </div>
       <ProductCreateForm
         handleSubmit={handleSubmit}
         handleChange={handleChange}
