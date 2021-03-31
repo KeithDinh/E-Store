@@ -40,6 +40,7 @@
   - react-redux: connections btw react and redux
   - redux-devtools-extension: redux for chrome
   - axios: fetch data
+  - react-image-file-resizer
 
 ## CONSTRAINTS/NEED TO IMPROVE
 
