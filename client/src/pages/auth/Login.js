@@ -68,6 +68,7 @@ const Register = ({ history }) => {
       setLoading(false);
     }
   };
+
   const googleLogin = async () => {
     auth
       .signInWithPopup(googleAuthProvider)
@@ -97,6 +98,7 @@ const Register = ({ history }) => {
         toast.error(e.message);
       });
   };
+
   // create a micro form component
   const loginForm = () => (
     <form onSubmit={handleSubmit}>

@@ -10,7 +10,7 @@ exports.createOrUpdateUser = async (req, res) => {
   );
 
   if (user) {
-    res.status(204).json(user);
+    res.status(200).json(user);
   } else {
     const newUser = await new User({
       email,

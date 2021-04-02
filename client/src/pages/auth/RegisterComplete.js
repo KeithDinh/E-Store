@@ -2,7 +2,7 @@ import { auth } from "../../firebase.js";
 import { useState, useEffect } from "react";
 import { toast } from "react-toastify";
 import { useParams } from "react-router-dom";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { validators, errorDiv } from "../../utils/PasswordValidator";
 import { createOrUpdateUser } from "../../functions/auth";
 
@@ -15,8 +15,11 @@ const RegisterComplete = ({ history }) => {
   const [passwordErrors, setPasswordErrors] = useState([]);
 
   let dispatch = useDispatch();
+  let { user } = useSelector((state) => ({ ...state }));
 
-  useEffect(() => {}, []);
+  useEffect(() => {
+    if (user && user.token) history.push("/");
+  }, [user, history]);
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -61,10 +64,11 @@ const RegisterComplete = ({ history }) => {
                 _id: res.data._id,
               },
             });
+
+            history.push("/");
           })
           .catch((error) => toast.error(error.message));
         // redirect
-        history.push("/");
       }
     } catch (error) {
       toast.error(error.message);

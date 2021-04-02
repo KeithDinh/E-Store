@@ -19,14 +19,12 @@ const Header = () => {
   let dispatch = useDispatch();
   let history = useHistory();
   let { user } = useSelector((state) => ({ ...state }));
-
   const handleClick = (e) => {
     setCurrent(e.key);
   };
 
-  useEffect(() => {
-    console.log(user);
-  }, [user]);
+  useEffect(() => {}, [user]);
+
   const logout = () => {
     firebase.auth().signOut();
 
