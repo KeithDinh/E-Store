@@ -3,6 +3,7 @@ import { toast } from "react-toastify";
 import { useSelector } from "react-redux";
 import { createProduct, getCategorySubs } from "../../../functions/product";
 import { getCategories } from "../../../functions/category";
+import { LoadingOutlined } from "@ant-design/icons";
 
 import ProductCreateForm from "../../../components/forms/ProductCreateForm";
 import FileUpload from "../../../components/forms/FileUpload";
@@ -76,7 +77,7 @@ const ProductCreate = ({ history }) => {
       {!loading ? (
         <h4>Product create</h4>
       ) : (
-        <h4 className="text-danger">Loading...</h4>
+        <LoadingOutlined className="text-danger" />
       )}
       <hr />
       <div className="p-3">
