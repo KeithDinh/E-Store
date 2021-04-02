@@ -14,7 +14,7 @@
   - onAuthStateChanged: persist user after refresh
   - firebase-admin: used to process the token from front-end
   - nodemon: auto restart server when changed
-  - dotenv: add, load variable to env file
+  - dotenv: add, load variable from env file in case env file is not at root directory
   - slugify: trim all special characters and convert space to dash
     - ex: "mouse and keyboar" -> "mouse-and-keyboard"
   - setValues({ ...values, [e.target.name]: e.target.value })

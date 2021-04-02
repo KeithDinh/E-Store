@@ -7,15 +7,15 @@ cloudinary.config({
 });
 
 exports.uploadImages = async (req, res) => {
-  await cloudinary.uploader.upload(
+  await cloudinary.v2.uploader.upload(
     req.body.image,
     {
       resource_type: "auto", // jpeg, png, mp4
-      public_id: `${Date.now()}`,
+      public_id: `E-Store/${Date.now()}`,
     },
-    (error, result) => {
+    function (error, result) {
       if (error) return res.json({ success: false, error: error.message });
-      res.json({
+      res.status(200).json({
         public_id: result.public_id,
         url: result.secure_url,
       });
@@ -24,9 +24,11 @@ exports.uploadImages = async (req, res) => {
 };
 
 exports.removeImage = async (req, res) => {
-  let image_id = req.body.public_id;
-  await cloudinary.uploader.destroy(image_id, (error, result) => {
-    if (error) return res.json({ success: false, error: error.message });
-    res.status(200).send("Removed");
-  });
+  await cloudinary.v2.uploader.destroy(
+    req.body.public_id,
+    function (error, result) {
+      if (error) return res.json({ success: false, error: error.message });
+      res.status(200);
+    }
+  );
 };

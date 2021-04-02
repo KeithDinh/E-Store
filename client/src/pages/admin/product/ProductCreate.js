@@ -73,15 +73,18 @@ const ProductCreate = ({ history }) => {
 
   return (
     <div className="col-md-10">
-      {/* {!loading ? (
-            <h4>Product create</h4>
-          ) : (
-            <h4 className="text-danger">Loading...</h4>
-          )} */}
-      <h4>Product create</h4>
+      {!loading ? (
+        <h4>Product create</h4>
+      ) : (
+        <h4 className="text-danger">Loading...</h4>
+      )}
       <hr />
       <div className="p-3">
-        <FileUpload />
+        <FileUpload
+          values={values}
+          setValues={setValues}
+          setLoading={setLoading}
+        />
       </div>
       <ProductCreateForm
         handleSubmit={handleSubmit}
