@@ -68,3 +68,5 @@
 - useCallback: wrap around a function that call another function to avoid rerendering
 
 # MONGODB
+
+- populate: display referenced data, only for attribute with 'ref' in model

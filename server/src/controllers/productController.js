@@ -4,14 +4,20 @@ const slugify = require("slugify");
 exports.createProduct = async (req, res) => {
   try {
     req.body.slug = slugify(req.body.title);
+    console.log(req.body);
     res.status(201).json(await new Product(req.body).save());
   } catch (error) {
     res.status(400).json({
-      err: err.message,
+      error: error.message,
     });
   }
 };
 
 exports.getProducts = async (req, res) => {
-  res.status(200).json(await Product.find({}).sort({ createdAt: -1 }).exec());
+  let products = await Product.find({})
+    .limit(parseInt(req.params.count))
+    .populate("category")
+    .sort([["createdAt", "desc"]])
+    .exec();
+  res.json(products);
 };

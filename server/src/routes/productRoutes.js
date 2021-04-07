@@ -10,5 +10,5 @@ const {
 } = require("../controllers/productController");
 
 router.route("/product").post(authCheck, adminCheck, createProduct);
-router.route("/products").get(getProducts);
+router.route("/products/:count").get(getProducts);
 module.exports = router;

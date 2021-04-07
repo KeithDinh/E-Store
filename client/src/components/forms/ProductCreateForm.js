@@ -15,15 +15,10 @@ const ProductCreateForm = ({
     description,
     price,
     categories,
-    category,
     subs,
-    shipping,
     quantity,
-    images,
     colors,
     brands,
-    color,
-    brand,
   } = values;
 
   return (
@@ -126,7 +121,6 @@ const ProductCreateForm = ({
         <label>Category</label> <br />
         <select
           onChange={handleCategoryChange}
-          defaultValue=""
           name="category"
           className="custom-select custom-select-sm w-25"
         >
@@ -158,7 +152,9 @@ const ProductCreateForm = ({
         </div>
       )}
 
-      <button className="btn btn-outline-info">Save</button>
+      <button onClick={handleSubmit} className="btn btn-outline-info">
+        Submit
+      </button>
     </form>
   );
 };

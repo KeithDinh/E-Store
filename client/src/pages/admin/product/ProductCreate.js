@@ -12,15 +12,15 @@ const initialState = {
   title: "",
   description: "",
   price: "",
+  shipping: "",
+  quantity: "",
   categories: [],
   category: "",
   subs: [],
-  shipping: "",
-  quantity: "",
   images: [],
   colors: ["Black", "Brown", "Silver", "White", "Blue"],
-  brands: ["Apple", "Samsung", "Microsoft", "Lenovo", "ASUS"],
   color: "",
+  brands: ["Apple", "Samsung", "Microsoft", "Lenovo", "ASUS"],
   brand: "",
 };
 
@@ -40,17 +40,25 @@ const ProductCreate = ({ history }) => {
   }, []);
 
   const handleChange = (e) => {
+    // let obj = values;
+    // obj[e.target.name] = e.target.value;
+    // setValues(obj);
+    // Unstable, sometime won't work:
     setValues({ ...values, [e.target.name]: e.target.value });
   };
 
   const handleCategoryChange = (e) => {
     e.preventDefault();
 
-    setValues({ ...values, category: e.target.value });
+    // calling handleChange(e) is unstable for category
+    let obj = values;
+    obj[e.target.name] = e.target.value;
+    setValues(obj);
 
     getCategorySubs(e.target.value)
       .then((res) => {
         setSubOptions(res.data);
+        console.log(values.category);
         setValues({ ...values, subs: [] });
       })
       .catch((err) => console.log(err.data));
@@ -64,10 +72,12 @@ const ProductCreate = ({ history }) => {
       .then((res) => {
         setValues(initialState);
         toast.success("Product created");
+        //Location.reload(false);
       })
       .catch((err) => toast.error(err.response.data.err))
       .finally(() => {
         setLoading(false);
+
         // history.push("/admin/dashboard");
       });
   };

@@ -26,6 +26,7 @@ import AdminSideMenu from "./components/hoc/AdminSideMenu";
 import { currentUser } from "./functions/auth";
 import { auth } from "./firebase";
 import { useDispatch } from "react-redux";
+import AllProducts from "./pages/admin/product/AllProduct";
 
 const App = () => {
   let dispatch = useDispatch();
@@ -97,6 +98,11 @@ const App = () => {
           exact
           path="/admin/product/"
           component={AdminSideMenu(ProductCreate)}
+        />
+        <AdminRoute
+          exact
+          path="/admin/products/"
+          component={AdminSideMenu(AllProducts)}
         />
         <Route
           strict

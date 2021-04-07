@@ -8,8 +8,8 @@ export const createProduct = async (product, authtoken) => {
   });
 };
 
-export const getProducts = async () => {
-  return await axios.get(`${process.env.REACT_APP_API}/products`);
+export const getProductsByCount = async (count) => {
+  return await axios.get(`${process.env.REACT_APP_API}/products/${count}`);
 };
 
 export const getCategorySubs = async (_id) => {
