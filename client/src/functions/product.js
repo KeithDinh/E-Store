@@ -7,7 +7,13 @@ export const createProduct = async (product, authtoken) => {
     },
   });
 };
-
+export const removeProduct = async (slug, authtoken) => {
+  return await axios.delete(`${process.env.REACT_APP_API}/product/${slug}`, {
+    headers: {
+      authtoken,
+    },
+  });
+};
 export const getProductsByCount = async (count) => {
   return await axios.get(`${process.env.REACT_APP_API}/products/${count}`);
 };
