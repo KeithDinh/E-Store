@@ -21,3 +21,14 @@ exports.getProducts = async (req, res) => {
     .exec();
   res.json(products);
 };
+
+exports.removeProduct = async (req, res) => {
+  try {
+    const deleted = await Product.findOneAndDelete({
+      slug: req.params.slug,
+    }).exec();
+    res.json(deleted);
+  } catch (error) {
+    return res.status(400).send("Can't remove the product!");
+  }
+};
