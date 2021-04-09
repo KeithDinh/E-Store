@@ -72,7 +72,7 @@ const ProductCreate = ({ history }) => {
       .then((res) => {
         setValues(initialState);
         toast.success("Product created");
-        //Location.reload(false);
+        window.location.reload();
       })
       .catch((err) => toast.error(err.response.data.err))
       .finally(() => {
