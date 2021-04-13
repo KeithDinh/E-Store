@@ -2,6 +2,14 @@ const Product = require("../models/product");
 const slugify = require("slugify");
 const cloudinary = require("cloudinary");
 
+exports.getProduct = async (req, res) => {
+  const product = await (await Product.findOne({ slug: req.params.slug }))
+    .populated("category")
+    .populate("subs")
+    .exec();
+  res.json(product);
+};
+
 exports.createProduct = async (req, res) => {
   try {
     req.body.slug = slugify(req.body.title);
@@ -29,6 +37,7 @@ exports.removeProduct = async (req, res) => {
       slug: req.params.slug,
     }).exec();
 
+    // remove product images on Cloudinary
     deleted.images.map(async (img) => {
       await cloudinary.v2.uploader.destroy(
         img.public_id,
