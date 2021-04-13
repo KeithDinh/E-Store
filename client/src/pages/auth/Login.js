@@ -3,7 +3,7 @@ import { useState, useEffect } from "react";
 import { toast } from "react-toastify";
 import { Link } from "react-router-dom";
 
-import { auth, googleAuthProvider } from "../../firebase.js";
+import { auth, googleAuthProvider } from "../../config/firebase";
 import { createOrUpdateUser } from "../../functions/auth";
 
 import { GoogleOutlined, MailOutlined } from "@ant-design/icons";
