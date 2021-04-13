@@ -1,4 +1,4 @@
-import { auth } from "../../firebase";
+import { auth } from "../../config/firebase";
 import { useState } from "react";
 import { toast } from "react-toastify";
 import { validators, errorDiv } from "../../utils/PasswordValidator";

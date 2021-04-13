@@ -1,4 +1,4 @@
-import { auth } from "../../firebase.js";
+import { auth } from "../../config/firebase.js";
 import { useState, useEffect } from "react";
 import { toast } from "react-toastify";
 import { useParams } from "react-router-dom";

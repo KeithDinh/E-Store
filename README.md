@@ -67,6 +67,8 @@
 
 - useCallback: wrap around a function that call another function to avoid rerendering
 
+- to access route params from react router dom: 1. {match} 2. import useParams
+
 # MONGODB
 
 - populate: display referenced data, only for attribute with 'ref' in model

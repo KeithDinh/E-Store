@@ -14,10 +14,11 @@ export const removeProduct = async (slug, authtoken) => {
     },
   });
 };
-export const getProductsByCount = async (count) => {
-  return await axios.get(`${process.env.REACT_APP_API}/products/${count}`);
-};
+export const getProduct = async (slug) =>
+  await axios.get(`${process.env.REACT_APP_API}/product/${slug}`);
 
-export const getCategorySubs = async (_id) => {
-  return await axios.get(`${process.env.REACT_APP_API}/category/subs/${_id}`);
-};
+export const getProductsByCount = async (count) =>
+  await axios.get(`${process.env.REACT_APP_API}/products/${count}`);
+
+export const getCategorySubs = async (_id) =>
+  await axios.get(`${process.env.REACT_APP_API}/category/subs/${_id}`);

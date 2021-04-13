@@ -20,11 +20,12 @@ import CategoryUpdate from "./pages/admin/category/CategoryUpdate";
 import SubCreate from "./pages/admin/sub/SubCreate";
 import SubUpdate from "./pages/admin/sub/SubUpdate";
 import ProductCreate from "./pages/admin/product/ProductCreate";
+import ProductUpdate from "./pages/admin/product/ProductUpdate";
 
 import AdminSideMenu from "./components/hoc/AdminSideMenu";
 
 import { currentUser } from "./functions/auth";
-import { auth } from "./firebase";
+import { auth } from "./config/firebase";
 import { useDispatch } from "react-redux";
 import AllProducts from "./pages/admin/product/AllProduct";
 
@@ -98,6 +99,11 @@ const App = () => {
           exact
           path="/admin/product/"
           component={AdminSideMenu(ProductCreate)}
+        />
+        <AdminRoute
+          exact
+          path="/admin/product/:slug"
+          component={AdminSideMenu(ProductUpdate)}
         />
         <AdminRoute
           exact

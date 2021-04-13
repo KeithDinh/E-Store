@@ -40,9 +40,6 @@ const ProductCreate = ({ history }) => {
   }, []);
 
   const handleChange = (e) => {
-    // let obj = values;
-    // obj[e.target.name] = e.target.value;
-    // setValues(obj);
     // Unstable, sometime won't work:
     setValues({ ...values, [e.target.name]: e.target.value });
   };
