@@ -10,7 +10,7 @@ import { getCategories } from "../../../functions/category";
 import { LoadingOutlined } from "@ant-design/icons";
 import { useParams } from "react-router-dom";
 
-import ProductCreateForm from "../../../components/forms/ProductCreateForm";
+import ProductUpdateForm from "../../../components/forms/ProductUpdateForm";
 import FileUpload from "../../../components/forms/FileUpload";
 
 const initialState = {
@@ -32,22 +32,61 @@ const initialState = {
 const ProductUpdate = ({ history }) => {
   const [values, setValues] = useState(initialState);
   const { user } = useSelector((state) => ({ ...state }));
+  const { loading, setLoading } = useState(false);
+  const [subOptions, setSubOptions] = useState([]);
+
   let { slug } = useParams();
 
   useEffect(() => {
     loadProduct();
+    loadCategories();
   }, []);
 
-  const loadProduct = () => {
-    getProduct(slug).then((p) => {
-      console.log("simple product", p);
-      setValues({ ...values, ...p.data });
-    });
+  const loadCategories = () => {
+    getCategories().then((c) => setValues({ ...values, categories: c.data }));
   };
 
+  const loadProduct = () => {
+    getProduct(slug)
+      .then((p) => {
+        setValues({ ...values, ...p.data });
+      })
+      .catch((error) => console.log(error));
+  };
+
+  const handleChange = (e) => {
+    setValues({ ...values, [e.target.name]: e.target.value });
+  };
+
+  const handleCategoryChange = (e) => {
+    e.preventDefault();
+
+    // calling handleChange(e) is unstable for category
+    let obj = values;
+    obj[e.target.name] = e.target.value;
+    setValues(obj);
+
+    getCategorySubs(e.target.value)
+      .then((res) => {
+        setSubOptions(res.data);
+      })
+      .catch((err) => console.log(err.data));
+  };
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+    setLoading(true);
+  };
   return (
     <div className="col-md-10">
       <h4>Product Update</h4>
+      <ProductUpdateForm
+        handleSubmit={handleSubmit}
+        handleChange={handleChange}
+        handleCategoryChange={handleCategoryChange}
+        values={values}
+        subOptions={subOptions}
+        setValues={setValues}
+      />
     </div>
   );
 };

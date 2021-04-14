@@ -20,7 +20,7 @@ const initialState = {
   images: [],
   colors: ["Black", "Brown", "Silver", "White", "Blue"],
   color: "",
-  brands: ["Apple", "Samsung", "Microsoft", "Lenovo", "ASUS"],
+  brands: ["Apple", "Samsung", "Microsoft", "Lenovo", "Asus", "HP", "Dell"],
   brand: "",
 };
 
@@ -55,7 +55,6 @@ const ProductCreate = ({ history }) => {
     getCategorySubs(e.target.value)
       .then((res) => {
         setSubOptions(res.data);
-        console.log(values.category);
         setValues({ ...values, subs: [] });
       })
       .catch((err) => console.log(err.data));
