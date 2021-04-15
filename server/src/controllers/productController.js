@@ -3,8 +3,8 @@ const slugify = require("slugify");
 const cloudinary = require("cloudinary");
 
 exports.getProduct = async (req, res) => {
-  const product = await (await Product.findOne({ slug: req.params.slug }))
-    .populated("category")
+  const product = await Product.findOne({ slug: req.params.slug })
+    .populate("category")
     .populate("subs")
     .exec();
   res.json(product);
