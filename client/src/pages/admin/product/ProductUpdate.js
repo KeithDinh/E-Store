@@ -19,7 +19,6 @@ const initialState = {
   price: "",
   shipping: "",
   quantity: "",
-  categories: [],
   category: "",
   subs: [],
   images: [],
@@ -31,6 +30,7 @@ const initialState = {
 
 const ProductUpdate = ({ history }) => {
   const [values, setValues] = useState(initialState);
+  const [categories, setCategories] = useState([]);
   const { user } = useSelector((state) => ({ ...state }));
   const { loading, setLoading } = useState(false);
   const [subOptions, setSubOptions] = useState([]);
@@ -43,13 +43,19 @@ const ProductUpdate = ({ history }) => {
   }, []);
 
   const loadCategories = () => {
-    getCategories().then((c) => setValues({ ...values, categories: c.data }));
+    getCategories().then((c) => setCategories(c.data));
   };
 
   const loadProduct = () => {
     getProduct(slug)
       .then((p) => {
         setValues({ ...values, ...p.data });
+
+        getCategorySubs(p.data.category._id)
+          .then((res) => {
+            setSubOptions(res.data);
+          })
+          .catch((err) => console.log(err.data));
       })
       .catch((error) => console.log(error));
   };
@@ -86,6 +92,7 @@ const ProductUpdate = ({ history }) => {
         values={values}
         subOptions={subOptions}
         setValues={setValues}
+        categories={categories}
       />
     </div>
   );

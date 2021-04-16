@@ -9,17 +9,9 @@ const ProductUpdateForm = ({
   handleCategoryChange,
   subOptions,
   setValues,
+  categories,
 }) => {
-  const {
-    title,
-    description,
-    price,
-    categories,
-    subs,
-    quantity,
-    colors,
-    brands,
-  } = values;
+  const { title, description, price, subs, quantity, colors, brands } = values;
 
   return (
     <form onSubmit={handleSubmit}>
@@ -132,6 +124,7 @@ const ProductUpdateForm = ({
           ))}
         </select>
       </div>
+      <div>{subOptions}</div>
       {subOptions?.length > 0 && (
         <div className="form-group">
           <label>Sub Categories</label>
