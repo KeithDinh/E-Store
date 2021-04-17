@@ -1,13 +1,8 @@
 import { useEffect, useState } from "react";
 import { toast } from "react-toastify";
 import { useSelector } from "react-redux";
-import {
-  createProduct,
-  getCategorySubs,
-  getProduct,
-} from "../../../functions/product";
+import { getSubCategories, getProduct } from "../../../functions/product";
 import { getCategories } from "../../../functions/category";
-import { LoadingOutlined } from "@ant-design/icons";
 import { useParams } from "react-router-dom";
 
 import ProductUpdateForm from "../../../components/forms/ProductUpdateForm";
@@ -34,7 +29,7 @@ const ProductUpdate = ({ history }) => {
   const { user } = useSelector((state) => ({ ...state }));
   const { loading, setLoading } = useState(false);
   const [subOptions, setSubOptions] = useState([]);
-
+  const [listSubs, setListSubs] = useState([]);
   let { slug } = useParams();
 
   useEffect(() => {
@@ -51,32 +46,43 @@ const ProductUpdate = ({ history }) => {
       .then((p) => {
         setValues({ ...values, ...p.data });
 
-        getCategorySubs(p.data.category._id)
+        getSubCategories(p.data.category._id)
           .then((res) => {
             setSubOptions(res.data);
           })
           .catch((err) => console.log(err.data));
+
+        let arr = [];
+        p.data.subs.map((s) => {
+          arr.push(s._id);
+        });
+        console.log(arr);
+        setListSubs((prev) => arr);
       })
       .catch((error) => console.log(error));
   };
 
   const handleChange = (e) => {
-    setValues({ ...values, [e.target.name]: e.target.value });
+    setValues((prev) => ({ ...prev, [e.target.name]: e.target.value }));
   };
 
   const handleCategoryChange = (e) => {
     e.preventDefault();
 
     // calling handleChange(e) is unstable for category
-    let obj = values;
-    obj[e.target.name] = e.target.value;
-    setValues(obj);
+    // let obj = values;
+    // obj[e.target.name] = e.target.value;
+    // setValues(obj);
 
-    getCategorySubs(e.target.value)
+    handleChange(e);
+
+    getSubCategories(e.target.value)
       .then((res) => {
         setSubOptions(res.data);
       })
       .catch((err) => console.log(err.data));
+
+    setListSubs([]);
   };
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -93,6 +99,8 @@ const ProductUpdate = ({ history }) => {
         subOptions={subOptions}
         setValues={setValues}
         categories={categories}
+        listSubs={listSubs}
+        setListSubs={setListSubs}
       />
     </div>
   );

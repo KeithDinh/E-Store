@@ -10,6 +10,8 @@ const ProductUpdateForm = ({
   subOptions,
   setValues,
   categories,
+  listSubs,
+  setListSubs,
 }) => {
   const { title, description, price, subs, quantity, colors, brands } = values;
 
@@ -115,8 +117,10 @@ const ProductUpdateForm = ({
           onChange={handleCategoryChange}
           name="category"
           className="custom-select custom-select-sm w-25"
-          value={values.category.name}
         >
+          <option>
+            {values.category ? values.category.name : "Please select"}
+          </option>
           {categories.map((c) => (
             <option key={c._id} value={c._id}>
               {c.name}
@@ -124,27 +128,25 @@ const ProductUpdateForm = ({
           ))}
         </select>
       </div>
-      <div>{subOptions}</div>
-      {subOptions?.length > 0 && (
-        <div className="form-group">
-          <label>Sub Categories</label>
-          <br />
-          <Select
-            mode="multiple"
-            style={{ width: "50%" }}
-            placeholder="Please select"
-            value={subs}
-            onChange={(value) => setValues({ ...values, subs: value })}
-          >
-            {subOptions.map((s) => (
-              <Option key={s._id} value={s._id}>
-                {s.name}
-              </Option>
-            ))}
-          </Select>
-        </div>
-      )}
 
+      <div>
+        <label> Sub Categories</label>
+        <br />
+        <Select
+          mode="multiple"
+          style={{ width: "50%" }}
+          placeholder="Please select"
+          value={listSubs}
+          onChange={(value) => setListSubs(value)}
+        >
+          {subOptions.map((s) => (
+            <Option key={s._id} value={s._id}>
+              {s.name}
+            </Option>
+          ))}
+        </Select>
+      </div>
+      <br />
       <button onClick={handleSubmit} className="btn btn-outline-info">
         Submit
       </button>
