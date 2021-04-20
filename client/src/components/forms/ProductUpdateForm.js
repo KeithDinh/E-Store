@@ -117,10 +117,8 @@ const ProductUpdateForm = ({
           onChange={handleCategoryChange}
           name="category"
           className="custom-select custom-select-sm w-25"
+          valid={values.category._id}
         >
-          <option>
-            {values.category ? values.category.name : "Please select"}
-          </option>
           {categories.map((c) => (
             <option key={c._id} value={c._id}>
               {c.name}

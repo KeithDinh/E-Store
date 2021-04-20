@@ -24,13 +24,15 @@ const initialState = {
 };
 
 const ProductUpdate = ({ history }) => {
-  const [values, setValues] = useState(initialState);
-  const [categories, setCategories] = useState([]);
   const { user } = useSelector((state) => ({ ...state }));
-  const { loading, setLoading } = useState(false);
-  const [subOptions, setSubOptions] = useState([]);
-  const [listSubs, setListSubs] = useState([]);
+  const [values, setValues] = useState(initialState);
   let { slug } = useParams();
+
+  const [categories, setCategories] = useState([]);
+  const [subOptions, setSubOptions] = useState([]);
+  const [loading, setLoading] = useState(false);
+  const [listSubs, setListSubs] = useState([]);
+  const [selectedCategory, setSelectedCategory] = useState("");
 
   useEffect(() => {
     loadProduct();
@@ -56,7 +58,7 @@ const ProductUpdate = ({ history }) => {
         p.data.subs.map((s) => {
           arr.push(s._id);
         });
-        console.log(arr);
+
         setListSubs((prev) => arr);
       })
       .catch((error) => console.log(error));
@@ -68,13 +70,9 @@ const ProductUpdate = ({ history }) => {
 
   const handleCategoryChange = (e) => {
     e.preventDefault();
-
-    // calling handleChange(e) is unstable for category
-    // let obj = values;
-    // obj[e.target.name] = e.target.value;
-    // setValues(obj);
-
     handleChange(e);
+
+    setSelectedCategory(e.target.value);
 
     getSubCategories(e.target.value)
       .then((res) => {
@@ -82,6 +80,7 @@ const ProductUpdate = ({ history }) => {
       })
       .catch((err) => console.log(err.data));
 
+    if (values.category._id === e.target.value) loadProduct();
     setListSubs([]);
   };
   const handleSubmit = async (e) => {
