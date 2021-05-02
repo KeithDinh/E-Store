@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 import { toast } from "react-toastify";
 import { useSelector } from "react-redux";
-import { createProduct, getCategorySubs } from "../../../functions/product";
+import { createProduct, getSubCategories } from "../../../functions/product";
 import { getCategories } from "../../../functions/category";
 import { LoadingOutlined } from "@ant-design/icons";
 
@@ -41,18 +41,20 @@ const ProductCreate = ({ history }) => {
 
   const handleChange = (e) => {
     // Unstable, sometime won't work:
-    setValues({ ...values, [e.target.name]: e.target.value });
+    setValues((previous) => ({ ...previous, [e.target.name]: e.target.value }));
   };
 
   const handleCategoryChange = (e) => {
     e.preventDefault();
 
     // calling handleChange(e) is unstable for category
-    let obj = values;
-    obj[e.target.name] = e.target.value;
-    setValues(obj);
+    // let obj = values;
+    // obj[e.target.name] = e.target.value;
+    // setValues(obj);
 
-    getCategorySubs(e.target.value)
+    handleChange(e);
+
+    getSubCategories(e.target.value)
       .then((res) => {
         setSubOptions(res.data);
         setValues({ ...values, subs: [] });

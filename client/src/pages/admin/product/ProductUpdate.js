@@ -1,14 +1,15 @@
 import { useEffect, useState } from "react";
 import { toast } from "react-toastify";
 import { useSelector } from "react-redux";
+import { useParams } from "react-router-dom";
+import { LoadingOutlined } from "@ant-design/icons";
+
 import {
-  createProduct,
-  getCategorySubs,
+  getSubCategories,
   getProduct,
+  updateProduct,
 } from "../../../functions/product";
 import { getCategories } from "../../../functions/category";
-import { LoadingOutlined } from "@ant-design/icons";
-import { useParams } from "react-router-dom";
 
 import ProductUpdateForm from "../../../components/forms/ProductUpdateForm";
 import FileUpload from "../../../components/forms/FileUpload";
@@ -19,7 +20,6 @@ const initialState = {
   price: "",
   shipping: "",
   quantity: "",
-  categories: [],
   category: "",
   subs: [],
   images: [],
@@ -30,12 +30,17 @@ const initialState = {
 };
 
 const ProductUpdate = ({ history }) => {
-  const [values, setValues] = useState(initialState);
   const { user } = useSelector((state) => ({ ...state }));
-  const { loading, setLoading } = useState(false);
-  const [subOptions, setSubOptions] = useState([]);
-
+  const [values, setValues] = useState(initialState);
   let { slug } = useParams();
+
+  const [categories, setCategories] = useState([]);
+
+  // subOptions is to list all subcategories of a category, listSubs is to store what options users selected
+  const [subOptions, setSubOptions] = useState([]);
+  const [listSubs, setListSubs] = useState([]);
+  const [loading, setLoading] = useState(false);
+  const [selectedCategory, setSelectedCategory] = useState("");
 
   useEffect(() => {
     loadProduct();
@@ -43,42 +48,75 @@ const ProductUpdate = ({ history }) => {
   }, []);
 
   const loadCategories = () => {
-    getCategories().then((c) => setValues({ ...values, categories: c.data }));
+    getCategories().then((c) => setCategories(c.data));
   };
 
   const loadProduct = () => {
     getProduct(slug)
-      .then((p) => {
-        setValues({ ...values, ...p.data });
+      .then((product) => {
+        setValues({ ...values, ...product.data });
+
+        getSubCategories(product.data.category._id)
+          .then((res) => {
+            setSubOptions(res.data);
+          })
+          .catch((err) => console.log(err.data));
+
+        let arr = product.data.subs.map((s) => s._id);
+        setListSubs((prev) => arr);
       })
       .catch((error) => console.log(error));
   };
 
   const handleChange = (e) => {
-    setValues({ ...values, [e.target.name]: e.target.value });
+    setValues((prev) => ({ ...prev, [e.target.name]: e.target.value }));
   };
 
   const handleCategoryChange = (e) => {
     e.preventDefault();
+    setSelectedCategory(e.target.value);
 
-    // calling handleChange(e) is unstable for category
-    let obj = values;
-    obj[e.target.name] = e.target.value;
-    setValues(obj);
-
-    getCategorySubs(e.target.value)
+    getSubCategories(e.target.value)
       .then((res) => {
         setSubOptions(res.data);
       })
       .catch((err) => console.log(err.data));
+
+    if (values.category._id === e.target.value) loadProduct();
+    // clear subcategory field when change category
+    setListSubs([]);
   };
   const handleSubmit = async (e) => {
     e.preventDefault();
     setLoading(true);
+
+    values.subs = listSubs;
+    values.category = selectedCategory ? selectedCategory : values.category;
+
+    updateProduct(values, slug, user.token)
+      .then((res) => {
+        toast.success(`${res.data.title} is updated`);
+        history.push("/admin/products");
+      })
+      .catch((err) => console.log(err))
+      .finally(() => {
+        setLoading(false);
+      });
   };
   return (
     <div className="col-md-10">
-      <h4>Product Update</h4>
+      {!loading ? (
+        <h4>Product Update</h4>
+      ) : (
+        <LoadingOutlined className="text-danger" />
+      )}
+      <div className="p-3">
+        <FileUpload
+          values={values}
+          setValues={setValues}
+          setLoading={setLoading}
+        />
+      </div>
       <ProductUpdateForm
         handleSubmit={handleSubmit}
         handleChange={handleChange}
@@ -86,6 +124,10 @@ const ProductUpdate = ({ history }) => {
         values={values}
         subOptions={subOptions}
         setValues={setValues}
+        categories={categories}
+        listSubs={listSubs}
+        setListSubs={setListSubs}
+        selectedCategory={selectedCategory}
       />
     </div>
   );

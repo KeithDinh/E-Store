@@ -79,19 +79,20 @@ const FileUpload = ({ values, setValues, setLoading }) => {
               key={image.public_id}
               onClick={() => handleImageRemove(image.public_id)}
               style={{ cursor: "pointer" }}
+              className="mr-5"
             >
               <Avatar
                 shape="square"
                 src={image.url}
+                onclick={() => window.open(image.url, "_blank")}
                 size={80}
-                className="ml-3"
               />
             </Badge>
           ))}
       </div>
       <br />
       <div className="row">
-        <label className="btn btn-primary">
+        <label className="btn btn-primary btn-raised">
           Choose File
           <input
             type="file"

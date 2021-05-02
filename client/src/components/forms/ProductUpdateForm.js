@@ -8,18 +8,12 @@ const ProductUpdateForm = ({
   handleChange,
   handleCategoryChange,
   subOptions,
-  setValues,
+  categories,
+  listSubs,
+  setListSubs,
+  selectedCategory,
 }) => {
-  const {
-    title,
-    description,
-    price,
-    categories,
-    subs,
-    quantity,
-    colors,
-    brands,
-  } = values;
+  const { title, description, price, quantity, colors, brands } = values;
 
   return (
     <form onSubmit={handleSubmit}>
@@ -123,7 +117,7 @@ const ProductUpdateForm = ({
           onChange={handleCategoryChange}
           name="category"
           className="custom-select custom-select-sm w-25"
-          value={values.category.name}
+          value={selectedCategory ? selectedCategory : values.category._id}
         >
           {categories.map((c) => (
             <option key={c._id} value={c._id}>
@@ -132,26 +126,25 @@ const ProductUpdateForm = ({
           ))}
         </select>
       </div>
-      {subOptions?.length > 0 && (
-        <div className="form-group">
-          <label>Sub Categories</label>
-          <br />
-          <Select
-            mode="multiple"
-            style={{ width: "50%" }}
-            placeholder="Please select"
-            value={subs}
-            onChange={(value) => setValues({ ...values, subs: value })}
-          >
-            {subOptions.map((s) => (
-              <Option key={s._id} value={s._id}>
-                {s.name}
-              </Option>
-            ))}
-          </Select>
-        </div>
-      )}
 
+      <div>
+        <label> Sub Categories</label>
+        <br />
+        <Select
+          mode="multiple"
+          style={{ width: "50%" }}
+          placeholder="Please select"
+          onChange={(value) => setListSubs(value)}
+          value={listSubs}
+        >
+          {subOptions.map((s) => (
+            <Option key={s._id} value={s._id}>
+              {s.name}
+            </Option>
+          ))}
+        </Select>
+      </div>
+      <br />
       <button onClick={handleSubmit} className="btn btn-outline-info">
         Submit
       </button>

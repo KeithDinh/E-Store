@@ -72,3 +72,4 @@
 # MONGODB
 
 - populate: display referenced data, only for attribute with 'ref' in model
+- {new: true}: // send the new updated to client instead of the old one

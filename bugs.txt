@@ -1,0 +1,4 @@
+Client Side
+_ antd avatar, when click on image, it disappears
+
+
