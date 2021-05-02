@@ -8,12 +8,12 @@ const ProductUpdateForm = ({
   handleChange,
   handleCategoryChange,
   subOptions,
-  setValues,
   categories,
   listSubs,
   setListSubs,
+  selectedCategory,
 }) => {
-  const { title, description, price, subs, quantity, colors, brands } = values;
+  const { title, description, price, quantity, colors, brands } = values;
 
   return (
     <form onSubmit={handleSubmit}>
@@ -117,7 +117,7 @@ const ProductUpdateForm = ({
           onChange={handleCategoryChange}
           name="category"
           className="custom-select custom-select-sm w-25"
-          valid={values.category._id}
+          value={selectedCategory ? selectedCategory : values.category._id}
         >
           {categories.map((c) => (
             <option key={c._id} value={c._id}>
@@ -134,8 +134,8 @@ const ProductUpdateForm = ({
           mode="multiple"
           style={{ width: "50%" }}
           placeholder="Please select"
-          value={listSubs}
           onChange={(value) => setListSubs(value)}
+          value={listSubs}
         >
           {subOptions.map((s) => (
             <Option key={s._id} value={s._id}>

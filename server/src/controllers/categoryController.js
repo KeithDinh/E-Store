@@ -43,7 +43,7 @@ exports.removeCategory = async (req, res) => {
   );
 };
 exports.getCategories = async (req, res) => {
-  res.status(200).json(await Category.find({}).sort({ createdAt: -1 }).exec());
+  res.status(200).json(await Category.find({}).sort({ name: 1 }).exec());
 };
 
 exports.getSubs = async (req, res) => {

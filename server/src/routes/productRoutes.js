@@ -9,6 +9,7 @@ const {
   getProducts,
   removeProduct,
   getProduct,
+  updateProduct,
 } = require("../controllers/productController");
 
 router.route("/product").post(authCheck, adminCheck, createProduct);
@@ -16,5 +17,6 @@ router.route("/products/:count").get(getProducts);
 router
   .route("/product/:slug")
   .delete(authCheck, adminCheck, removeProduct)
-  .get(getProduct);
+  .get(getProduct)
+  .put(authCheck, adminCheck, updateProduct);
 module.exports = router;

@@ -1,9 +1,15 @@
 import { useEffect, useState } from "react";
 import { toast } from "react-toastify";
 import { useSelector } from "react-redux";
-import { getSubCategories, getProduct } from "../../../functions/product";
-import { getCategories } from "../../../functions/category";
 import { useParams } from "react-router-dom";
+import { LoadingOutlined } from "@ant-design/icons";
+
+import {
+  getSubCategories,
+  getProduct,
+  updateProduct,
+} from "../../../functions/product";
+import { getCategories } from "../../../functions/category";
 
 import ProductUpdateForm from "../../../components/forms/ProductUpdateForm";
 import FileUpload from "../../../components/forms/FileUpload";
@@ -29,9 +35,11 @@ const ProductUpdate = ({ history }) => {
   let { slug } = useParams();
 
   const [categories, setCategories] = useState([]);
+
+  // subOptions is to list all subcategories of a category, listSubs is to store what options users selected
   const [subOptions, setSubOptions] = useState([]);
-  const [loading, setLoading] = useState(false);
   const [listSubs, setListSubs] = useState([]);
+  const [loading, setLoading] = useState(false);
   const [selectedCategory, setSelectedCategory] = useState("");
 
   useEffect(() => {
@@ -45,20 +53,16 @@ const ProductUpdate = ({ history }) => {
 
   const loadProduct = () => {
     getProduct(slug)
-      .then((p) => {
-        setValues({ ...values, ...p.data });
+      .then((product) => {
+        setValues({ ...values, ...product.data });
 
-        getSubCategories(p.data.category._id)
+        getSubCategories(product.data.category._id)
           .then((res) => {
             setSubOptions(res.data);
           })
           .catch((err) => console.log(err.data));
 
-        let arr = [];
-        p.data.subs.map((s) => {
-          arr.push(s._id);
-        });
-
+        let arr = product.data.subs.map((s) => s._id);
         setListSubs((prev) => arr);
       })
       .catch((error) => console.log(error));
@@ -70,8 +74,6 @@ const ProductUpdate = ({ history }) => {
 
   const handleCategoryChange = (e) => {
     e.preventDefault();
-    handleChange(e);
-
     setSelectedCategory(e.target.value);
 
     getSubCategories(e.target.value)
@@ -81,15 +83,40 @@ const ProductUpdate = ({ history }) => {
       .catch((err) => console.log(err.data));
 
     if (values.category._id === e.target.value) loadProduct();
+    // clear subcategory field when change category
     setListSubs([]);
   };
   const handleSubmit = async (e) => {
     e.preventDefault();
     setLoading(true);
+
+    values.subs = listSubs;
+    values.category = selectedCategory ? selectedCategory : values.category;
+
+    updateProduct(values, slug, user.token)
+      .then((res) => {
+        toast.success(`${res.data.title} is updated`);
+        history.push("/admin/products");
+      })
+      .catch((err) => console.log(err))
+      .finally(() => {
+        setLoading(false);
+      });
   };
   return (
     <div className="col-md-10">
-      <h4>Product Update</h4>
+      {!loading ? (
+        <h4>Product Update</h4>
+      ) : (
+        <LoadingOutlined className="text-danger" />
+      )}
+      <div className="p-3">
+        <FileUpload
+          values={values}
+          setValues={setValues}
+          setLoading={setLoading}
+        />
+      </div>
       <ProductUpdateForm
         handleSubmit={handleSubmit}
         handleChange={handleChange}
@@ -100,6 +127,7 @@ const ProductUpdate = ({ history }) => {
         categories={categories}
         listSubs={listSubs}
         setListSubs={setListSubs}
+        selectedCategory={selectedCategory}
       />
     </div>
   );

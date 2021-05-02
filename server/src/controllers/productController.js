@@ -57,3 +57,21 @@ exports.removeProduct = async (req, res) => {
     return res.status(400).send("Can't remove the product!");
   }
 };
+exports.updateProduct = async (req, res) => {
+  try {
+    if (req.body.title) {
+      req.body.slug = slugify(req.body.title);
+    }
+
+    const updated = await Product.findOneAndUpdate(
+      { slug: req.params.slug },
+      req.body,
+      { new: true }
+    ).exec();
+
+    res.json(updated);
+  } catch (error) {
+    console.log(error);
+    return res.status(400).send("Product update failed!");
+  }
+};
