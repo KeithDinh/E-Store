@@ -3,6 +3,7 @@ import { LoadingOutlined } from "@ant-design/icons";
 
 import { getProductsByCount } from "../functions/product";
 import ProductCard from "../components/cards/ProductCard";
+import LoadingCard from "../components/cards/LoadingCard";
 
 const Home = () => {
   const [products, setProducts] = useState([]);
@@ -14,25 +15,33 @@ const Home = () => {
 
   const loadProducts = () => {
     setLoading(true);
-    getProductsByCount(100)
-      .then((res) => setProducts(res.data))
-      .catch((error) => console.log(error))
-      .finally(setLoading(false));
+    getProductsByCount(3).then((res) => {
+      setProducts(res.data);
+      setLoading(false);
+    });
   };
 
   return (
     <>
-      <div className="jumbotron">
+      <div className="jumbotron text-center">
         {!loading ? (
-          <h4>Product create</h4>
+          <h4>Our Products</h4>
         ) : (
           <LoadingOutlined className="text-danger" />
         )}
       </div>
       <div className="container">
-        {products.map((p) => (
-          <ProductCard />
-        ))}
+        {loading ? (
+          <LoadingCard count={3} />
+        ) : (
+          <div className="row">
+            {products.map((product) => (
+              <div className="col-md-4">
+                <ProductCard product={product} />
+              </div>
+            ))}
+          </div>
+        )}
       </div>
     </>
   );
