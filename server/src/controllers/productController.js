@@ -77,8 +77,11 @@ exports.updateProduct = async (req, res) => {
 };
 exports.getProductsCondition = async (req, res) => {
   try {
-    const { sort, order, limit } = req.body;
+    const { sort, order, page } = req.body;
+    const currentPage = page || 1;
+    const itemPerPage = 3;
     const products = await Product.find({})
+      .skip((currentPage - 1) * itemPerPage)
       .populate("category")
       .populate("subs")
       .sort([[sort, order]])
@@ -89,4 +92,8 @@ exports.getProductsCondition = async (req, res) => {
     console.log(error);
     res.status(400).send("");
   }
+};
+
+exports.productCount = async (req, res) => {
+  res.json(await Product.find({}).estimatedDocumentCount().exec());
 };

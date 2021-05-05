@@ -1,16 +1,20 @@
 import { useEffect, useState } from "react";
 import { LoadingOutlined } from "@ant-design/icons";
+import { Pagination } from "antd";
 
-import { getProducts } from "../../functions/product";
+import { getProducts, getProductCount } from "../../functions/product";
 import ProductCard from "../cards/ProductCard";
 import LoadingCard from "../cards/LoadingCard";
 
 const ProductSeries = ({ sort, order, limit }) => {
   const [products, setProducts] = useState([]);
   const [loading, setLoading] = useState(false);
+  const [productCount, setProductCount] = useState(0);
+  const [page, setPage] = useState(1);
 
   useEffect(() => {
     loadProducts();
+    getProductCount().then((res) => setProductCount(res.data));
   }, []);
 
   const loadProducts = () => {

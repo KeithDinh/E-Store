@@ -7,6 +7,7 @@ export const createProduct = async (product, authtoken) => {
     },
   });
 };
+
 export const removeProduct = async (slug, authtoken) => {
   return await axios.delete(`${process.env.REACT_APP_API}/product/${slug}`, {
     headers: {
@@ -14,6 +15,7 @@ export const removeProduct = async (slug, authtoken) => {
     },
   });
 };
+
 export const getProduct = async (slug) =>
   await axios.get(`${process.env.REACT_APP_API}/product/${slug}`);
 
@@ -36,3 +38,6 @@ export const updateProduct = async (product, slug, authtoken) =>
 
 export const getSubCategories = async (_id) =>
   await axios.get(`${process.env.REACT_APP_API}/category/subs/${_id}`);
+
+export const getProductCount = async () =>
+  await axios.get(`${process.env.REACT_APP_API}/products/total`);
