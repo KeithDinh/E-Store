@@ -1,48 +1,23 @@
 import { useEffect, useState } from "react";
 import { LoadingOutlined } from "@ant-design/icons";
 
-import { getProductsByCount } from "../functions/product";
-import ProductCard from "../components/cards/ProductCard";
-import LoadingCard from "../components/cards/LoadingCard";
+import ProductSeries from "../components/home/ProductSeries";
 
 const Home = () => {
-  const [products, setProducts] = useState([]);
-  const [loading, setLoading] = useState(false);
-
-  useEffect(() => {
-    loadProducts();
-  }, []);
-
-  const loadProducts = () => {
-    setLoading(true);
-    getProductsByCount(3).then((res) => {
-      setProducts(res.data);
-      setLoading(false);
-    });
-  };
-
   return (
     <>
-      <div className="jumbotron text-center">
-        {!loading ? (
-          <h4>Our Products</h4>
-        ) : (
-          <LoadingOutlined className="text-danger" />
-        )}
+      <div className="p-5">
+        <div className="display-2 font-weight-bold">E-STORE</div>
       </div>
-      <div className="container">
-        {loading ? (
-          <LoadingCard count={3} />
-        ) : (
-          <div className="row">
-            {products.map((product) => (
-              <div className="col-md-4">
-                <ProductCard product={product} />
-              </div>
-            ))}
-          </div>
-        )}
-      </div>
+
+      <h4 className="text-center p-3 mt-2 mb-5 display-3 jumbotron">
+        New Arrivals
+      </h4>
+      <ProductSeries sort="createdAt" order="desc" limit={3} />
+      <h4 className="text-center p-3 mt-2 mb-5 display-3 jumbotron">
+        Best Seller
+      </h4>
+      <ProductSeries sort="sold" order="desc" limit={3} />
     </>
   );
 };

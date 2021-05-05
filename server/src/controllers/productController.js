@@ -78,7 +78,7 @@ exports.updateProduct = async (req, res) => {
 exports.getProductsCondition = async (req, res) => {
   try {
     const { sort, order, limit } = req.body;
-    const product = await Product.find({})
+    const products = await Product.find({})
       .populate("category")
       .populate("subs")
       .sort([[sort, order]])
@@ -87,6 +87,6 @@ exports.getProductsCondition = async (req, res) => {
     res.json(products);
   } catch (error) {
     console.log(error);
-    res.status(400);
+    res.status(400).send("");
   }
 };
