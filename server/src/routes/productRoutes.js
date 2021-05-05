@@ -10,6 +10,7 @@ const {
   removeProduct,
   getProduct,
   updateProduct,
+  getProductsCondition,
 } = require("../controllers/productController");
 
 router.route("/product").post(authCheck, adminCheck, createProduct);
@@ -19,4 +20,6 @@ router
   .delete(authCheck, adminCheck, removeProduct)
   .get(getProduct)
   .put(authCheck, adminCheck, updateProduct);
+
+router.route("/products").post(getProductsCondition);
 module.exports = router;

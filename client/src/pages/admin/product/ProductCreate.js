@@ -29,6 +29,7 @@ const ProductCreate = ({ history }) => {
 
   const [loading, setLoading] = useState(false);
   const [values, setValues] = useState(initialState);
+  const [category, setCategory] = useState("");
   const [subOptions, setSubOptions] = useState([]);
 
   const loadCategories = () => {
@@ -51,8 +52,8 @@ const ProductCreate = ({ history }) => {
     // let obj = values;
     // obj[e.target.name] = e.target.value;
     // setValues(obj);
-
-    handleChange(e);
+    setCategory(e.target.value);
+    // handleChange(e);
 
     getSubCategories(e.target.value)
       .then((res) => {
@@ -66,17 +67,19 @@ const ProductCreate = ({ history }) => {
     e.preventDefault();
     setLoading(true);
 
+    values.category = category;
+
     createProduct(values, user.token)
       .then((res) => {
         setValues(initialState);
         toast.success("Product created");
         window.location.reload();
       })
-      .catch((err) => toast.error(err.response.data.err))
+      .catch((err) => {
+        toast.error(err.response.data.err);
+      })
       .finally(() => {
         setLoading(false);
-
-        // history.push("/admin/dashboard");
       });
   };
 

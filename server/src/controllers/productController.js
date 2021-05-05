@@ -75,3 +75,18 @@ exports.updateProduct = async (req, res) => {
     return res.status(400).send("Product update failed!");
   }
 };
+exports.getProductsCondition = async (req, res) => {
+  try {
+    const { sort, order, limit } = req.body;
+    const products = await Product.find({})
+      .populate("category")
+      .populate("subs")
+      .sort([[sort, order]])
+      .limit(limit)
+      .exec();
+    res.json(products);
+  } catch (error) {
+    console.log(error);
+    res.status(400).send("");
+  }
+};
