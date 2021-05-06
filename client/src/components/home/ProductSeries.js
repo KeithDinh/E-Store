@@ -14,6 +14,9 @@ const ProductSeries = ({ sort, order, limit }) => {
 
   useEffect(() => {
     loadProducts();
+  }, [page]);
+
+  useEffect(() => {
     getProductCount().then((res) => setProductCount(res.data));
   }, []);
 
@@ -40,6 +43,12 @@ const ProductSeries = ({ sort, order, limit }) => {
           </div>
         )}
       </div>
+
+      <Pagination
+        current={page}
+        total={(productCount / 3) * 10}
+        onChange={(value) => setPage(value)}
+      />
     </>
   );
 };

@@ -13,11 +13,11 @@ const Home = () => {
       <h4 className="text-center p-3 mt-2 mb-5 display-3 jumbotron">
         New Arrivals
       </h4>
-      <ProductSeries sort="createdAt" order="desc" limit={3} />
+      <ProductSeries sort="createdAt" order="desc" page={0} />
       <h4 className="text-center p-3 mt-2 mb-5 display-3 jumbotron">
         Best Seller
       </h4>
-      <ProductSeries sort="sold" order="desc" limit={3} />
+      <ProductSeries sort="sold" order="desc" page={0} />
     </>
   );
 };

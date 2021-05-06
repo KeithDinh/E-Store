@@ -80,13 +80,15 @@ exports.getProductsCondition = async (req, res) => {
     const { sort, order, page } = req.body;
     const currentPage = page || 1;
     const itemPerPage = 3;
+
     const products = await Product.find({})
       .skip((currentPage - 1) * itemPerPage)
+      .limit(itemPerPage)
       .populate("category")
       .populate("subs")
       .sort([[sort, order]])
-      .limit(limit)
       .exec();
+
     res.json(products);
   } catch (error) {
     console.log(error);
