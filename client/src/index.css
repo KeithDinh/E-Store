@@ -6,7 +6,8 @@ form {
   padding: 0 !important;
 }
 
-.slider img {
+.slider img,
+.slide-default-img {
   height: 650px;
   object-fit: cover;
 }

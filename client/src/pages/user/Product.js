@@ -13,7 +13,6 @@ const Product = ({ match }) => {
   const loadProduct = () => {
     getProduct(slug)
       .then((res) => {
-        console.log(res.data);
         setProduct(res.data);
       })
       .catch((err) => console.log(err));
@@ -23,10 +22,11 @@ const Product = ({ match }) => {
       <div className="row pt-4">
         <SingleProduct product={product} />
       </div>
-
-      <div className="row">
-        <div>Related Products</div>
-      </div>
+      <br />
+      <h4 className="text-center p-3 mt-2 mb-5 display-3 jumbotron">
+        Related Products
+      </h4>
+      <div className="row"></div>
     </div>
   );
 };
