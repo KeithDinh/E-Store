@@ -5,3 +5,8 @@ form {
 .reset-padding {
   padding: 0 !important;
 }
+
+.slider img {
+  height: 650px;
+  object-fit: cover;
+}

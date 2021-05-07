@@ -1,5 +1,4 @@
 import { useEffect, useState } from "react";
-import { LoadingOutlined } from "@ant-design/icons";
 import { Pagination } from "antd";
 
 import { getProducts, getProductCount } from "../../functions/product";
@@ -12,6 +11,7 @@ const ProductSeries = ({ sort, order, limit }) => {
   const [productCount, setProductCount] = useState(0);
   const [page, setPage] = useState(1);
 
+  /* eslint-disable react-hooks/exhaustive-deps */
   useEffect(() => {
     loadProducts();
   }, [page]);
@@ -22,7 +22,7 @@ const ProductSeries = ({ sort, order, limit }) => {
 
   const loadProducts = () => {
     setLoading(true);
-    getProducts(sort, order, limit).then((res) => {
+    getProducts(sort, order, page).then((res) => {
       setProducts(res.data);
       setLoading(false);
     });
@@ -43,12 +43,14 @@ const ProductSeries = ({ sort, order, limit }) => {
           </div>
         )}
       </div>
-
+      <br />
       <Pagination
+        className="text-center"
         current={page}
         total={(productCount / 3) * 10}
         onChange={(value) => setPage(value)}
       />
+      <br />
     </>
   );
 };
