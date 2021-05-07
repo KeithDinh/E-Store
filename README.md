@@ -41,6 +41,7 @@
   - redux-devtools-extension: redux for chrome
   - axios: fetch data
   - react-image-file-resizer
+  - react-responsive-carousel
 
 ## CONSTRAINTS/NEED TO IMPROVE
 
@@ -67,7 +68,9 @@
 
 - useCallback: wrap around a function that call another function to avoid rerendering
 
-- to access route params from react router dom: 1. {match} 2. import useParams
+- to access route params from react router dom: 1. {match} match.params.slug 2. import useParams
+
+- Ignore warning `/* eslint-disable react-hooks/exhaustive-deps */ `
 
 # MONGODB
 

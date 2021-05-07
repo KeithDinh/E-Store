@@ -42,6 +42,7 @@ const ProductUpdate = ({ history }) => {
   const [loading, setLoading] = useState(false);
   const [selectedCategory, setSelectedCategory] = useState("");
 
+  /* eslint-disable react-hooks/exhaustive-deps */
   useEffect(() => {
     loadProduct();
     loadCategories();

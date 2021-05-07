@@ -36,6 +36,7 @@ const ProductCreate = ({ history }) => {
     getCategories().then((c) => setValues({ ...values, categories: c.data }));
   };
 
+  /* eslint-disable react-hooks/exhaustive-deps */
   useEffect(() => {
     loadCategories();
   }, []);
