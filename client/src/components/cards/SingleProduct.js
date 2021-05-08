@@ -4,6 +4,7 @@ import laptop from "../../images/laptop.png";
 import { Carousel } from "react-responsive-carousel";
 import { Link } from "react-router-dom";
 import { HeartOutlined, ShoppingCartOutlined } from "@ant-design/icons";
+import StarRating from "react-star-ratings";
 
 import ProductInfo from "./ProductInfo";
 
@@ -41,6 +42,15 @@ const SingleProduct = ({ product }) => {
 
       <div className="col-md-5">
         <h1 className="p-3 text-center">{title}</h1>
+        <StarRating
+          name=""
+          rating={3}
+          numberOfStars={6}
+          changeRating={(newRating, name) =>
+            console.log("newRating", newRating, "name", name)
+          }
+          isSelectable={true}
+        />
         <Card
           actions={[
             <>

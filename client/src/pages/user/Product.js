@@ -6,6 +6,7 @@ const Product = ({ match }) => {
   const [product, setProduct] = useState("");
   const { slug } = match.params;
 
+  /* eslint-disable react-hooks/exhaustive-deps */
   useEffect(() => {
     loadProduct();
   }, []);

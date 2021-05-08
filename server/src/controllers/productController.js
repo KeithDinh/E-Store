@@ -124,10 +124,10 @@ exports.productStar = async (req, res) => {
 
     res.json(ratingsAdded);
   } else {
-    // if user rated it before
+    // if user rated it before, then we need to change it with new
     const ratingUpdated = await Product.updateOne(
       { ratings: { $elemMatch: existingRatingObject } },
-      { $set: { "ratings.$.satr": star } },
+      { $set: { "ratings.$.star": star } },
       { new: true }
     ).exec();
 
