@@ -10,8 +10,9 @@ import ProductInfo from "./ProductInfo";
 import RatingModel from "../modal/RatingModal";
 const { TabPane } = Tabs;
 
-const SingleProduct = ({ product }) => {
+const SingleProduct = ({ product, onRatingClick, star }) => {
   const { title, images, description, _id } = product;
+
   return (
     <>
       <div className="col-md-7">
@@ -63,11 +64,9 @@ const SingleProduct = ({ product }) => {
                 name={_id}
                 starRatedColor="red"
                 isSelectable={true}
-                rating={3}
-                numberOfStars={6}
-                changeRating={(newRating, name) =>
-                  console.log("newRating", newRating, "name", name)
-                }
+                rating={star}
+                numberOfStars={5}
+                changeRating={onRatingClick}
               />
             </RatingModel>,
           ]}

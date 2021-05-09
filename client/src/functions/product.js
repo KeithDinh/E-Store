@@ -1,5 +1,6 @@
 import axios from "axios";
 
+// Product
 export const createProduct = async (product, authtoken) => {
   return await axios.post(`${process.env.REACT_APP_API}/product`, product, {
     headers: {
@@ -36,8 +37,21 @@ export const updateProduct = async (product, slug, authtoken) =>
     },
   });
 
+export const getProductCount = async () =>
+  await axios.get(`${process.env.REACT_APP_API}/products/total`);
+
+// Category
 export const getSubCategories = async (_id) =>
   await axios.get(`${process.env.REACT_APP_API}/category/subs/${_id}`);
 
-export const getProductCount = async () =>
-  await axios.get(`${process.env.REACT_APP_API}/products/total`);
+// Ratings
+export const rateProduct = async (productId, star, authtoken) =>
+  await axios.put(
+    `${process.env.REACT_APP_API}/product/star/${productId}`,
+    { star },
+    {
+      headers: {
+        authtoken,
+      },
+    }
+  );

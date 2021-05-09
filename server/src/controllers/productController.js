@@ -15,7 +15,6 @@ exports.getProduct = async (req, res) => {
 exports.createProduct = async (req, res) => {
   try {
     req.body.slug = slugify(req.body.title);
-    console.log(req.body);
     res.status(201).json(await new Product(req.body).save());
   } catch (error) {
     res.status(400).json({
@@ -105,24 +104,28 @@ exports.productCount = async (req, res) => {
 exports.productStar = async (req, res) => {
   const product = await Product.findById(req.params.productId).exec();
   const user = await User.findOne({ email: req.user.email }).exec();
-  const { star } = req.body;
 
+  const { star } = req.body;
   // check if user has rated this product
   let existingRatingObject = product.ratings.find(
-    (e) => e.postedBy === user.id
+    (e) => JSON.stringify(e.postedBy) === JSON.stringify(user._id)
   );
 
   // if user never rates this product before
   if (existingRatingObject === undefined) {
-    let ratingsAdded = await Product.findOneAndUpdate(
-      product._id,
-      {
-        $push: { ratings: { star, postedBy: user._id } },
-      },
-      { new: true }
-    ).exec();
-
-    res.json(ratingsAdded);
+    try {
+      let ratingsAdded = await Product.findOneAndUpdate(
+        { _id: product._id },
+        {
+          $push: { ratings: { star, postedBy: user._id } },
+        },
+        { new: true }
+      ).exec();
+      res.json(ratingsAdded);
+    } catch (error) {
+      console.log(error);
+      return res.status(400).json("Can't rate");
+    }
   } else {
     // if user rated it before, then we need to change it with new
     const ratingUpdated = await Product.updateOne(
