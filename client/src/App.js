@@ -24,8 +24,6 @@ import ProductUpdate from "./pages/admin/product/ProductUpdate";
 import AllProducts from "./pages/admin/product/AllProducts";
 import Product from "./pages/user/Product";
 
-import AdminSideMenu from "./components/hoc/AdminSideMenu";
-
 import { currentUser } from "./functions/auth";
 import { auth } from "./config/firebase";
 import { useDispatch } from "react-redux";
@@ -69,55 +67,31 @@ const App = () => {
         <Route exact path="/register" component={Register} />
         <Route exact path="/forgot/password" component={ForgotPassword} />
         <Route exact path="/product/:slug" component={Product} />
-
-        <UserRoute exact path="/user/history" component={History} />
-        <UserRoute exact path="/user/password" component={Password} />
-        <UserRoute exact path="/user/wishlist" component={Wishlist} />
-        <AdminRoute
-          exact
-          path="/admin/dashboard"
-          component={AdminSideMenu(AdminDashboard)}
-        />
-        <AdminRoute
-          exact
-          path="/admin/category"
-          component={AdminSideMenu(CategoryCreate)}
-        />
-        <AdminRoute
-          exact
-          path="/admin/category/:slug"
-          component={AdminSideMenu(CategoryUpdate)}
-        />
-        <AdminRoute
-          exact
-          path="/admin/sub"
-          component={AdminSideMenu(SubCreate)}
-        />
-        <AdminRoute
-          exact
-          path="/admin/sub/:slug"
-          component={AdminSideMenu(SubUpdate)}
-        />
-        <AdminRoute
-          exact
-          path="/admin/product/"
-          component={AdminSideMenu(ProductCreate)}
-        />
-        <AdminRoute
-          exact
-          path="/admin/product/:slug"
-          component={AdminSideMenu(ProductUpdate)}
-        />
-        <AdminRoute
-          exact
-          path="/admin/products/"
-          component={AdminSideMenu(AllProducts)}
-        />
         <Route
           strict
           path="/register/complete/:email"
           component={RegisterComplete}
         />
+
+        <UserRoute exact path="/user/history" component={History} />
+        <UserRoute exact path="/user/password" component={Password} />
+        <UserRoute exact path="/user/wishlist" component={Wishlist} />
+        <AdminRoute exact path="/admin/dashboard" component={AdminDashboard} />
+        <AdminRoute exact path="/admin/category" component={CategoryCreate} />
+        <AdminRoute
+          exact
+          path="/admin/category/:slug"
+          component={CategoryUpdate}
+        />
+        <AdminRoute exact path="/admin/sub" component={SubCreate} />
+        <AdminRoute exact path="/admin/sub/:slug" component={SubUpdate} />
+        <AdminRoute exact path="/admin/product/" component={ProductCreate} />
+        <AdminRoute
+          exact
+          path="/admin/product/:slug"
+          component={ProductUpdate}
+        />
+        <AdminRoute exact path="/admin/products/" component={AllProducts} />
       </Switch>
     </>
   );

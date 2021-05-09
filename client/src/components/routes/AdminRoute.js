@@ -4,8 +4,9 @@ import { useEffect, useState } from "react";
 import LoadingToRedirect from "./LoadingToRedirect";
 import { currentAdmin } from "../../functions/auth";
 import { toast } from "react-toastify";
+import AdminSideMenu from "../hoc/AdminSideMenu";
 
-const AdminRoute = ({ children, ...rest }) => {
+const AdminRoute = ({ component, ...rest }) => {
   const [authorized, setAuthorized] = useState(false);
   const { user } = useSelector((state) => ({ ...state }));
 
@@ -14,14 +15,17 @@ const AdminRoute = ({ children, ...rest }) => {
       currentAdmin(user.token)
         .then((admin) => {
           setAuthorized(true);
-          // toast.success("Authorized");
         })
         .catch((error) =>
           toast.error("You are not authorized to access this page")
         );
     }
   }, [user]);
-  return authorized ? <Route {...rest}></Route> : <LoadingToRedirect />;
+  return authorized ? (
+    <Route component={AdminSideMenu(component)} {...rest}></Route>
+  ) : (
+    <LoadingToRedirect />
+  );
 };
 
 export default AdminRoute;
