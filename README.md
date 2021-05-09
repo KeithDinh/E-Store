@@ -47,6 +47,7 @@
 ## CONSTRAINTS/NEED TO IMPROVE
 
 - Cant set customed password validator for firebase forgot password
+- /product/undefine bug
 
 ## GENERALS
 

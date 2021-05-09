@@ -19,7 +19,11 @@ const Register = ({ history }) => {
 
   // redirect after login
   const roleBasedRedirect = (res) => {
-    if (res.data.role === "admin") {
+    const intended = history.location.state;
+    console.log(intended);
+    if (intended) {
+      history.push(intended.from);
+    } else if (res.data.role === "admin") {
       history.push("/admin/dashboard");
     } else {
       history.push("/user/history");
@@ -28,7 +32,10 @@ const Register = ({ history }) => {
 
   // Restrict logged-in users from accessing this login and redirect them to home
   useEffect(() => {
-    if (user && user.token) history.push("/");
+    const intended = history.location.state;
+    if (intended) {
+      history.push(intended.from);
+    } else if (user && user.token) history.push("/");
   }, [user, history]);
 
   const handleSubmit = async (e) => {
