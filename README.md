@@ -42,10 +42,12 @@
   - axios: fetch data
   - react-image-file-resizer
   - react-responsive-carousel
+  - react-star-ratings
 
 ## CONSTRAINTS/NEED TO IMPROVE
 
 - Cant set customed password validator for firebase forgot password
+- /product/undefine bug
 
 ## GENERALS
 
@@ -76,3 +78,4 @@
 
 - populate: display referenced data, only for attribute with 'ref' in model
 - {new: true}: // send the new updated to client instead of the old one
+- findOneAndUpdate - $push in second arg to push data to array type property

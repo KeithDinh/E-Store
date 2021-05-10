@@ -4,13 +4,15 @@ import laptop from "../../images/laptop.png";
 import { Carousel } from "react-responsive-carousel";
 import { Link } from "react-router-dom";
 import { HeartOutlined, ShoppingCartOutlined } from "@ant-design/icons";
+import StarRating from "react-star-ratings";
 
 import ProductInfo from "./ProductInfo";
-
+import RatingModel from "../modal/RatingModal";
 const { TabPane } = Tabs;
 
-const SingleProduct = ({ product }) => {
-  const { title, images, description } = product;
+const SingleProduct = ({ product, onRatingClick, star }) => {
+  const { title, images, description, _id } = product;
+
   return (
     <>
       <div className="col-md-7">
@@ -19,13 +21,19 @@ const SingleProduct = ({ product }) => {
             {images &&
               images.map((img) => (
                 <div key={img.public_id}>
-                  <img src={img.url} />
+                  <img src={img.url} alt={img.url} />
                 </div>
               ))}
           </Carousel>
         ) : (
           <Card
-            cover={<img src={laptop} className="mb-3 slide-default-img" />}
+            cover={
+              <img
+                src={laptop}
+                className="mb-3 slide-default-img"
+                alt="laptop"
+              />
+            }
           ></Card>
         )}
 
@@ -51,6 +59,16 @@ const SingleProduct = ({ product }) => {
               <HeartOutlined className="text-info" /> <br />
               Add to Wishlist
             </Link>,
+            <RatingModel>
+              <StarRating
+                name={_id}
+                starRatedColor="red"
+                isSelectable={true}
+                rating={star}
+                numberOfStars={5}
+                changeRating={onRatingClick}
+              />
+            </RatingModel>,
           ]}
         >
           <ProductInfo product={product} />

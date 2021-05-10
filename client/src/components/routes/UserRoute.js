@@ -3,10 +3,14 @@ import { useSelector } from "react-redux";
 import LoadingToRedirect from "./LoadingToRedirect";
 
 // check if user logged in for private page
-const UserRoute = ({ children, ...rest }) => {
+const UserRoute = (props) => {
   const { user } = useSelector((state) => ({ ...state }));
 
-  return user && user.token ? <Route {...rest}></Route> : <LoadingToRedirect />;
+  return user && user.token ? (
+    <Route {...props}></Route>
+  ) : (
+    <LoadingToRedirect />
+  );
 };
 
 export default UserRoute;
