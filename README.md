@@ -66,7 +66,7 @@
 - clearInterval: remove the setInterval, if not removing, the setInterval will keep continuing infinitely
 - [state, setState]: setState return a callback with default parameter state
 
-  - ex: setState((s) => --s)
+  - ex: setState((s) => s)
 
 - useCallback: wrap around a function that call another function to avoid rerendering
 

@@ -36,7 +36,7 @@ const ProductSeries = ({ sort, order, limit }) => {
         ) : (
           <div className="row">
             {products.map((product) => (
-              <div className="col-md-4">
+              <div key={product._id} className="col-md-4">
                 <ProductCard product={product} />
               </div>
             ))}
