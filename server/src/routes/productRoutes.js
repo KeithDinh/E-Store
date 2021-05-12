@@ -13,6 +13,7 @@ const {
   getProductsCondition,
   productCount,
   productStar,
+  getRelatedProducts,
 } = require("../controllers/productController");
 
 router.route("/product").post(authCheck, adminCheck, createProduct);
@@ -27,4 +28,5 @@ router
 
 router.route("/products").post(getProductsCondition);
 router.route("/product/star/:productId").put(authCheck, productStar);
+router.route("/product/related/:productId").get(getRelatedProducts);
 module.exports = router;
