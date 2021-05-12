@@ -20,7 +20,6 @@ const Register = ({ history }) => {
   // redirect after login
   const roleBasedRedirect = (res) => {
     const intended = history.location.state;
-    console.log(intended);
     if (intended) {
       history.push(intended.from);
     } else if (res.data.role === "admin") {
@@ -34,7 +33,7 @@ const Register = ({ history }) => {
   useEffect(() => {
     const intended = history.location.state;
     if (intended) {
-      history.push(intended.from);
+      return;
     } else if (user && user.token) history.push("/");
   }, [user, history]);
 

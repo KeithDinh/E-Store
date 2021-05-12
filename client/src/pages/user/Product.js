@@ -2,6 +2,7 @@ import { useEffect, useState } from "react";
 import { getProduct, rateProduct } from "../../functions/product";
 import SingleProduct from "../../components/cards/SingleProduct";
 import { useSelector } from "react-redux";
+import { toast } from "react-toastify";
 
 const Product = ({ match }) => {
   const [product, setProduct] = useState("");
@@ -31,7 +32,7 @@ const Product = ({ match }) => {
   const onRatingClick = (newRating, productId) => {
     setStar(newRating);
     rateProduct(productId, newRating, user.token)
-      .then((res) => console.log(res))
+      .then((res) => toast.success("Thank you for your rating!"))
       .catch((err) => console.log(err));
   };
 
