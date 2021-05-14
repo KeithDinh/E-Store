@@ -40,9 +40,12 @@ const Header = () => {
   return (
     <>
       <div className="p-3">
-        <div style={{ color: "red" }} className="display-2 font-weight-bold">
-          E'STORE
-        </div>
+        <h1
+          style={{ color: "red" }}
+          className="mb-0 display-2 font-weight-bold "
+        >
+          <span className="company-name">E'STORE</span>
+        </h1>
       </div>
       <Menu
         onClick={handleClick}

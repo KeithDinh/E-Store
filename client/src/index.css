@@ -5,7 +5,12 @@ form {
 .reset-padding {
   padding: 0 !important;
 }
-
+.company-name {
+  background: -webkit-linear-gradient(330deg, #f00000 40%, #0051ff);
+  /* -webkit-gradient(linear,left top,right bottom, from(#f00000) 70, to(#4930fe) ); */
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
 .slider img,
 .slide-default-img {
   height: 650px;

@@ -70,7 +70,7 @@
 
 - useCallback: wrap around a function that call another function to avoid rerendering
 
-- to access route params from react router dom: 1. {match} match.params.slug 2. import useParams
+- to access route params from react router dom: 1. {match} match.params.slug 2. import useParams from react router dom, and {item} from useParams()
 
 - Ignore warning `/* eslint-disable react-hooks/exhaustive-deps */ `
 
