@@ -9,6 +9,7 @@ const { authCheck, adminCheck } = require("../middlewares/authMiddlewares");
 const {
   createCategory,
   getCategory,
+  getProductsByCategory,
   updateCategory,
   removeCategory,
   getCategories,
@@ -21,6 +22,7 @@ router.route("/category").post(authCheck, adminCheck, createCategory);
 router
   .route("/category/:slug")
   .get(getCategory)
+  .get(getProductsByCategory)
   .put(authCheck, adminCheck, updateCategory)
   .delete(authCheck, adminCheck, removeCategory);
 

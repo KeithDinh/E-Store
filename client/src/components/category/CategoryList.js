@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { getCategories } from "../../../functions/category";
+import { getCategories } from "../../functions/category";
 import { Link } from "react-router-dom";
 
 const CategoryList = () => {
@@ -18,7 +18,7 @@ const CategoryList = () => {
     categories.map((c) => (
       <div
         name={c._id}
-        className="col btn btn-outlined-primary btn-lg btn-block btn-raised m-3"
+        className="col md-3 btn btn-outlined-primary btn-lg btn-block btn-raised m-3"
       >
         <Link to={`/category/${c.slug}`}> {c.name} </Link>
       </div>

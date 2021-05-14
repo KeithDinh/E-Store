@@ -1,4 +1,5 @@
 const Category = require("../models/category");
+const Product = require("../models/category");
 const Sub = require("../models/sub");
 const slugify = require("slugify");
 
@@ -50,5 +51,18 @@ exports.getSubs = async (req, res) => {
   Sub.find({ parent: req.params._id }).exec((err, subs) => {
     if (err) console.log(err);
     res.json(subs);
+  });
+};
+
+exports.getProductsByCategory = async (req, res) => {
+  let category = Category.findOne({ slug: req.params.slug }).exec();
+  const products = await Product.find({ category })
+    .populate("category")
+    .populate("postedBy", "_id name")
+    .exec();
+
+  res.json({
+    category,
+    products,
   });
 };
