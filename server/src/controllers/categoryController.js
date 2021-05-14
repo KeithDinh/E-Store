@@ -53,16 +53,3 @@ exports.getSubs = async (req, res) => {
     res.json(subs);
   });
 };
-
-exports.getProductsByCategory = async (req, res) => {
-  let category = Category.findOne({ slug: req.params.slug }).exec();
-  const products = await Product.find({ category })
-    .populate("category")
-    .populate("postedBy", "_id name")
-    .exec();
-
-  res.json({
-    category,
-    products,
-  });
-};

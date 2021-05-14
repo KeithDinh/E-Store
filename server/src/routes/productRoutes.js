@@ -11,6 +11,7 @@ const {
   getProduct,
   updateProduct,
   getProductsCondition,
+  getProductsByCategory,
   productCount,
   productStar,
   getRelatedProducts,
@@ -27,6 +28,7 @@ router
   .put(authCheck, adminCheck, updateProduct);
 
 router.route("/products").post(getProductsCondition);
+router.route("/products/category/:slug").get(getProductsByCategory);
 router.route("/product/star/:productId").put(authCheck, productStar);
 router.route("/product/related/:productId").get(getRelatedProducts);
 module.exports = router;

@@ -1,5 +1,6 @@
 const Product = require("../models/product");
 const User = require("../models/user");
+const Category = require("../models/category");
 
 const slugify = require("slugify");
 const cloudinary = require("cloudinary");
@@ -152,4 +153,17 @@ exports.getRelatedProducts = async (req, res) => {
     .exec();
 
   res.json(related);
+};
+
+exports.getProductsByCategory = async (req, res) => {
+  let category = await Category.findOne({ slug: req.params.slug }).exec();
+  const products = await Product.find({ category })
+    .populate("category")
+    .populate("postedBy", "_id name")
+    .exec();
+
+  res.json({
+    category,
+    products,
+  });
 };

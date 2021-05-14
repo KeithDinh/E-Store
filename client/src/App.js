@@ -23,6 +23,7 @@ import ProductCreate from "./pages/admin/product/ProductCreate";
 import ProductUpdate from "./pages/admin/product/ProductUpdate";
 import AllProducts from "./pages/admin/product/AllProducts";
 import Product from "./pages/user/Product";
+import CategoryHome from "./pages/user/CategoryHome";
 
 import { currentUser } from "./functions/auth";
 import { auth } from "./config/firebase";
@@ -67,6 +68,7 @@ const App = () => {
         <Route exact path="/register" component={Register} />
         <Route exact path="/forgot/password" component={ForgotPassword} />
         <Route exact path="/product/:slug" component={Product} />
+        <Route exact path="/products/category/:slug" component={CategoryHome} />
         <Route
           strict
           path="/register/complete/:email"
