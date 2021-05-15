@@ -12,6 +12,7 @@ const {
   updateProduct,
   getProductsCondition,
   getProductsByCategory,
+  getProductsBySub,
   productCount,
   productStar,
   getRelatedProducts,
@@ -28,7 +29,11 @@ router
   .put(authCheck, adminCheck, updateProduct);
 
 router.route("/products").post(getProductsCondition);
-router.route("/products/category/:slug").get(getProductsByCategory);
 router.route("/product/star/:productId").put(authCheck, productStar);
 router.route("/product/related/:productId").get(getRelatedProducts);
+router.route("/products/category/:slug").get(getProductsByCategory);
+
+router.route("/products/category/:slug").get(getProductsByCategory);
+router.route("/products/subs/:slug").get(getProductsBySub);
+
 module.exports = router;
