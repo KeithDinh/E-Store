@@ -1,8 +1,7 @@
 import { useEffect, useState } from "react";
-import { Link, useParams } from "react-router-dom";
+import { useParams } from "react-router-dom";
 
 import ProductCard from "../../components/cards/ProductCard";
-import CategoryList from "../../components/category/CategoryList";
 
 import { getProductsByCategory } from "../../functions/product";
 
@@ -20,6 +19,7 @@ const CategoryHome = () => {
       setLoading(false);
     });
   }, []);
+
   return (
     <div className="container">
       <div className="row">
@@ -28,7 +28,7 @@ const CategoryHome = () => {
             <h4 className="text-center p-3 mb-5 display-3">Loading...</h4>
           ) : (
             <h4 className="text-center p-3 mb-5 display-3">
-              {products && products.length} {category.name} products
+              {products && products.length} <b>{category.name}</b> products
             </h4>
           )}
         </div>

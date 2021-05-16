@@ -77,19 +77,19 @@ const Header = () => {
         theme="dark"
         selectedKeys={[current]}
         mode="horizontal"
-        className="text-white mb-3"
+        className="mb-3"
       >
         <Item key="home" icon={<AppstoreOutlined />}>
           <Link to="/">Home</Link>
         </Item>
-        <SubMenu title="brands" icon={<LaptopOutlined />}>
+        <SubMenu title="Brands" icon={<LaptopOutlined />}>
           {loading ? (
             <h4 className="text-center">Loading...</h4>
           ) : (
             showCategories()
           )}
         </SubMenu>
-        <Item key="Categories" icon={<AlignCenterOutlined />}>
+        <Item key="category" icon={<AlignCenterOutlined />}>
           <Link to="/category">Category</Link>
         </Item>
         {!user ? (

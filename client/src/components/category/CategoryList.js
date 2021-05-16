@@ -16,12 +16,12 @@ const CategoryList = () => {
 
   const showCategories = () =>
     categories.map((c) => (
-      <div
-        key={c._id}
-        className="col md-3 btn btn-outlined-primary btn-lg btn-block btn-raised m-3"
+      <Link
+        className="text-info col-md-2 btn btn-outlined-primary btn-lg btn-block btn-raised m-3"
+        to={`/products/category/${c.slug}`}
       >
-        <Link to={`/products/category/${c.slug}`}> {c.name} </Link>
-      </div>
+        {c.name}
+      </Link>
     ));
   return (
     <div className="container">

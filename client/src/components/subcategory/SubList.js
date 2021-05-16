@@ -16,12 +16,13 @@ const SubList = () => {
 
   const showSubs = () =>
     subs.map((c) => (
-      <div
+      <Link
         key={c._id}
-        className="col md-3 btn btn-outlined-primary btn-lg btn-block btn-raised m-3"
+        className="text-info col md-3 btn btn-outlined-primary btn-lg btn-block btn-raised m-3"
+        to={`/products/subcategory/${c.slug}`}
       >
-        <Link to={`/products/category/${c.slug}`}> {c.name} </Link>
-      </div>
+        {c.name}
+      </Link>
     ));
   return (
     <div className="container">

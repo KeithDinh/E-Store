@@ -34,6 +34,6 @@ router.route("/product/related/:productId").get(getRelatedProducts);
 router.route("/products/category/:slug").get(getProductsByCategory);
 
 router.route("/products/category/:slug").get(getProductsByCategory);
-router.route("/products/subs/:slug").get(getProductsBySub);
+router.route("/products/subcategory/:slug").get(getProductsBySub);
 
 module.exports = router;
