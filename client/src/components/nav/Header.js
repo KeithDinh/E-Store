@@ -6,24 +6,49 @@ import { Link } from "react-router-dom";
 import { Menu } from "antd";
 import {
   AppstoreOutlined,
+  LaptopOutlined,
   SettingOutlined,
   UserOutlined,
   UserAddOutlined,
   LogoutOutlined,
+  AlignCenterOutlined,
 } from "@ant-design/icons";
+
+import { getCategories } from "../../functions/category";
 
 const { SubMenu, Item } = Menu;
 
 const Header = () => {
   const [current, setCurrent] = useState("home");
-  let dispatch = useDispatch();
-  let history = useHistory();
+  const [categories, setCategories] = useState([]);
+  const [loading, setLoading] = useState(false);
+
   let { user } = useSelector((state) => ({ ...state }));
+  let dispatch = useDispatch();
+
+  let history = useHistory();
+
+  useEffect(() => {
+    setLoading(true);
+    getCategories().then((res) => {
+      setCategories(res.data);
+      setLoading(false);
+    });
+  }, []);
+
+  useEffect(() => {}, [user]);
+
   const handleClick = (e) => {
     setCurrent(e.key);
   };
-
-  useEffect(() => {}, [user]);
+  const showCategories = () =>
+    categories
+      .filter((c) => c.name !== "Others")
+      .map((c) => (
+        <Item key={c.name}>
+          <Link to={`/products/category/${c.slug}`}> {c.name} </Link>
+        </Item>
+      ));
 
   const logout = () => {
     firebase.auth().signOut();
@@ -56,6 +81,16 @@ const Header = () => {
       >
         <Item key="home" icon={<AppstoreOutlined />}>
           <Link to="/">Home</Link>
+        </Item>
+        <SubMenu title="brands" icon={<LaptopOutlined />}>
+          {loading ? (
+            <h4 className="text-center">Loading...</h4>
+          ) : (
+            showCategories()
+          )}
+        </SubMenu>
+        <Item key="Categories" icon={<AlignCenterOutlined />}>
+          <Link to="/category">Category</Link>
         </Item>
         {!user ? (
           <>
