@@ -64,14 +64,22 @@ const Header = () => {
 
   return (
     <>
-      <div className="p-3">
-        <h1
-          style={{ color: "red" }}
-          className="mb-0 display-2 font-weight-bold "
-        >
-          <span className="company-name">E'STORE</span>
-        </h1>
+      <div className="container-fluid">
+        <div className="row">
+          <div className="p-3 col-sm-2">
+            <h1 className="mb-0 font-weight-bold ">
+              <span className="company-name">E'STORE</span>
+            </h1>
+          </div>
+          <div className="pt-3 col col-sm-9 marquee">
+            <h1 className="mb-0 font-weight-bold">
+              Provide high-quality computers and accessories. Build your dream
+              gaming PC. Make your workstation faster than ever!
+            </h1>
+          </div>
+        </div>
       </div>
+
       <Menu
         onClick={handleClick}
         theme="dark"
@@ -86,7 +94,12 @@ const Header = () => {
           {loading ? (
             <h4 className="text-center">Loading...</h4>
           ) : (
-            showCategories()
+            <>
+              {showCategories()}
+              <Item key="Others">
+                <Link to={`/products/category/others`}> Others </Link>
+              </Item>
+            </>
           )}
         </SubMenu>
         <Item key="category" icon={<AlignCenterOutlined />}>

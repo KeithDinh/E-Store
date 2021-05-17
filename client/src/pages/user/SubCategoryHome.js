@@ -18,7 +18,7 @@ const CategoryHome = () => {
       setProducts(c.data.products);
       setLoading(false);
     });
-  }, []);
+  }, [slug]);
 
   return (
     <div className="container">
