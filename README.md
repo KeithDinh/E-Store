@@ -69,6 +69,11 @@
 
 - Ignore warning `/* eslint-disable react-hooks/exhaustive-deps */ `
 
+## REDUX
+
+- Redux is needed when data is required in different pages/component
+- Reducer is a function that takes in a state and an action, perform the action to update the state, then return new state
+
 # MONGODB
 
 - populate: display referenced data, only for attribute with 'ref' in model
