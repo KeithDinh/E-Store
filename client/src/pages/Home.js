@@ -1,6 +1,3 @@
-// import { useEffect, useState } from "react";
-// import { LoadingOutlined } from "@ant-design/icons";
-
 import ProductSeries from "../components/home/ProductSeries";
 
 const Home = () => {

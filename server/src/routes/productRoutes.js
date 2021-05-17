@@ -16,6 +16,7 @@ const {
   productCount,
   productStar,
   getRelatedProducts,
+  searchProductByFilters,
 } = require("../controllers/productController");
 
 router.route("/product").post(authCheck, adminCheck, createProduct);
@@ -36,4 +37,5 @@ router.route("/products/category/:slug").get(getProductsByCategory);
 router.route("/products/category/:slug").get(getProductsByCategory);
 router.route("/products/subcategory/:slug").get(getProductsBySub);
 
+router.route("/search/filters").post(searchProductByFilters);
 module.exports = router;
