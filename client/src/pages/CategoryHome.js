@@ -1,24 +1,24 @@
 import { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 
-import ProductCard from "../../components/cards/ProductCard";
+import ProductCard from "../components/cards/ProductCard";
 
-import { getProductsBySub } from "../../functions/product";
+import { getProductsByCategory } from "../functions/product";
 
 const CategoryHome = () => {
   const { slug } = useParams();
   const [products, setProducts] = useState([]);
   const [loading, setLoading] = useState(false);
-  const [sub, setSub] = useState({});
+  const [category, setCategory] = useState({});
 
   useEffect(() => {
     setLoading(true);
-    getProductsBySub(slug).then((c) => {
-      setSub(c.data.sub);
+    getProductsByCategory(slug).then((c) => {
+      setCategory(c.data.category);
       setProducts(c.data.products);
       setLoading(false);
     });
-  }, [slug]);
+  }, [slug]); // listen to slug updates to prevent BUG #3 README
 
   return (
     <div className="container">
@@ -28,7 +28,7 @@ const CategoryHome = () => {
             <h4 className="text-center p-3 mb-5 display-3">Loading...</h4>
           ) : (
             <h4 className="text-center p-3 mb-5 display-3">
-              {products && products.length} <b>{sub.name}</b> products
+              {products && products.length} <b>{category.name}</b> products
             </h4>
           )}
         </div>

@@ -1,5 +1,5 @@
-import CategoryList from "../../components/category/CategoryList";
-import SubList from "../../components/subcategory/SubList";
+import CategoryList from "../components/category/CategoryList";
+import SubList from "../components/subcategory/SubList";
 const Home = () => {
   return (
     <>

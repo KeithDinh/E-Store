@@ -1,10 +1,10 @@
 import { useEffect, useState } from "react";
-import { getProduct, getRelated, rateProduct } from "../../functions/product";
-import SingleProduct from "../../components/cards/SingleProduct";
+import { getProduct, getRelated, rateProduct } from "../functions/product";
+import SingleProduct from "../components/cards/SingleProduct";
 import { useSelector } from "react-redux";
 import { toast } from "react-toastify";
 
-import ProductCard from "../../components/cards/ProductCard";
+import ProductCard from "../components/cards/ProductCard";
 
 const Product = ({ match }) => {
   const [product, setProduct] = useState("");

@@ -22,10 +22,11 @@ import SubUpdate from "./pages/admin/sub/SubUpdate";
 import ProductCreate from "./pages/admin/product/ProductCreate";
 import ProductUpdate from "./pages/admin/product/ProductUpdate";
 import AllProducts from "./pages/admin/product/AllProducts";
-import Product from "./pages/user/Product";
-import CategoryHome from "./pages/user/CategoryHome";
-import SubCategoryHome from "./pages/user/SubCategoryHome";
-import Category from "./pages/user/Category"
+import Product from "./pages/Product";
+import CategoryHome from "./pages/CategoryHome";
+import SubCategoryHome from "./pages/SubCategoryHome";
+import Category from "./pages/Category";
+import Shop from "./pages/Shop";
 
 import { currentUser } from "./functions/auth";
 import { auth } from "./config/firebase";
@@ -72,8 +73,17 @@ const App = () => {
         <Route exact path="/product/:slug" component={Product} />
         <Route exact path="/category" component={Category} />
         <Route exact path="/products/category/:slug" component={CategoryHome} />
-        <Route exact path="/products/subcategory/:slug" component={SubCategoryHome} />
-        <Route strict path="/register/complete/:email" component={RegisterComplete} />
+        <Route
+          exact
+          path="/products/subcategory/:slug"
+          component={SubCategoryHome}
+        />
+        <Route
+          strict
+          path="/register/complete/:email"
+          component={RegisterComplete}
+        />
+        <Route exact path="/shop" component={Shop} />
 
         <UserRoute exact path="/user/history" component={History} />
         <UserRoute exact path="/user/password" component={Password} />
@@ -81,11 +91,19 @@ const App = () => {
         <AdminRoute exact path="/admin/dashboard" component={AdminDashboard} />
         <AdminRoute exact path="/admin/category" component={CategoryCreate} />
 
-        <AdminRoute exact path="/admin/category/:slug" component={CategoryUpdate} />
+        <AdminRoute
+          exact
+          path="/admin/category/:slug"
+          component={CategoryUpdate}
+        />
         <AdminRoute exact path="/admin/sub" component={SubCreate} />
         <AdminRoute exact path="/admin/sub/:slug" component={SubUpdate} />
         <AdminRoute exact path="/admin/product/" component={ProductCreate} />
-        <AdminRoute exact path="/admin/product/:slug" component={ProductUpdate} />
+        <AdminRoute
+          exact
+          path="/admin/product/:slug"
+          component={ProductUpdate}
+        />
         <AdminRoute exact path="/admin/products/" component={AllProducts} />
       </Switch>
     </>

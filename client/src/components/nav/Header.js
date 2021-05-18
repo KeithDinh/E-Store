@@ -15,6 +15,7 @@ import {
 } from "@ant-design/icons";
 
 import { getCategories } from "../../functions/category";
+import Search from "../forms/Search";
 
 const { SubMenu, Item } = Menu;
 
@@ -140,6 +141,10 @@ const Header = () => {
             </Item>
           </SubMenu>
         )}
+
+        <span className="float-right p-1 ">
+          <Search />
+        </span>
       </Menu>
     </>
   );
