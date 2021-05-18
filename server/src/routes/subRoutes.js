@@ -7,21 +7,21 @@ const { authCheck, adminCheck } = require("../middlewares/authMiddlewares");
 
 // from controller
 const {
-  create,
-  retrieve,
-  update,
-  remove,
-  getAll,
+  createSub,
+  getSub,
+  updateSub,
+  removeSub,
+  getSubs,
 } = require("../controllers/subController");
 
 // route
-router.route("/sub").post(authCheck, adminCheck, create);
+router.route("/sub").post(authCheck, adminCheck, createSub);
 router
   .route("/sub/:slug")
-  .get(retrieve)
-  .put(authCheck, adminCheck, update)
-  .delete(authCheck, adminCheck, remove);
+  .get(getSub)
+  .put(authCheck, adminCheck, updateSub)
+  .delete(authCheck, adminCheck, removeSub);
 
-router.route("/subs").get(getAll);
+router.route("/subs").get(getSubs);
 
 module.exports = router;

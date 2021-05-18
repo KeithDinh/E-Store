@@ -1,7 +1,7 @@
 const Sub = require("../models/sub");
 const slugify = require("slugify");
 
-exports.create = async (req, res) => {
+exports.createSub = async (req, res) => {
   try {
     const { name, parent } = req.body;
     console.log(name, parent);
@@ -19,11 +19,11 @@ exports.create = async (req, res) => {
   }
 };
 
-exports.retrieve = async (req, res) => {
+exports.getSub = async (req, res) => {
   res.status(200).json(await Sub.findOne({ slug: req.params.slug }).exec());
 };
 
-exports.update = async (req, res) => {
+exports.updateSub = async (req, res) => {
   const { name, parent } = req.body;
   try {
     const updated = await Sub.findOneAndUpdate(
@@ -42,7 +42,7 @@ exports.update = async (req, res) => {
   }
 };
 
-exports.remove = async (req, res) => {
+exports.removeSub = async (req, res) => {
   try {
     const deleted = await Sub.findOneAndDelete({ slug: req.params.slug });
     res.json(deleted);
@@ -51,6 +51,6 @@ exports.remove = async (req, res) => {
   }
 };
 
-exports.getAll = async (req, res) => {
+exports.getSubs = async (req, res) => {
   res.status(200).json(await Sub.find({}).sort({ createdAt: -1 }).exec());
 };

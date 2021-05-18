@@ -44,11 +44,6 @@
   - react-responsive-carousel
   - react-star-ratings
 
-## CONSTRAINTS/NEED TO IMPROVE
-
-- Cant set customed password validator for firebase forgot password
-- /product/undefine bug
-
 ## GENERALS
 
 - React-router Route: need keyword "exact"
@@ -74,8 +69,23 @@
 
 - Ignore warning `/* eslint-disable react-hooks/exhaustive-deps */ `
 
+## REDUX
+
+- Redux is needed when data is required in different pages/component
+- Reducer is a function that takes in a state and an action, perform the action to update the state, then return new state
+
 # MONGODB
 
 - populate: display referenced data, only for attribute with 'ref' in model
 - {new: true}: // send the new updated to client instead of the old one
 - findOneAndUpdate - $push in second arg to push data to array type property
+
+# BUG
+
+- #1 Cant set customed password validator for firebase forgot password
+- #2 /product/undefine bug
+- #3 URL change but not component when click on Brands menu item multiple times.
+
+## SOLUTIONS:
+
+- #3: listen to a state in useEffect

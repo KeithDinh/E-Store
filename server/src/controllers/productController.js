@@ -1,6 +1,7 @@
 const Product = require("../models/product");
 const User = require("../models/user");
 const Category = require("../models/category");
+const Sub = require("../models/sub");
 
 const slugify = require("slugify");
 const cloudinary = require("cloudinary");
@@ -166,4 +167,34 @@ exports.getProductsByCategory = async (req, res) => {
     category,
     products,
   });
+};
+
+exports.getProductsBySub = async (req, res) => {
+  let sub = await Sub.findOne({ slug: req.params.slug }).exec();
+  const products = await Product.find({ subs: sub })
+    .populate("category")
+    .populate("postedBy", "_id name")
+    .exec();
+
+  res.json({
+    sub,
+    products,
+  });
+};
+
+const handleQuery = async (req, res, query) => {
+  const products = await Product.find({ $text: { $search: query } })
+    .populate("category", "_id name")
+    .populate("subs", "_id name")
+    .populate("postedBy", "_id name")
+    .exec();
+  res.json(products);
+};
+exports.searchProductByFilters = async (req, res) => {
+  const { query } = req.body;
+
+  if (query) {
+    console.log("query", query);
+    await handleQuery(req, res, query);
+  }
 };

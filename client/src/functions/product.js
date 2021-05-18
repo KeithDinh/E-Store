@@ -28,6 +28,9 @@ export const getProductsByCount = async (count) =>
 export const getProductsByCategory = async (slug) =>
   await axios.get(`${apiUrl}/products/category/${slug}`);
 
+export const getProductsBySub = async (slug) =>
+  await axios.get(`${apiUrl}/products/subcategory/${slug}`);
+
 export const getProducts = async (sort, order, page) =>
   await axios.post(`${apiUrl}/products/`, {
     sort,
