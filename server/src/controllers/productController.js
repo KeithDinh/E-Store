@@ -190,7 +190,9 @@ const handleQuery = async (req, res, query) => {
     .exec();
   res.json(products);
 };
+
 exports.searchProductByFilters = async (req, res) => {
+  // destructure {query: text}
   const { query } = req.body;
 
   if (query) {

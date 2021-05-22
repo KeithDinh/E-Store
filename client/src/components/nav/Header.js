@@ -12,6 +12,7 @@ import {
   UserAddOutlined,
   LogoutOutlined,
   AlignCenterOutlined,
+  ShoppingOutlined,
 } from "@ant-design/icons";
 
 import { getCategories } from "../../functions/category";
@@ -105,6 +106,9 @@ const Header = () => {
         </SubMenu>
         <Item key="category" icon={<AlignCenterOutlined />}>
           <Link to="/category">Category</Link>
+        </Item>
+        <Item key="shop" icon={<ShoppingOutlined />}>
+          <Link to="/shop">Shop</Link>
         </Item>
         {!user ? (
           <>

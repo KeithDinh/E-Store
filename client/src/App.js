@@ -9,6 +9,7 @@ import Home from "./pages/Home";
 import Register from "./pages/auth/Register";
 import Login from "./pages/auth/Login";
 import Header from "./components/nav/Header";
+import Footer from "./components/footer/Footer";
 import RegisterComplete from "./pages/auth/RegisterComplete";
 import ForgotPassword from "./pages/auth/ForgotPassword";
 import History from "./pages/user/History";
@@ -106,6 +107,7 @@ const App = () => {
         />
         <AdminRoute exact path="/admin/products/" component={AllProducts} />
       </Switch>
+      {/* <Footer /> */}
     </>
   );
 };

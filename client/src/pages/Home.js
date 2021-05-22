@@ -3,10 +3,14 @@ import ProductSeries from "../components/home/ProductSeries";
 const Home = () => {
   return (
     <>
-      <h4 className="text-center p-3 mb-5 display-3">New Arrivals</h4>
+      <div className="container">
+        <h4 className="p-3 mb-5 display-4 font-weight-bold">New Arrivals</h4>
+      </div>
       <ProductSeries sort="createdAt" order="desc" limit={3} />
 
-      <h4 className="text-center p-3 mb-5 display-3">Best Seller</h4>
+      <div className="container">
+        <h4 className="p-3 mb-5 display-4 font-weight-bold">Best Seller</h4>
+      </div>
       <ProductSeries sort="sold" order="desc" limit={3} />
     </>
   );

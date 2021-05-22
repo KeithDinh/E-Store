@@ -85,6 +85,12 @@
 - #1 Cant set customed password validator for firebase forgot password
 - #2 /product/undefine bug
 - #3 URL change but not component when click on Brands menu item multiple times.
+- #4 menu item highlight resets when refresh page
+- #5 spam clicking on different menu items freezes the app, have to wait for 1-2 minutes
+
+## APPROACH
+
+- #5 it's due to the shop page (too many calls to filter api)
 
 ## SOLUTIONS:
 
