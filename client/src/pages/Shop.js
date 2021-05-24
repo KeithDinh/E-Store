@@ -56,6 +56,8 @@ const Shop = () => {
       type: "SEARCH_QUERY",
       payload: { text: "" },
     });
+    setCategoryIds([]);
+
     setPrice(value);
     setTimeout(() => {
       setDelayRequest(!delayRequest);
@@ -71,6 +73,7 @@ const Shop = () => {
           className="pt-2 pb-2 pl-4 pr-4"
           value={c._id}
           name="category"
+          checked={categoryIds.includes(c._id)}
         >
           {c.name}
         </Checkbox>
@@ -78,14 +81,21 @@ const Shop = () => {
     ));
 
   const handleCheckbox = (e) => {
+    dispatch({
+      type: "SEARCH_QUERY",
+      payload: { text: "" },
+    });
+    setCategoryIds([]);
+    setPrice([0, 0]);
     let inTheState = [...categoryIds];
-    let justChecked = e.target.value;
-    let foundInTheState = inTheState.indexOf(justChecked);
+    let foundInTheState = inTheState.indexOf(e.target.value);
 
-    if (foundInTheState === -1) inTheState.push(justChecked);
+    if (foundInTheState === -1) inTheState.push(e.target.value);
     else inTheState.splice(foundInTheState, 1);
 
     setCategoryIds(inTheState);
+
+    loadProductsByFilters({ category: inTheState });
   };
   return (
     <div className="container-fluid">

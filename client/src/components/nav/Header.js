@@ -21,7 +21,7 @@ import Search from "../forms/Search";
 const { SubMenu, Item } = Menu;
 
 const Header = () => {
-  const [current, setCurrent] = useState("home");
+  const [current, setCurrent] = useState("");
   const [categories, setCategories] = useState([]);
   const [loading, setLoading] = useState(false);
 
@@ -42,9 +42,9 @@ const Header = () => {
 
   // fix BUG#4
   const checkLocation = (pathName) => {
-    if (pathName.includes("home")) return;
+    if (pathName.includes("home")) setCurrent("home");
     if (pathName.includes("products/category/")) {
-      let categoryName = pathName.match(/([^/]+$)/);
+      let categoryName = pathName.match(/([^/]+$)/); // get everything after the last backslash
       setCurrent(categoryName[0]);
     } else if (pathName.includes("category")) setCurrent("category");
     else if (pathName.includes("shop")) setCurrent("shop");
