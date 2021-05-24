@@ -2,8 +2,13 @@ import { useState, useEffect } from "react";
 import { getProductsByCount, getProductsByFilter } from "../functions/product";
 import { useSelector, useDispatch } from "react-redux";
 import ProductCard from "../components/cards/ProductCard";
+import Star from "../components/forms/Star";
 import { Menu, Slider, Checkbox } from "antd";
-import { DollarOutlined, DownSquareOutlined } from "@ant-design/icons";
+import {
+  DollarOutlined,
+  DownSquareOutlined,
+  StarOutlined,
+} from "@ant-design/icons";
 import { getCategories } from "../functions/category";
 
 const { SubMenu, ItemGroup } = Menu;
@@ -15,6 +20,7 @@ const Shop = () => {
   const [categories, setCategories] = useState([]);
   const [delayRequest, setDelayRequest] = useState(false);
   const [categoryIds, setCategoryIds] = useState([]);
+  const [star, setStar] = useState(0);
 
   let dispatch = useDispatch();
   let { search } = useSelector((state) => ({ ...state }));
@@ -37,7 +43,8 @@ const Shop = () => {
   // 2 load products with filter/search
   useEffect(() => {
     const delayed = setTimeout(() => {
-      loadProductsByFilters({ query: text });
+      if (text != "") loadProductsByFilters({ query: text });
+      else loadAllProducts();
     }, 700);
 
     return () => clearTimeout(delayed);
@@ -57,6 +64,7 @@ const Shop = () => {
       payload: { text: "" },
     });
     setCategoryIds([]);
+    setStar("");
 
     setPrice(value);
     setTimeout(() => {
@@ -87,6 +95,8 @@ const Shop = () => {
     });
     setCategoryIds([]);
     setPrice([0, 0]);
+    setStar("");
+
     let inTheState = [...categoryIds];
     let foundInTheState = inTheState.indexOf(e.target.value);
 
@@ -97,13 +107,36 @@ const Shop = () => {
 
     loadProductsByFilters({ category: inTheState });
   };
+
+  // 5 load products by star ratings
+  const handleStarClick = (number) => {
+    dispatch({
+      type: "SEARCH_QUERY",
+      payload: { text: "" },
+    });
+    setCategoryIds([]);
+    setPrice([0, 0]);
+
+    setStar(number);
+    loadProductsByFilters({ stars: number });
+  };
+  const showStar = () => (
+    <div className="pr-4 pl-4 pb-2">
+      <Star handleStarClick={handleStarClick} numberOfStars={5} />
+      <Star handleStarClick={handleStarClick} numberOfStars={4} />
+      <Star handleStarClick={handleStarClick} numberOfStars={3} />
+      <Star handleStarClick={handleStarClick} numberOfStars={2} />
+      <Star handleStarClick={handleStarClick} numberOfStars={1} />
+    </div>
+  );
+
   return (
     <div className="container-fluid">
       <div className="row">
         <div className="col-md-2 pt-3">
           <h4>Filters</h4>
           <hr />
-          <Menu defaultOpenKeys={["1", "2"]} mode="inline">
+          <Menu defaultOpenKeys={["1", "2", "3"]} mode="inline">
             {/* Price slider  */}
             <SubMenu
               key="1"
@@ -135,6 +168,18 @@ const Shop = () => {
               }
             >
               <div>{categories && showCategories()}</div>
+            </SubMenu>
+
+            {/* Rating */}
+            <SubMenu
+              key="3"
+              title={
+                <span className="h6">
+                  <StarOutlined /> Rating
+                </span>
+              }
+            >
+              <div>{showStar()}</div>
             </SubMenu>
           </Menu>
         </div>

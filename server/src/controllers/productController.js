@@ -5,6 +5,7 @@ const Sub = require("../models/sub");
 
 const slugify = require("slugify");
 const cloudinary = require("cloudinary");
+const ProductFilters = require("../utils/productFilters");
 
 exports.getProduct = async (req, res) => {
   const product = await Product.findOne({ slug: req.params.slug })
@@ -182,61 +183,17 @@ exports.getProductsBySub = async (req, res) => {
   });
 };
 
-const handleQuery = async (req, res, query) => {
-  const products = await Product.find({ $text: { $search: query } })
-    .populate("category", "_id name")
-    .populate("subs", "_id name")
-    .populate("postedBy", "_id name")
-    .exec();
-  res.json(products);
-};
-
-const handlePrice = async (req, res, price) => {
-  try {
-    let products = await Product.find({
-      price: {
-        $gte: price[0],
-        $lte: price[1],
-      },
-    })
-      .populate("category", "_id name")
-      .populate("subs", "_id name")
-      .populate("postedBy", "_id name")
-      .exec();
-
-    res.json(products);
-  } catch (error) {
-    console.log(error);
-  }
-};
-
-const handleCategory = async (req, res, category) => {
-  try {
-    let products = await Product.find({ category })
-      .populate("category", "_id name")
-      .populate("subs", "_id name")
-      .populate("postedBy", "_id name")
-      .exec();
-    res.json(products);
-  } catch (error) {
-    console.log(error);
-  }
-};
 exports.searchProductByFilters = async (req, res) => {
   // destructure {query: text}
-  const { query, price, category } = req.body;
+  const { query, price, category, stars, shipping, color, brand } = req.body;
+  var productFilter = new ProductFilters(res, Product);
 
-  if (query) {
-    console.log("query", query);
-    await handleQuery(req, res, query);
-  }
-
+  if (query) await productFilter.handleQuery(query);
   // price [0, 20]
-  if (price !== undefined) {
-    await handlePrice(req, res, price);
-  }
-
-  if (category) {
-    await handleCategory(req, res, category);
-  }
+  else if (price !== undefined) await productFilter.handlePrice(price);
+  else if (category) await productFilter.handleCategory(category);
+  else if (stars) await productFilter.handleRating(stars);
+  else if (shipping) await productFilter.handleShipping(shipping);
+  else if (color) await productFilter.handleColor(color);
+  else if (brand) await productFilter.handleBrand(brand);
 };
