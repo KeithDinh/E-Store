@@ -1,7 +1,8 @@
 import { useEffect, useState } from "react";
 import { toast } from "react-toastify";
 import { useSelector } from "react-redux";
-import { createProduct, getSubCategories } from "../../../functions/product";
+import { createProduct } from "../../../functions/product";
+import { getSubCategories } from "../../../functions/category";
 import { getCategories } from "../../../functions/category";
 import { LoadingOutlined } from "@ant-design/icons";
 

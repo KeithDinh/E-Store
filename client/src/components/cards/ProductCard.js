@@ -7,7 +7,7 @@ import laptop from "../../images/laptop.png";
 
 const { Meta } = Card;
 const ProductCard = ({ product }) => {
-  const { title, description, images, slug } = product;
+  const { title, description, images, slug, price } = product;
   return (
     <>
       {product && product.ratings.length > 0 ? (
@@ -35,7 +35,11 @@ const ProductCard = ({ product }) => {
         ]}
       >
         <Meta
-          title={title}
+          title={
+            <div>
+              {title} <h5 className="text-warning">${price}</h5>
+            </div>
+          }
           description={`${
             description && description.split(" ").splice(0, 10).join(" ")
           }...`}

@@ -1,6 +1,6 @@
 import { useState, useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { useHistory } from "react-router-dom";
+import { useHistory, useLocation } from "react-router-dom";
 import firebase from "firebase";
 import { Link } from "react-router-dom";
 import { Menu } from "antd";
@@ -25,29 +25,39 @@ const Header = () => {
   const [categories, setCategories] = useState([]);
   const [loading, setLoading] = useState(false);
 
+  const pathname = useLocation().pathname;
   let { user } = useSelector((state) => ({ ...state }));
   let dispatch = useDispatch();
 
   let history = useHistory();
 
   useEffect(() => {
+    checkLocation(pathname);
     setLoading(true);
     getCategories().then((res) => {
       setCategories(res.data);
       setLoading(false);
     });
-  }, []);
+  }, [pathname]);
 
-  useEffect(() => {}, [user]);
+  // fix BUG#4
+  const checkLocation = (pathName) => {
+    if (pathName.includes("home")) return;
+    if (pathName.includes("products/category/")) {
+      let categoryName = pathName.match(/([^/]+$)/);
+      setCurrent(categoryName[0]);
+    } else if (pathName.includes("category")) setCurrent("category");
+    else if (pathName.includes("shop")) setCurrent("shop");
+  };
 
   const handleClick = (e) => {
     setCurrent(e.key);
   };
   const showCategories = () =>
     categories
-      .filter((c) => c.name !== "Others")
+      .filter((c) => c.slug !== "others")
       .map((c) => (
-        <Item key={c.name}>
+        <Item key={c.slug}>
           <Link to={`/products/category/${c.slug}`}> {c.name} </Link>
         </Item>
       ));
@@ -92,13 +102,13 @@ const Header = () => {
         <Item key="home" icon={<AppstoreOutlined />}>
           <Link to="/">Home</Link>
         </Item>
-        <SubMenu title="Brands" icon={<LaptopOutlined />}>
+        <SubMenu key="brands" title="Brands" icon={<LaptopOutlined />}>
           {loading ? (
             <h4 className="text-center">Loading...</h4>
           ) : (
             <>
               {showCategories()}
-              <Item key="Others">
+              <Item key="others">
                 <Link to={`/products/category/others`}> Others </Link>
               </Item>
             </>

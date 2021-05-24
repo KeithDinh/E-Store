@@ -4,11 +4,8 @@ import { useSelector } from "react-redux";
 import { useParams } from "react-router-dom";
 import { LoadingOutlined } from "@ant-design/icons";
 
-import {
-  getSubCategories,
-  getProduct,
-  updateProduct,
-} from "../../../functions/product";
+import { getProduct, updateProduct } from "../../../functions/product";
+import { getSubCategories } from "../../../functions/category";
 import { getCategories } from "../../../functions/category";
 
 import ProductUpdateForm from "../../../components/forms/ProductUpdateForm";

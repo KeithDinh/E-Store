@@ -210,7 +210,7 @@ const handlePrice = async (req, res, price) => {
   }
 };
 
-const handleCategory = (req, res, price) => {
+const handleCategory = async (req, res, category) => {
   try {
     let products = await Product.find({ category })
       .populate("category", "_id name")
@@ -224,7 +224,7 @@ const handleCategory = (req, res, price) => {
 };
 exports.searchProductByFilters = async (req, res) => {
   // destructure {query: text}
-  const { query, price } = req.body;
+  const { query, price, category } = req.body;
 
   if (query) {
     console.log("query", query);

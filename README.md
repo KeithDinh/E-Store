@@ -10,9 +10,10 @@
 
 - #5 it's due to the shop page (too many calls to filter api)
 
-## SOLUTIONS
+## SOLUTIONS (fix BUG##)
 
 - #3: listen to a state in useEffect
+- #4: create a function to get the url, check for keyword, and match the menu item
 
 # API
 

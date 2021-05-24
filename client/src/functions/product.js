@@ -51,10 +51,6 @@ export const updateProduct = async (product, slug, authtoken) =>
 export const getProductCount = async () =>
   await axios.get(`${apiUrl}/products/total`);
 
-// Category
-export const getSubCategories = async (_id) =>
-  await axios.get(`${apiUrl}/category/subs/${_id}`);
-
 // Ratings
 export const rateProduct = async (productId, star, authtoken) =>
   await axios.put(
