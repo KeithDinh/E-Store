@@ -8,11 +8,12 @@
 
 ## APPROACH
 
-- #5 it's due to the shop page (too many calls to filter api)
+- #5 it's due to the shop page (too many calls to the filter api) Use setTimeout with 700ms can be a temporary solution?
 
-## SOLUTIONS
+## SOLUTIONS (fix BUG##)
 
 - #3: listen to a state in useEffect
+- #4: create a function to get the url, check for keyword, and match the menu item
 
 # API
 

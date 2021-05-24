@@ -18,7 +18,7 @@ const CategoryHome = () => {
       setProducts(c.data.products);
       setLoading(false);
     });
-  }, [slug]); // listen to slug updates to prevent BUG #3 README
+  }, [slug]); // listen to slug updates => fix BUG#3 README
 
   return (
     <div className="container">
