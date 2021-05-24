@@ -37,7 +37,8 @@ const Shop = () => {
   // 2 load products with filter/search
   useEffect(() => {
     const delayed = setTimeout(() => {
-      loadProductsByFilters({ query: text });
+      if (text != "") loadProductsByFilters({ query: text });
+      else loadAllProducts();
     }, 700);
 
     return () => clearTimeout(delayed);
