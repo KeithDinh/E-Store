@@ -3,7 +3,7 @@ import { getProductsByCount, getProductsByFilter } from "../functions/product";
 import { useSelector, useDispatch } from "react-redux";
 import ProductCard from "../components/cards/ProductCard";
 import Star from "../components/forms/Star";
-import { Menu, Slider, Checkbox } from "antd";
+import { Menu, Slider, Checkbox, Radio } from "antd";
 import {
   DollarOutlined,
   DownSquareOutlined,
@@ -11,16 +11,31 @@ import {
 } from "@ant-design/icons";
 import { getCategories } from "../functions/category";
 
-const { SubMenu, ItemGroup } = Menu;
+const { SubMenu } = Menu;
 
 const Shop = () => {
   const [loading, setLoading] = useState(false);
   const [products, setProducts] = useState([]);
+
   const [price, setPrice] = useState([0, 0]);
   const [categories, setCategories] = useState([]);
   const [delayRequest, setDelayRequest] = useState(false);
   const [categoryIds, setCategoryIds] = useState([]);
   const [star, setStar] = useState(0);
+  const brandList = [
+    "Apple",
+    "Samsung",
+    "Microsoft",
+    "Lenovo",
+    "Asus",
+    "HP",
+    "Dell",
+  ];
+  const [brand, setBrand] = useState("");
+  const colorList = ["Black", "Brown", "Silver", "White", "Blue"];
+  const [color, setColor] = useState("");
+  const shippingOptions = ["Yes", "No"];
+  const [shipping, setShipping] = useState("");
 
   let dispatch = useDispatch();
   let { search } = useSelector((state) => ({ ...state }));
@@ -43,7 +58,7 @@ const Shop = () => {
   // 2 load products with filter/search
   useEffect(() => {
     const delayed = setTimeout(() => {
-      if (text != "") loadProductsByFilters({ query: text });
+      if (text !== "") loadProductsByFilters({ query: text });
       else loadAllProducts();
     }, 700);
 
@@ -54,6 +69,7 @@ const Shop = () => {
     getProductsByFilter(queryObj).then((p) => setProducts(p.data));
 
   // 3 load products with price range
+  /* eslint-disable react-hooks/exhaustive-deps */
   useEffect(() => {
     loadProductsByFilters({ price });
   }, [delayRequest]);
@@ -65,6 +81,9 @@ const Shop = () => {
     });
     setCategoryIds([]);
     setStar("");
+    setBrand("");
+    setColor("");
+    setShipping("");
 
     setPrice(value);
     setTimeout(() => {
@@ -96,6 +115,9 @@ const Shop = () => {
     setCategoryIds([]);
     setPrice([0, 0]);
     setStar("");
+    setBrand("");
+    setColor("");
+    setShipping("");
 
     let inTheState = [...categoryIds];
     let foundInTheState = inTheState.indexOf(e.target.value);
@@ -116,6 +138,9 @@ const Shop = () => {
     });
     setCategoryIds([]);
     setPrice([0, 0]);
+    setBrand("");
+    setColor("");
+    setShipping("");
 
     setStar(number);
     loadProductsByFilters({ stars: number });
@@ -130,13 +155,103 @@ const Shop = () => {
     </div>
   );
 
+  // 6 load product by brands
+  const showBrands = () =>
+    brandList.map((b) => (
+      <Radio
+        key={b}
+        value={b}
+        name={b}
+        checked={b === brand}
+        onChange={handleBrand}
+        className="pb-1 pl-1 pr-4"
+      >
+        {b}
+      </Radio>
+    ));
+
+  const handleBrand = (e) => {
+    dispatch({
+      type: "SEARCH_QUERY",
+      payload: { text: "" },
+    });
+    setCategoryIds([]);
+    setPrice([0, 0]);
+    setStar("");
+    setColor("");
+    setShipping("");
+
+    setBrand(e.target.value);
+
+    loadProductsByFilters({ brand: e.target.value });
+  };
+
+  // 7 load product by color
+  const showColors = () =>
+    colorList.map((c) => (
+      <Radio
+        key={c}
+        value={c}
+        name={c}
+        checked={c === color}
+        onChange={handleColor}
+        className="pb-1 pl-1 pr-4"
+      >
+        {c}
+      </Radio>
+    ));
+
+  const handleColor = (e) => {
+    dispatch({
+      type: "SEARCH_QUERY",
+      payload: { text: "" },
+    });
+    setCategoryIds([]);
+    setPrice([0, 0]);
+    setStar("");
+    setBrand("");
+    setShipping("");
+
+    setColor(e.target.value);
+    loadProductsByFilters({ color: e.target.value });
+  };
+
+  // 8 load product by shipping
+  const showShipping = () =>
+    shippingOptions.map((o) => (
+      <Radio
+        key={o}
+        value={o}
+        name={o}
+        checked={o === shipping}
+        onChange={handleShipping}
+        className="pb-1 pl-1 pr-4"
+      >
+        {o}
+      </Radio>
+    ));
+
+  const handleShipping = (e) => {
+    dispatch({
+      type: "SEARCH_QUERY",
+      payload: { text: "" },
+    });
+    setCategoryIds([]);
+    setPrice([0, 0]);
+    setStar("");
+    setBrand("");
+    setColor("");
+
+    setShipping(e.target.value);
+    loadProductsByFilters({ shipping: e.target.value });
+  };
   return (
     <div className="container-fluid">
       <div className="row">
         <div className="col-md-2 pt-3">
           <h4>Filters</h4>
           <hr />
-          <Menu defaultOpenKeys={["1", "2", "3"]} mode="inline">
+          <Menu defaultOpenKeys={["1", "2", "3", "4", "5", "6"]} mode="inline">
             {/* Price slider  */}
             <SubMenu
               key="1"
@@ -180,6 +295,42 @@ const Shop = () => {
               }
             >
               <div>{showStar()}</div>
+            </SubMenu>
+
+            {/* Brand */}
+            <SubMenu
+              key="4"
+              title={
+                <span className="h6">
+                  <StarOutlined /> Brands
+                </span>
+              }
+            >
+              <div>{showBrands()}</div>
+            </SubMenu>
+
+            {/* Color */}
+            <SubMenu
+              key="5"
+              title={
+                <span className="h6">
+                  <StarOutlined /> Color
+                </span>
+              }
+            >
+              <div>{showColors()}</div>
+            </SubMenu>
+
+            {/* Shipping */}
+            <SubMenu
+              key="6"
+              title={
+                <span className="h6">
+                  <StarOutlined /> Shipping
+                </span>
+              }
+            >
+              <div>{showShipping()}</div>
             </SubMenu>
           </Menu>
         </div>
