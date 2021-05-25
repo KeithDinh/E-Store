@@ -16,12 +16,13 @@ const { SubMenu } = Menu;
 const Shop = () => {
   const [loading, setLoading] = useState(false);
   const [products, setProducts] = useState([]);
+
   const [price, setPrice] = useState([0, 0]);
   const [categories, setCategories] = useState([]);
   const [delayRequest, setDelayRequest] = useState(false);
   const [categoryIds, setCategoryIds] = useState([]);
   const [star, setStar] = useState(0);
-  const [brandList, setBrandList] = useState([
+  const brandList = [
     "Apple",
     "Samsung",
     "Microsoft",
@@ -29,8 +30,12 @@ const Shop = () => {
     "Asus",
     "HP",
     "Dell",
-  ]);
+  ];
   const [brand, setBrand] = useState("");
+  const colorList = ["Black", "Brown", "Silver", "White", "Blue"];
+  const [color, setColor] = useState("");
+  const shippingOptions = ["Yes", "No"];
+  const [shipping, setShipping] = useState("");
 
   let dispatch = useDispatch();
   let { search } = useSelector((state) => ({ ...state }));
@@ -77,6 +82,8 @@ const Shop = () => {
     setCategoryIds([]);
     setStar("");
     setBrand("");
+    setColor("");
+    setShipping("");
 
     setPrice(value);
     setTimeout(() => {
@@ -109,6 +116,8 @@ const Shop = () => {
     setPrice([0, 0]);
     setStar("");
     setBrand("");
+    setColor("");
+    setShipping("");
 
     let inTheState = [...categoryIds];
     let foundInTheState = inTheState.indexOf(e.target.value);
@@ -130,6 +139,8 @@ const Shop = () => {
     setCategoryIds([]);
     setPrice([0, 0]);
     setBrand("");
+    setColor("");
+    setShipping("");
 
     setStar(number);
     loadProductsByFilters({ stars: number });
@@ -148,6 +159,7 @@ const Shop = () => {
   const showBrands = () =>
     brandList.map((b) => (
       <Radio
+        key={b}
         value={b}
         name={b}
         checked={b === brand}
@@ -166,9 +178,72 @@ const Shop = () => {
     setCategoryIds([]);
     setPrice([0, 0]);
     setStar("");
+    setColor("");
+    setShipping("");
+
     setBrand(e.target.value);
 
     loadProductsByFilters({ brand: e.target.value });
+  };
+
+  // 7 load product by color
+  const showColors = () =>
+    colorList.map((c) => (
+      <Radio
+        key={c}
+        value={c}
+        name={c}
+        checked={c === color}
+        onChange={handleColor}
+        className="pb-1 pl-1 pr-4"
+      >
+        {c}
+      </Radio>
+    ));
+
+  const handleColor = (e) => {
+    dispatch({
+      type: "SEARCH_QUERY",
+      payload: { text: "" },
+    });
+    setCategoryIds([]);
+    setPrice([0, 0]);
+    setStar("");
+    setBrand("");
+    setShipping("");
+
+    setColor(e.target.value);
+    loadProductsByFilters({ color: e.target.value });
+  };
+
+  // 8 load product by shipping
+  const showShipping = () =>
+    shippingOptions.map((o) => (
+      <Radio
+        key={o}
+        value={o}
+        name={o}
+        checked={o === shipping}
+        onChange={handleShipping}
+        className="pb-1 pl-1 pr-4"
+      >
+        {o}
+      </Radio>
+    ));
+
+  const handleShipping = (e) => {
+    dispatch({
+      type: "SEARCH_QUERY",
+      payload: { text: "" },
+    });
+    setCategoryIds([]);
+    setPrice([0, 0]);
+    setStar("");
+    setBrand("");
+    setColor("");
+
+    setShipping(e.target.value);
+    loadProductsByFilters({ shipping: e.target.value });
   };
   return (
     <div className="container-fluid">
@@ -243,7 +318,7 @@ const Shop = () => {
                 </span>
               }
             >
-              <div></div>
+              <div>{showColors()}</div>
             </SubMenu>
 
             {/* Shipping */}
@@ -255,7 +330,7 @@ const Shop = () => {
                 </span>
               }
             >
-              <div></div>
+              <div>{showShipping()}</div>
             </SubMenu>
           </Menu>
         </div>
