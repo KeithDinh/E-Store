@@ -302,7 +302,7 @@ const Shop = () => {
               key="4"
               title={
                 <span className="h6">
-                  <StarOutlined /> Brands
+                  <DownSquareOutlined /> Brands
                 </span>
               }
             >
@@ -314,7 +314,7 @@ const Shop = () => {
               key="5"
               title={
                 <span className="h6">
-                  <StarOutlined /> Color
+                  <DownSquareOutlined /> Color
                 </span>
               }
             >
@@ -326,7 +326,7 @@ const Shop = () => {
               key="6"
               title={
                 <span className="h6">
-                  <StarOutlined /> Shipping
+                  <DownSquareOutlined /> Shipping
                 </span>
               }
             >

@@ -25,7 +25,6 @@ const SubUpdate = ({ history, match, ...props }) => {
   const handleSubmit = (e) => {
     e.preventDefault();
     setLoading(true);
-    console.log(parent);
     updateSub(user.token, match.params.slug, { name, parent })
       .then((res) => {
         setName("");
