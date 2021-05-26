@@ -3,7 +3,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { useHistory, useLocation } from "react-router-dom";
 import firebase from "firebase";
 import { Link } from "react-router-dom";
-import { Menu } from "antd";
+import { Menu, Badge } from "antd";
 import {
   AppstoreOutlined,
   LaptopOutlined,
@@ -13,6 +13,7 @@ import {
   LogoutOutlined,
   AlignCenterOutlined,
   ShoppingOutlined,
+  ShoppingCartOutlined,
 } from "@ant-design/icons";
 
 import { getCategories } from "../../functions/category";
@@ -26,7 +27,7 @@ const Header = () => {
   const [loading, setLoading] = useState(false);
 
   const pathname = useLocation().pathname;
-  let { user } = useSelector((state) => ({ ...state }));
+  let { cart, user } = useSelector((state) => ({ ...state }));
   let dispatch = useDispatch();
 
   let history = useHistory();
@@ -119,6 +120,12 @@ const Header = () => {
         </Item>
         <Item key="shop" icon={<ShoppingOutlined />}>
           <Link to="/shop">Shop</Link>
+        </Item>
+        <Item key="cart" icon={<ShoppingCartOutlined />}>
+          <Link to="/cart">
+            Cart
+            <Badge count={cart.length} offset={[3, -15]} size="small"></Badge>
+          </Link>
         </Item>
         {!user ? (
           <>

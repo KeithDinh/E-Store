@@ -94,7 +94,7 @@ const Shop = () => {
   // 4 load products based on category
   const showCategories = () =>
     categories.map((c) => (
-      <div key={c.id}>
+      <div key={c._id}>
         <Checkbox
           onChange={handleCheckbox}
           className="pt-2 pb-2 pl-4 pr-4"
@@ -157,9 +157,9 @@ const Shop = () => {
 
   // 6 load product by brands
   const showBrands = () =>
-    brandList.map((b) => (
+    brandList.map((b, i) => (
       <Radio
-        key={b}
+        key={i}
         value={b}
         name={b}
         checked={b === brand}
@@ -188,9 +188,9 @@ const Shop = () => {
 
   // 7 load product by color
   const showColors = () =>
-    colorList.map((c) => (
+    colorList.map((c, i) => (
       <Radio
-        key={c}
+        key={i}
         value={c}
         name={c}
         checked={c === color}
@@ -218,9 +218,9 @@ const Shop = () => {
 
   // 8 load product by shipping
   const showShipping = () =>
-    shippingOptions.map((o) => (
+    shippingOptions.map((o, i) => (
       <Radio
-        key={o}
+        key={i}
         value={o}
         name={o}
         checked={o === shipping}

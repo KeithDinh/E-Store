@@ -17,6 +17,7 @@ const CategoryList = () => {
   const showCategories = () =>
     categories.map((c) => (
       <Link
+        key={c._id}
         className="text-info col-md-2 btn btn-outlined-primary btn-lg btn-block btn-raised m-3"
         to={`/products/category/${c.slug}`}
       >

@@ -1,27 +1,30 @@
-import { Card } from "antd";
+import { Card, Tooltip } from "antd";
 import { EyeOutlined, ShoppingCartOutlined } from "@ant-design/icons";
 import { Link } from "react-router-dom";
 import { showAverage } from "../../functions/rating";
 import _ from "lodash";
+import { useState } from "react";
+import { useSelector, useDispatch } from "react-redux";
 
 import laptop from "../../images/laptop.png";
 
 const { Meta } = Card;
 const ProductCard = ({ product }) => {
   const { title, description, images, slug, price } = product;
+  const [toolTip, setToolTip] = useState("Click to add");
+
+  const dispatch = useDispatch();
+  const { user, cart } = useSelector((state) => ({ ...state }));
 
   const handleAddToCart = () => {
-    let cart = [];
+    let cart;
 
     // only window has localStorage
     if (typeof window !== "undefined") {
       // if cart exists
-      if (localStorage.getItem("cart") !== null) {
-        console.log("yes");
-        console.log(localStorage.getItem("cart"));
-        cart = JSON.parse(localStorage.getItem(cart));
-        console.log(",,,,,,,,,,,,,,,,,,,,", cart);
-      }
+      cart = localStorage.getItem("cart")
+        ? JSON.parse(localStorage.getItem("cart"))
+        : [];
 
       // push new product to cart
       cart.push({
@@ -34,6 +37,15 @@ const ProductCard = ({ product }) => {
 
       // save to localStorage
       localStorage.setItem("cart", JSON.stringify(unique));
+
+      // hover over Add to Cart
+      setToolTip("Added");
+
+      // update redux store
+      dispatch({
+        type: "ADD_TO_CART",
+        payload: cart,
+      });
     }
   };
   return (
@@ -58,11 +70,13 @@ const ProductCard = ({ product }) => {
           </Link>,
           <>
             {/* eslint-disable jsx-a11y/anchor-is-valid */}
-            <a onClick={handleAddToCart}>
-              <ShoppingCartOutlined className="text-danger" />
-              <br />
-              Add to Cart
-            </a>
+            <Tooltip title={toolTip}>
+              <a onClick={handleAddToCart}>
+                <ShoppingCartOutlined className="text-danger" />
+                <br />
+                Add to Cart
+              </a>
+            </Tooltip>
           </>,
         ]}
       >
