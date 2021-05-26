@@ -1,6 +1,8 @@
 import { useSelector, useDispatch } from "react-redux";
 import { Link, useHistory } from "react-router-dom";
 
+import ProductCardCheckOut from "../components/cards/ProductCardCheckOut";
+
 const Cart = () => {
   const dispatch = useDispatch();
   const { user, cart } = useSelector((state) => ({ ...state }));
@@ -14,7 +16,7 @@ const Cart = () => {
 
   const saveOrderToDB = () => {};
 
-  const showItems = () => {
+  const showItems = () => (
     <table className="table table-bordered">
       <thead className="thead-light">
         <tr>
@@ -28,8 +30,13 @@ const Cart = () => {
           <th scope="col">Remove</th>
         </tr>
       </thead>
-    </table>;
-  };
+      <tbody>
+        {cart.map((p) => (
+          <ProductCardCheckOut key={p._id} p={p} />
+        ))}
+      </tbody>
+    </table>
+  );
   return (
     <div className="container-fluid pt-2">
       <div className="row">
