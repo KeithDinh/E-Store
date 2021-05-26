@@ -61,6 +61,7 @@
   - react-responsive-carousel
   - react-star-ratings
   - lodash: provides utility functions for common programming tasks using functional programming paradigm
+  - react-modal-image: show both small icon and modal images
 
 ## GENERALS
 
