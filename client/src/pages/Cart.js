@@ -1,14 +1,34 @@
 import { useSelector, useDispatch } from "react-redux";
-import { Link } from "react-router-dom";
+import { Link, useHistory } from "react-router-dom";
 
 const Cart = () => {
   const dispatch = useDispatch();
   const { user, cart } = useSelector((state) => ({ ...state }));
+  let history = useHistory();
 
   const getTotal = () => {
     return cart.reduce((accumulator, currentItem) => {
       return accumulator + currentItem.price * currentItem.count;
     }, 0);
+  };
+
+  const saveOrderToDB = () => {};
+
+  const showItems = () => {
+    <table className="table table-bordered">
+      <thead className="thead-light">
+        <tr>
+          <th scope="col">Images</th>
+          <th scope="col">Title</th>
+          <th scope="col">Price</th>
+          <th scope="col">Brand</th>
+          <th scope="col">Color</th>
+          <th scope="col">Count</th>
+          <th scope="col">Shipping</th>
+          <th scope="col">Remove</th>
+        </tr>
+      </thead>
+    </table>;
   };
   return (
     <div className="container-fluid pt-2">
@@ -18,10 +38,10 @@ const Cart = () => {
 
           {!cart.length ? (
             <h4>
-              Cart is empty. <Link to="/shop">Continue Shopping</Link>{" "}
+              Cart is empty. <Link to="/shop">Continue Shopping</Link>
             </h4>
           ) : (
-            "function"
+            showItems()
           )}
         </div>
         <div className="col-md-4">
@@ -39,12 +59,23 @@ const Cart = () => {
           Total: <b>${getTotal()}</b>
           <hr />
           {user ? (
-            <button className="btn btn-sm btn-primary mt-2">
+            <button
+              onClick={saveOrderToDB}
+              disabled={!cart.length}
+              className="btn btn-sm btn-primary mt-2"
+            >
               Proceed to Checkout
             </button>
           ) : (
             <button className="btn btn-sm btn-primary mt-2">
-              Login to Checkout
+              <Link
+                to={{
+                  pathname: "/login",
+                  state: { from: "/cart" },
+                }}
+              >
+                Login to Checkout
+              </Link>
             </button>
           )}
         </div>
