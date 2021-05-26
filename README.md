@@ -60,6 +60,8 @@
   - react-image-file-resizer
   - react-responsive-carousel
   - react-star-ratings
+  - lodash: provides utility functions for common programming tasks using functional programming paradigm
+  - react-modal-image: show both small icon and modal images
 
 ## GENERALS
 
@@ -90,6 +92,7 @@
 
 - Redux is needed when data is required in different pages/component
 - Reducer is a function that takes in a state and an action, perform the action to update the state, then return new state
+- To dispatch an action that needs to call an api or a promise, the app needs to install redux-thunks. It's not likely to be used in this app
 
 # MONGODB
 

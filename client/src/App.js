@@ -3,13 +3,18 @@ import { ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import { useEffect } from "react";
 
+// Navigation
+import Header from "./components/nav/Header";
+import Footer from "./components/footer/Footer";
+
+// Protected
 import UserRoute from "./components/routes/UserRoute";
 import AdminRoute from "./components/routes/AdminRoute";
+
+// Page
 import Home from "./pages/Home";
 import Register from "./pages/auth/Register";
 import Login from "./pages/auth/Login";
-import Header from "./components/nav/Header";
-import Footer from "./components/footer/Footer";
 import RegisterComplete from "./pages/auth/RegisterComplete";
 import ForgotPassword from "./pages/auth/ForgotPassword";
 import History from "./pages/user/History";
@@ -28,6 +33,7 @@ import CategoryHome from "./pages/CategoryHome";
 import SubCategoryHome from "./pages/SubCategoryHome";
 import Category from "./pages/Category";
 import Shop from "./pages/Shop";
+import Cart from "./pages/Cart";
 
 import { currentUser } from "./functions/auth";
 import { auth } from "./config/firebase";
@@ -85,6 +91,7 @@ const App = () => {
           component={RegisterComplete}
         />
         <Route exact path="/shop" component={Shop} />
+        <Route exact path="/cart" component={Cart} />
 
         <UserRoute exact path="/user/history" component={History} />
         <UserRoute exact path="/user/password" component={Password} />
