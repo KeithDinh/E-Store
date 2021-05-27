@@ -11,7 +11,7 @@ import RatingModel from "../modal/RatingModal";
 import { showAverage } from "../../functions/rating";
 import _ from "lodash";
 import { useState } from "react";
-import { useSelector, useDispatch } from "react-redux";
+import { useDispatch } from "react-redux";
 
 const { TabPane } = Tabs;
 
@@ -20,7 +20,7 @@ const SingleProduct = ({ product, onRatingClick, star }) => {
   const [toolTip, setToolTip] = useState("Click to add");
 
   const dispatch = useDispatch();
-  const { user, cart } = useSelector((state) => ({ ...state }));
+  // const { user, cart } = useSelector((state) => ({ ...state }));
 
   const handleAddToCart = () => {
     let cart;
@@ -105,7 +105,7 @@ const SingleProduct = ({ product, onRatingClick, star }) => {
           actions={[
             <>
               <Tooltip title={toolTip}>
-                <a onClick={handleAddToCart}>
+                <a href={() => {}} onClick={handleAddToCart}>
                   <ShoppingCartOutlined className="text-danger" />
                   <br />
                   Add to Cart

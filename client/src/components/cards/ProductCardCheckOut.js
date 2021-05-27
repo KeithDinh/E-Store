@@ -1,7 +1,6 @@
 import laptop from "../../images/laptop.png";
 import ModalImage from "react-modal-image";
 import { Link } from "react-router-dom";
-import { useState } from "react";
 import { useDispatch } from "react-redux";
 import {
   CheckCircleFilled,
