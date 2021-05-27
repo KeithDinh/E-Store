@@ -46,6 +46,12 @@ const ProductCard = ({ product }) => {
         type: "ADD_TO_CART",
         payload: unique,
       });
+
+      // show side drawer
+      dispatch({
+        type: "SET_VISIBLE",
+        payload: true,
+      });
     }
   };
   return (

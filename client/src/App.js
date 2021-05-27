@@ -3,9 +3,10 @@ import { ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import { useEffect } from "react";
 
-// Navigation
+// Component
 import Header from "./components/nav/Header";
 import Footer from "./components/footer/Footer";
+import SideDrawer from "./components/drawer/SideDrawer";
 
 // Protected
 import UserRoute from "./components/routes/UserRoute";
@@ -72,6 +73,7 @@ const App = () => {
     <>
       <ToastContainer />
       <Header />
+      <SideDrawer />
       <Switch>
         <Route exact path="/" component={Home} />
         <Route exact path="/login" component={Login} />
