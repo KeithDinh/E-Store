@@ -44,7 +44,13 @@ const ProductCard = ({ product }) => {
       // update redux store
       dispatch({
         type: "ADD_TO_CART",
-        payload: cart,
+        payload: unique,
+      });
+
+      // show side drawer
+      dispatch({
+        type: "SET_VISIBLE",
+        payload: true,
       });
     }
   };
@@ -83,7 +89,11 @@ const ProductCard = ({ product }) => {
         <Meta
           title={
             <div>
-              {title} <h5 className="text-warning">${price}</h5>
+              {title}
+              <h5 className="price mt-2">
+                <span className="price__upper">$</span>
+                {price}
+              </h5>
             </div>
           }
           description={`${

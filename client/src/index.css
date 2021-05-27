@@ -45,9 +45,20 @@ form {
   }
 }
 
+.price {
+  font-family: Arial;
+  font-size: 30px;
+  color: #cc0000;
+}
+.price__upper {
+  font-size: 18px;
+  vertical-align: text-top;
+  display: inline-block;
+}
+/* 
 footer {
   position: fixed;
   bottom: 0;
   left: 0;
   width: 100%;
-}
+} */

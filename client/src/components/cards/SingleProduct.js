@@ -50,7 +50,13 @@ const SingleProduct = ({ product, onRatingClick, star }) => {
       // update redux store
       dispatch({
         type: "ADD_TO_CART",
-        payload: cart,
+        payload: unique,
+      });
+
+      // show side drawer
+      dispatch({
+        type: "SET_VISIBLE",
+        payload: true,
       });
     }
   };
