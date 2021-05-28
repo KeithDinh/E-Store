@@ -3,7 +3,7 @@ import { ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import { useEffect } from "react";
 
-// Component
+// Components
 import Header from "./components/nav/Header";
 import Footer from "./components/footer/Footer";
 import SideDrawer from "./components/drawer/SideDrawer";
@@ -12,7 +12,7 @@ import SideDrawer from "./components/drawer/SideDrawer";
 import UserRoute from "./components/routes/UserRoute";
 import AdminRoute from "./components/routes/AdminRoute";
 
-// Page
+// Pages
 import Home from "./pages/Home";
 import Register from "./pages/auth/Register";
 import Login from "./pages/auth/Login";
@@ -35,7 +35,9 @@ import SubCategoryHome from "./pages/SubCategoryHome";
 import Category from "./pages/Category";
 import Shop from "./pages/Shop";
 import Cart from "./pages/Cart";
+import Checkout from "./pages/Checkout";
 
+// Functions
 import { currentUser } from "./functions/auth";
 import { auth } from "./config/firebase";
 import { useDispatch } from "react-redux";
@@ -94,6 +96,7 @@ const App = () => {
         />
         <Route exact path="/shop" component={Shop} />
         <Route exact path="/cart" component={Cart} />
+        <Route exact path="/checkout" component={Checkout} />
 
         <UserRoute exact path="/user/history" component={History} />
         <UserRoute exact path="/user/password" component={Password} />

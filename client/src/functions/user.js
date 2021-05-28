@@ -13,3 +13,12 @@ export const userCart = async (cart, authtoken) =>
       },
     }
   );
+
+export const getUserCart = async (authtoken) => {
+  console.log("user", authtoken);
+  return await axios.get(`${apiUrl}/user/cart`, {
+    headers: {
+      authtoken,
+    },
+  });
+};
