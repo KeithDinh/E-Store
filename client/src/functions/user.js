@@ -14,11 +14,20 @@ export const userCart = async (cart, authtoken) =>
     }
   );
 
-export const getUserCart = async (authtoken) => {
-  console.log("user", authtoken);
-  return await axios.get(`${apiUrl}/user/cart`, {
+export const getUserCart = async (authtoken) =>
+  await axios.get(`${apiUrl}/user/cart`, {
     headers: {
       authtoken,
     },
   });
-};
+
+export const emptyUserCart = async (authtoken) =>
+  await axios.put(
+    `${apiUrl}/user/cart`,
+    {},
+    {
+      headers: {
+        authtoken,
+      },
+    }
+  );
