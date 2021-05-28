@@ -8,6 +8,8 @@ export const userCart = async (cart, authtoken) =>
       cart,
     },
     {
-      header: authtoken,
+      headers: {
+        authtoken,
+      },
     }
   );

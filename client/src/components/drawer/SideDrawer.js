@@ -11,6 +11,7 @@ const SideDrawer = ({ children }) => {
     height: "50px",
     objectFit: "cover",
   };
+
   return (
     <Drawer
       title={`Cart / ${cart.length} Product`}
