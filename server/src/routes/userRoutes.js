@@ -9,6 +9,7 @@ const {
   userCart,
   getUserCart,
   emptyUserCart,
+  saveAddress,
 } = require("../controllers/userController");
 
 router
@@ -16,5 +17,7 @@ router
   .post(authCheck, userCart)
   .get(authCheck, getUserCart)
   .put(authCheck, emptyUserCart);
+
+router.route("/user/address").post(authCheck, saveAddress);
 
 module.exports = router;
