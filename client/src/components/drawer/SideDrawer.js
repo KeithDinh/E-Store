@@ -11,6 +11,7 @@ const SideDrawer = ({ children }) => {
     height: "50px",
     objectFit: "cover",
   };
+
   return (
     <Drawer
       title={`Cart / ${cart.length} Product`}
@@ -30,17 +31,16 @@ const SideDrawer = ({ children }) => {
           <div className="col">
             {p.images[0] ? (
               <>
-                <img src={p.images[0].url} style={imageStyle} />
+                <img src={p.images[0].url} style={imageStyle} alt={p.title} />
                 <p className="text-center bg-secondary text-light">
                   {p.title} x {p.count}
                 </p>
               </>
             ) : (
               <>
-                <img src={laptop} style={imageStyle} />
-                <p className="text-center bg-secondary text-light">
-                  {p.title} x {p.count}
-                </p>
+                <img src={laptop} style={imageStyle} alt="laptop" />
+                <div>Quantity: {p.count}</div>
+                <p className="text-center bg-secondary text-light">{p.title}</p>
               </>
             )}
           </div>

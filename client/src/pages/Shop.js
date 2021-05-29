@@ -21,7 +21,6 @@ const Shop = () => {
   const [categories, setCategories] = useState([]);
   const [delayRequest, setDelayRequest] = useState(false);
   const [categoryIds, setCategoryIds] = useState([]);
-  const [star, setStar] = useState(0);
   const brandList = [
     "Apple",
     "Samsung",
@@ -80,7 +79,7 @@ const Shop = () => {
       payload: { text: "" },
     });
     setCategoryIds([]);
-    setStar("");
+
     setBrand("");
     setColor("");
     setShipping("");
@@ -114,7 +113,7 @@ const Shop = () => {
     });
     setCategoryIds([]);
     setPrice([0, 0]);
-    setStar("");
+
     setBrand("");
     setColor("");
     setShipping("");
@@ -142,7 +141,6 @@ const Shop = () => {
     setColor("");
     setShipping("");
 
-    setStar(number);
     loadProductsByFilters({ stars: number });
   };
   const showStar = () => (
@@ -177,7 +175,7 @@ const Shop = () => {
     });
     setCategoryIds([]);
     setPrice([0, 0]);
-    setStar("");
+
     setColor("");
     setShipping("");
 
@@ -208,7 +206,7 @@ const Shop = () => {
     });
     setCategoryIds([]);
     setPrice([0, 0]);
-    setStar("");
+
     setBrand("");
     setShipping("");
 
@@ -238,7 +236,7 @@ const Shop = () => {
     });
     setCategoryIds([]);
     setPrice([0, 0]);
-    setStar("");
+
     setBrand("");
     setColor("");
 

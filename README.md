@@ -5,6 +5,7 @@
 - #3 URL change but not component when click on Brands menu item multiple times.
 - #4 menu item highlight resets when refresh page
 - #5 spam clicking on different menu items freezes the app, have to wait for 1-2 minutes
+- #6 antd avatar, when click on image, it disappears
 
 ## APPROACH
 
@@ -62,6 +63,7 @@
   - react-star-ratings
   - lodash: provides utility functions for common programming tasks using functional programming paradigm
   - react-modal-image: show both small icon and modal images
+  - react-quill: like a text editor
 
 ## GENERALS
 

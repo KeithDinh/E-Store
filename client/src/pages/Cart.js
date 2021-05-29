@@ -1,12 +1,12 @@
 import { useSelector, useDispatch } from "react-redux";
-import { Link, useHistory } from "react-router-dom";
+import { Link } from "react-router-dom";
 
 import ProductCardCheckOut from "../components/cards/ProductCardCheckOut";
+import { userCart } from "../functions/user";
 
-const Cart = () => {
-  const dispatch = useDispatch();
+const Cart = ({ history }) => {
+  // const dispatch = useDispatch();
   const { user, cart } = useSelector((state) => ({ ...state }));
-  let history = useHistory();
 
   const getTotal = () => {
     return cart.reduce((accumulator, currentItem) => {
@@ -14,7 +14,13 @@ const Cart = () => {
     }, 0);
   };
 
-  const saveOrderToDB = () => {};
+  const saveOrderToDB = () => {
+    userCart(cart, user.token)
+      .then((res) => {
+        if (res.data.ok) history.push("/checkout");
+      })
+      .catch((err) => console.log("cart err", err));
+  };
 
   const showItems = () => (
     <table className="table table-bordered">

@@ -4,7 +4,7 @@ import { Link } from "react-router-dom";
 import { showAverage } from "../../functions/rating";
 import _ from "lodash";
 import { useState } from "react";
-import { useSelector, useDispatch } from "react-redux";
+import { useDispatch } from "react-redux";
 
 import laptop from "../../images/laptop.png";
 
@@ -14,7 +14,7 @@ const ProductCard = ({ product }) => {
   const [toolTip, setToolTip] = useState("Click to add");
 
   const dispatch = useDispatch();
-  const { user, cart } = useSelector((state) => ({ ...state }));
+  // const { user, cart } = useSelector((state) => ({ ...state }));
 
   const handleAddToCart = () => {
     let cart;
