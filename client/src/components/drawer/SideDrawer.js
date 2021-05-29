@@ -39,9 +39,8 @@ const SideDrawer = ({ children }) => {
             ) : (
               <>
                 <img src={laptop} style={imageStyle} alt="laptop" />
-                <p className="text-center bg-secondary text-light">
-                  {p.title} x {p.count}
-                </p>
+                <div>Quantity: {p.count}</div>
+                <p className="text-center bg-secondary text-light">{p.title}</p>
               </>
             )}
           </div>
