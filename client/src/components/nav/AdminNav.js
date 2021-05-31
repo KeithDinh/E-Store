@@ -5,7 +5,7 @@ const AdminNav = () => {
     <nav>
       <ul className="nav flex-column">
         <li className="nav-item">
-          <Link to="/admin/history" className="nav-link">
+          <Link to="/admin/dashboard" className="nav-link">
             Dashboard
           </Link>
         </li>

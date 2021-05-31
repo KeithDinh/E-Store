@@ -36,6 +36,7 @@ import Category from "./pages/Category";
 import Shop from "./pages/Shop";
 import Cart from "./pages/Cart";
 import Checkout from "./pages/Checkout";
+import CreateCoupon from "./pages/admin/coupon/CreateCoupon";
 
 // Functions
 import { currentUser } from "./functions/auth";
@@ -101,9 +102,9 @@ const App = () => {
         <UserRoute exact path="/user/history" component={History} />
         <UserRoute exact path="/user/password" component={Password} />
         <UserRoute exact path="/user/wishlist" component={Wishlist} />
+
         <AdminRoute exact path="/admin/dashboard" component={AdminDashboard} />
         <AdminRoute exact path="/admin/category" component={CategoryCreate} />
-
         <AdminRoute
           exact
           path="/admin/category/:slug"
@@ -118,6 +119,7 @@ const App = () => {
           component={ProductUpdate}
         />
         <AdminRoute exact path="/admin/products/" component={AllProducts} />
+        <AdminRoute exact path="/admin/coupon/" component={CreateCoupon} />
       </Switch>
       {/* <Footer /> */}
     </>

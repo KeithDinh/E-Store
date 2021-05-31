@@ -64,6 +64,7 @@
   - lodash: provides utility functions for common programming tasks using functional programming paradigm
   - react-modal-image: show both small icon and modal images
   - react-quill: like a text editor
+  - react-datepicker: calendar date picker
 
 ## GENERALS
 
@@ -100,4 +101,5 @@
 
 - populate: display referenced data, only for attribute with 'ref' in model
 - {new: true}: // send the new updated to client instead of the old one
-- findOneAndUpdate - $push in second arg to push data to array type property
+- findOneAndUpdate - $push in second arg to push data to array-type property
+- findOneAndRemove vs findOneAndDelete: there is not much different, just use findOneAndDelete

@@ -12,7 +12,7 @@ exports.createCoupon = async (req, res) => {
 
 exports.getCoupon = async (req, res) => {
   try {
-    res.json(await new Coupon.findOne({ name: req.params.name }).save());
+    res.json(await Coupon.findOne({ name: req.params.name }).exec());
   } catch (error) {
     console.log(error);
   }
@@ -20,7 +20,7 @@ exports.getCoupon = async (req, res) => {
 
 exports.removeCoupon = async (req, res) => {
   try {
-    res.json(await new Coupon.findByIdAndDelete(req.params.couponId).save());
+    res.json(await Coupon.findByIdAndDelete(req.params.couponId).save());
   } catch (error) {
     console.log(error);
   }
@@ -28,7 +28,7 @@ exports.removeCoupon = async (req, res) => {
 
 exports.getCoupons = async (req, res) => {
   try {
-    res.json(await new Coupon.find({}).sort({ createAt: -1 }).exec());
+    res.json(await Coupon.find({}).sort({ createAt: -1 }).exec());
   } catch (error) {
     console.log(error);
   }
