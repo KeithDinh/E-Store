@@ -6,7 +6,6 @@ import {
   getCoupons,
   removeCoupon,
   createCoupon,
-  getCoupon,
 } from "../../../functions/coupon";
 import "react-datepicker/dist/react-datepicker.css";
 import { DeleteOutlined, LoadingOutlined } from "@ant-design/icons";
