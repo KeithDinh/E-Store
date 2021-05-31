@@ -16,7 +16,7 @@ const {
 // route
 router.route("/coupon").post(authCheck, adminCheck, createCoupon);
 router
-  .route("/coupon/:slug")
+  .route("/coupon/:couponId")
   .get(getCoupon)
   .delete(authCheck, adminCheck, removeCoupon);
 
