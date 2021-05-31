@@ -48,7 +48,7 @@ exports.getUserCart = async (req, res) => {
 
   if (cart) {
     const { products, cartTotal, totalAfterDiscount } = cart;
-    res.json({ products, cartTotal, totalAfterDiscount });
+    return res.json({ products, cartTotal, totalAfterDiscount });
   }
   res.json({ products: [], cartTotal: 0, totalAfterDiscount: 0 });
 };

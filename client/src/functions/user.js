@@ -34,7 +34,7 @@ export const emptyUserCart = async (authtoken) =>
 
 export const saveUserAddress = async (authtoken, address) =>
   await axios.post(
-    `${apiUrl}/user/cart`,
+    `${apiUrl}/user/address`,
     { address },
     {
       headers: {

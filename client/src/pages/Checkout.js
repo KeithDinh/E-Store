@@ -7,12 +7,12 @@ import "react-quill/dist/quill.snow.css";
 import { getUserCart, emptyUserCart, saveUserAddress } from "../functions/user";
 import { applyCoupon } from "../functions/coupon";
 
-const Checkout = () => {
+const Checkout = ({ history }) => {
   const [products, setProducts] = useState([]);
   const [total, setTotal] = useState(0);
   const [address, setAdress] = useState("");
   const [savedAddress, setSavedAddress] = useState(false);
-  const [coupon, setCoupon] = useState("");
+  const [couponName, setCouponName] = useState("");
   const [totalAfterDiscount, setTotalAfterDiscount] = useState(0);
   const [discountError, setDiscountError] = useState("");
 
@@ -50,15 +50,35 @@ const Checkout = () => {
       setProducts([]);
       setTotal(0);
       setTotalAfterDiscount(0);
-      setCoupon("");
+      setCouponName("");
       toast.success("Empty Cart");
+    });
+
+    history.push("/cart");
+  };
+
+  const applyDiscountCoupon = () => {
+    applyCoupon(user.token, couponName).then((res) => {
+      let applied = true;
+      if (res.data.err) {
+        setDiscountError(res.data.err);
+        applied = false;
+      } else {
+        setTotalAfterDiscount(res.data);
+      }
+
+      dispatch({
+        type: "COUPON_APPLIED",
+        payload: applied,
+      });
     });
   };
 
+  // Functions to display component
   const showAddress = () => (
     <>
       <ReactQuill theme="snow" value={address} onChange={setAdress} />
-      <button className="btn btn-prmary mt-2" onClick={saveAddressToDB}>
+      <button className="btn btn-primary mt-2" onClick={saveAddressToDB}>
         Save
       </button>
     </>
@@ -75,26 +95,16 @@ const Checkout = () => {
     ));
   };
 
-  const applyDiscountCoupon = () => {
-    applyCoupon(user.token, coupon).then((res) => {
-      if (res.data.err) {
-        setDiscountError(res.data.err);
-      } else {
-        setTotalAfterDiscount(res.data);
-      }
-    });
-  };
-
   const showApplyCoupon = () => (
     <>
       <input
         type="text"
         onChange={(e) => {
-          setCoupon(e.target.value);
+          setCouponName(e.target.value);
           setDiscountError("");
         }}
         className="form-control w-50"
-        value={coupon}
+        value={couponName}
       />
       <button className="btn btn-primary mt-2" onClick={applyDiscountCoupon}>
         Apply
@@ -108,7 +118,7 @@ const Checkout = () => {
       {totalAfterDiscount !== 0 ? (
         <span>
           {" "}
-          <span style={{ textDecoration: "line-through" }}>${total}</span> -> $
+          <span style={{ textDecoration: "line-through" }}>${total}</span> - $
           {totalAfterDiscount}
         </span>
       ) : (
@@ -134,7 +144,7 @@ const Checkout = () => {
         )}
         {totalAfterDiscount > 0 && (
           <p className="bg-success p-2 w-50 text-center text-white text-bold">
-            {coupon} Discount Applied
+            {couponName} Discount Applied
           </p>
         )}
       </div>
@@ -152,6 +162,7 @@ const Checkout = () => {
             <button
               className="btn btn-primary"
               disabled={!savedAddress || !products.length}
+              onClick={() => history.push("/payment")}
             >
               Place Orders
             </button>
