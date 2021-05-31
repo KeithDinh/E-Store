@@ -1,5 +1,4 @@
 const Coupon = require("../models/coupon");
-const slugify = require("slugify");
 const User = require("../models/user");
 const Cart = require("../models/cart");
 
@@ -48,19 +47,20 @@ exports.applyCouponToUserCart = async (req, res) => {
     });
 
   const user = await User.findOne({ email: req.user.email }).exec();
-  let { products, cartTotal } = await Cart.findONe({
+  let { products, cartTotal } = await Cart.findOne({
     orderBy: user._id,
   })
     .populate("products.product", "_id title price")
     .exec();
-
+  console.log(cartTotal);
+  console.log(validCoupon.discount);
   let totalAfterDiscount = (
     cartTotal -
-    (cartTotal * validCoupon) / 100
+    (cartTotal * validCoupon.discount) / 100
   ).toFixed(2);
 
   await Cart.findOneAndUpdate(
-    { orderBy: user_id },
+    { orderBy: user._id },
     { totalAfterDiscount },
     { new: true }
   );

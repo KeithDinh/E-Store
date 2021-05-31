@@ -23,6 +23,6 @@ router
 
 router.route("/coupons").get(getCoupons);
 
-router.route("user/cart/coupon").post(authCheck, applyCouponToUserCart);
+router.route("/user/cart/coupon").post(authCheck, applyCouponToUserCart);
 
 module.exports = router;
