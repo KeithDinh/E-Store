@@ -37,6 +37,7 @@ import Shop from "./pages/Shop";
 import Cart from "./pages/Cart";
 import Checkout from "./pages/Checkout";
 import CreateCoupon from "./pages/admin/coupon/CreateCoupon";
+import Payment from "./pages/Payment";
 
 // Functions
 import { currentUser } from "./functions/auth";
@@ -98,6 +99,7 @@ const App = () => {
         <Route exact path="/shop" component={Shop} />
         <Route exact path="/cart" component={Cart} />
         <Route exact path="/checkout" component={Checkout} />
+        <Route exact path="/payment" component={Payment} />
 
         <UserRoute exact path="/user/history" component={History} />
         <UserRoute exact path="/user/password" component={Password} />

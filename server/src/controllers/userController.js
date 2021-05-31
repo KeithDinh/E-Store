@@ -46,9 +46,11 @@ exports.getUserCart = async (req, res) => {
     .populate("products.product", "_id title price totalAfterDiscount")
     .exec();
 
-  const { products, cartTotal, totalAfterDiscount } = cart;
-
-  res.json({ products, cartTotal, totalAfterDiscount });
+  if (cart) {
+    const { products, cartTotal, totalAfterDiscount } = cart;
+    return res.json({ products, cartTotal, totalAfterDiscount });
+  }
+  res.json({ products: [], cartTotal: 0, totalAfterDiscount: 0 });
 };
 
 exports.emptyUserCart = async (req, res) => {

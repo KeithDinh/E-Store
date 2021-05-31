@@ -26,3 +26,14 @@ export const createCoupon = async (coupon, authtoken) =>
 
 export const getCoupon = async (name) =>
   await axios.get(`${apiUrl}/coupon/${name}`);
+
+export const applyCoupon = async (authtoken, coupon) =>
+  await axios.post(
+    `${apiUrl}/user/cart/coupon`,
+    { coupon },
+    {
+      headers: {
+        authtoken,
+      },
+    }
+  );
