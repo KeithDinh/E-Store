@@ -115,3 +115,7 @@
   - Publishable key is used for frontend and Secret key is used for backend
 - Install stripe package backend
 - Install @stripe/stripe-js @stripe/react-stripe-js packages frontend
+
+## GENERALS
+
+- PaymentIntent tracks customer's payment lifecycle, keeping track of any failed payment attempts and ensuring the customer is only charged once. Return the PaymentIntent's client secret in the response to finish the payment on the client.
