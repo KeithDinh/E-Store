@@ -7,7 +7,7 @@ import { createPaymentIntent } from "../functions/stripe";
 
 const StripeCheckout = ({ history }) => {
   const dispatch = useDispatch();
-  const { user } = useSelector((state) => ({ ...state }));
+  const { user, coupon } = useSelector((state) => ({ ...state }));
 
   // states from Stripe documents https://stripe.com/docs/payments/integration-builder
 
@@ -21,7 +21,7 @@ const StripeCheckout = ({ history }) => {
 
   useEffect(() => {
     if (user)
-      createPaymentIntent(user.token).then((res) =>
+      createPaymentIntent(user.token, coupon).then((res) =>
         setClientSecret(res.data.clientSecret)
       );
   }, [user]);
@@ -77,7 +77,7 @@ const StripeCheckout = ({ history }) => {
       <p className={succeeded ? "result-message" : "result-message hidden"}>
         Payment Successful <Link to="/user/history"> See order in history</Link>
       </p>
-      <form id="payment-form" classNam="stripe-form" onSubmit={handleSubmit}>
+      <form id="payment-form" className="stripe-form" onSubmit={handleSubmit}>
         <CardElement
           id="card-element"
           options={cardStyle}
