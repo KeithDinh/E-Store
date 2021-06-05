@@ -58,7 +58,7 @@ const App = () => {
               type: "LOGGED_IN_USER",
               payload: {
                 name: res.data[0].name.split("@")[0],
-                email: res.data[0].name,
+                email: res.data[0].email,
                 token: idTokenResult.token,
                 role: res.data[0].role,
                 _id: res.data[0]._id,

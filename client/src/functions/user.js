@@ -1,6 +1,9 @@
 import axios from "axios";
 const apiUrl = process.env.REACT_APP_API;
 
+export const getUserAddress = async (authtoken) =>
+  await axios.get(`${apiUrl}/user/address`, { headers: { authtoken } });
+
 export const userCart = async (cart, authtoken) =>
   await axios.post(
     `${apiUrl}/user/cart`,

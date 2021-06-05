@@ -4,10 +4,16 @@ import { toast } from "react-toastify";
 import ReactQuill from "react-quill";
 import "react-quill/dist/quill.snow.css";
 
-import { getUserCart, emptyUserCart, saveUserAddress } from "../functions/user";
+import {
+  getUserAddress,
+  getUserCart,
+  emptyUserCart,
+  saveUserAddress,
+} from "../functions/user";
 import { applyCoupon } from "../functions/coupon";
 
 const Checkout = ({ history }) => {
+  const [loading, setLoading] = useState(false);
   const [products, setProducts] = useState([]);
   const [total, setTotal] = useState(0);
   const [address, setAdress] = useState("");
@@ -20,19 +26,25 @@ const Checkout = ({ history }) => {
   const { user } = useSelector((state) => ({ ...state }));
 
   useEffect(() => {
-    if (user)
+    if (user) {
       getUserCart(user.token)
         .then((res) => {
           setProducts(res.data.products);
           setTotal(res.data.cartTotal);
         })
         .catch((err) => console.log(err));
+
+      getUserAddress(user.token).then((res) => {
+        setSavedAddress(res.data.address);
+      });
+    }
   }, [user]);
 
   const saveAddressToDB = () => {
+    console.log(address);
     saveUserAddress(user.token, address).then((res) => {
       if (res.data.ok) {
-        setSavedAddress(true);
+        setSavedAddress(address);
         toast.success("Address saved");
       }
     });
@@ -77,9 +89,11 @@ const Checkout = ({ history }) => {
   // Functions to display component
   const showAddress = () => (
     <>
-      <ReactQuill theme="snow" value={address} onChange={setAdress} />
+      {!loading && (
+        <ReactQuill theme="snow" value={address} onChange={setAdress} />
+      )}
       <button className="btn btn-primary mt-2" onClick={saveAddressToDB}>
-        Save
+        Save new address
       </button>
     </>
   );
@@ -126,12 +140,13 @@ const Checkout = ({ history }) => {
       )}
     </p>
   );
+
   return (
     <div className="row m-2">
       <div className="col-md-6">
         <h4>Delivery Address</h4>
         <br />
-        <br />
+        <div dangerouslySetInnerHTML={{ __html: savedAddress }} />
         {showAddress()}
         <hr />
         <h4>Got Coupon</h4>
@@ -161,7 +176,7 @@ const Checkout = ({ history }) => {
           <div className="col-md-6">
             <button
               className="btn btn-primary"
-              disabled={!savedAddress || !products.length}
+              disabled={!products.length || savedAddress === "<p><br></p>"}
               onClick={() => history.push("/payment")}
             >
               Place Orders

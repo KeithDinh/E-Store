@@ -2,6 +2,15 @@ const User = require("../models/user");
 const Product = require("../models/product");
 const Cart = require("../models/cart");
 
+exports.getUserAddress = async (req, res) => {
+  const { address } = await User.findOne({ email: req.user.email }).exec();
+
+  if (address) {
+    res.json({ address });
+  } else {
+    res.json({ address: "" });
+  }
+};
 exports.userCart = async (req, res) => {
   const { cart } = req.body;
   const user = await User.findOne({ email: req.user.email }).exec();
@@ -61,7 +70,7 @@ exports.emptyUserCart = async (req, res) => {
 };
 
 exports.saveAddress = async (req, res) => {
-  const userAddress = await User.findOne(
+  const userAddress = await User.findOneAndUpdate(
     { email: req.user.email },
     { address: req.body.address }
   ).exec();
