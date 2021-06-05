@@ -43,7 +43,7 @@ const Header = () => {
 
   // fix BUG#4
   const checkLocation = (pathName) => {
-    if (pathName.includes("home")) setCurrent("home");
+    if (pathName === "/") setCurrent("home");
     if (pathName.includes("products/category/")) {
       let categoryName = pathName.match(/([^/]+$)/); // get everything after the last backslash
       setCurrent(categoryName[0]);

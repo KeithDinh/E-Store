@@ -37,6 +37,7 @@
     - ex: "mouse and keyboar" -> "mouse-and-keyboard"
   - setValues({ ...values, [e.target.name]: e.target.value })
   - cloudinary
+  - stripe
 
 ## GENERALS
 
@@ -65,6 +66,8 @@
   - react-modal-image: show both small icon and modal images
   - react-quill: like a text editor
   - react-datepicker: calendar date picker
+  - @stripe/stripe-js
+  - @stripe/react-stripe-js
 
 ## GENERALS
 
@@ -103,3 +106,18 @@
 - {new: true}: // send the new updated to client instead of the old one
 - findOneAndUpdate - $push in second arg to push data to array-type property
 - findOneAndRemove vs findOneAndDelete: there is not much different, just use findOneAndDelete
+
+# STRIPE SERVICE
+
+https://stripe.com/docs/payments/integration-builder
+
+## STEPS
+
+- Create account -> Developers -> API Keys
+  - Publishable key is used for frontend and Secret key is used for backend
+- Install stripe package backend
+- Install @stripe/stripe-js @stripe/react-stripe-js packages frontend
+
+## GENERALS
+
+- PaymentIntent tracks customer's payment lifecycle, keeping track of any failed payment attempts and ensuring the customer is only charged once. Return the PaymentIntent's client secret in the response to finish the payment on the client.

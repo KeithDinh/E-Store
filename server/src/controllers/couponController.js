@@ -52,8 +52,7 @@ exports.applyCouponToUserCart = async (req, res) => {
   })
     .populate("products.product", "_id title price")
     .exec();
-  console.log(cartTotal);
-  console.log(validCoupon.discount);
+
   let totalAfterDiscount = (
     cartTotal -
     (cartTotal * validCoupon.discount) / 100
