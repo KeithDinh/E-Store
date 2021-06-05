@@ -1,6 +1,7 @@
 const User = require("../models/user");
 const Product = require("../models/product");
 const Cart = require("../models/cart");
+const Order = require("../models/order");
 
 exports.getUserAddress = async (req, res) => {
   const { address } = await User.findOne({ email: req.user.email }).exec();
@@ -74,6 +75,23 @@ exports.saveAddress = async (req, res) => {
     { email: req.user.email },
     { address: req.body.address }
   ).exec();
+
+  res.json({ ok: true });
+};
+
+// ORDER
+exports.createOrder = async (req, res) => {
+  const { paymentIntent } = req.body.stripeResponse;
+
+  const user = await User.fineOne({ email: req.user.email }).exec();
+
+  let { products } = await Cart.findOne({ orderBy: user._id }).exec();
+
+  let newOrder = new Order({
+    products,
+    paymentIntent,
+    orderBy: user._id,
+  }).save();
 
   res.json({ ok: true });
 };
