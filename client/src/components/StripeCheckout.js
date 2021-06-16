@@ -5,6 +5,7 @@ import laptop from "../images/laptop.png";
 import { CardElement, useStripe, useElements } from "@stripe/react-stripe-js";
 import { useSelector, useDispatch } from "react-redux";
 import { createPaymentIntent } from "../functions/stripe";
+import { createOrder, emptyUserCart } from "../functions/user";
 
 import { Card } from "antd";
 import { DollarOutlined, CheckOutlined } from "@ant-design/icons";
@@ -52,7 +53,25 @@ const StripeCheckout = ({ history }) => {
       setError(`Payment failed ${payload.error.message}`);
       setProcessing(false);
     } else {
-      console.log(payload);
+      createOrder(payload, user.token).then((res) => {
+        if (res.data.ok) {
+          // empty cart from local storage, redux, and db
+          if (typeof window !== "undefined") localStorage.removeItem("cart");
+
+          dispatch({
+            type: "ADD_TO_CART",
+            payload: [],
+          });
+
+          dispatch({
+            type: "COUPON_APPLIED",
+            payload: false,
+          });
+
+          emptyUserCart(user.token);
+        }
+      });
+
       setError(null);
       setProcessing(false);
       setSucceeded(true);

@@ -83,7 +83,7 @@ exports.saveAddress = async (req, res) => {
 exports.createOrder = async (req, res) => {
   const { paymentIntent } = req.body.stripeResponse;
 
-  const user = await User.fineOne({ email: req.user.email }).exec();
+  const user = await User.findOne({ email: req.user.email }).exec();
 
   let { products } = await Cart.findOne({ orderBy: user._id }).exec();
 
