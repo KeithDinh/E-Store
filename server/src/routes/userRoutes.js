@@ -26,9 +26,8 @@ router
   .post(authCheck, saveAddress)
   .get(authCheck, getUserAddress);
 
-router
-  .route("/user/order")
-  .post(authCheck, createOrder)
-  .get(authCheck, getOrders);
+router.route("/user/order").post(authCheck, createOrder);
+
+router.route("/user/orders").get(authCheck, getOrders);
 
 module.exports = router;
