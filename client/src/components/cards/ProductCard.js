@@ -10,7 +10,7 @@ import laptop from "../../images/laptop.png";
 
 const { Meta } = Card;
 const ProductCard = ({ product }) => {
-  const { title, description, images, slug, price } = product;
+  const { title, description, images, slug, price, quantity } = product;
   const [toolTip, setToolTip] = useState("Click to add");
 
   const dispatch = useDispatch();
@@ -77,7 +77,7 @@ const ProductCard = ({ product }) => {
           <>
             {/* eslint-disable jsx-a11y/anchor-is-valid */}
             <Tooltip title={toolTip}>
-              <a onClick={handleAddToCart}>
+              <a onClick={handleAddToCart} disabled={quantity < 1}>
                 <ShoppingCartOutlined className="text-danger" />
                 <br />
                 Add to Cart
@@ -92,7 +92,12 @@ const ProductCard = ({ product }) => {
               {title}
               <h5 className="price mt-2">
                 <span className="price__upper">$</span>
-                {price}
+                <span
+                  style={{ textDecoration: quantity < 1 && "line-through" }}
+                >
+                  {price}
+                </span>{" "}
+                {quantity < 1 && "Out of Stock"}
               </h5>
             </div>
           }

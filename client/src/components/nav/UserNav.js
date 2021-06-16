@@ -8,12 +8,8 @@ const UserNav = () => {
     <nav>
       <ul className="nav flex-column">
         <li className="nav-item">
-          {user && user.role === "admin" ? (
+          {user && user.role === "admin" && (
             <Link to="/admin/dashboard" className="text-warning nav-link">
-              Back to Dashboard
-            </Link>
-          ) : (
-            <Link to="/user/dashboard" className="text-warning nav-link">
               Back to Dashboard
             </Link>
           )}

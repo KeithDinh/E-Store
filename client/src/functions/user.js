@@ -45,3 +45,18 @@ export const saveUserAddress = async (authtoken, address) =>
       },
     }
   );
+
+// Order
+export const createOrder = async (stripeResponse, authtoken) =>
+  await axios.post(
+    `${apiUrl}/user/order`,
+    { stripeResponse },
+    {
+      headers: {
+        authtoken,
+      },
+    }
+  );
+
+export const getUserOrders = async (authtoken) =>
+  await axios.get(`${apiUrl}/user/orders`, { headers: { authtoken } });

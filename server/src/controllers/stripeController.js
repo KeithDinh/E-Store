@@ -28,8 +28,8 @@ exports.createPaymentIntent = async (req, res) => {
 
   res.send({
     clientSecret: paymentIntent.client_secret,
-    cartTotal, // total price before discount
-    totalAfterDiscount, // total price after discount
-    payable: finalAmount, // total price in cents after discount
+    cartTotal, // total before discount
+    totalAfterDiscount, // total after discount
+    payable: finalAmount, // total in cents after discount
   });
 };
