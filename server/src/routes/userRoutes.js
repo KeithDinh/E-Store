@@ -12,6 +12,7 @@ const {
   saveAddress,
   getUserAddress,
   createOrder,
+  getOrders,
 } = require("../controllers/userController");
 
 router
@@ -25,6 +26,9 @@ router
   .post(authCheck, saveAddress)
   .get(authCheck, getUserAddress);
 
-router.route("/user/order").post(authCheck, createOrder);
+router
+  .route("/user/order")
+  .post(authCheck, createOrder)
+  .get(authCheck, getOrders);
 
 module.exports = router;
