@@ -28,14 +28,47 @@ const History = ({ history }) => {
         <p>Show Payment Info</p>
         {showOrderInTable(order)}
         <div className="row">
-          <div className="col">
+          <div className="col text-center">
             <p>PDF download</p>
           </div>
         </div>
       </div>
     ));
 
-  const showOrderInTable = (order) => <p>Each order and products</p>;
+  const showOrderInTable = (order) => (
+    <table className="table table-bordered">
+      <thead className="thead-light">
+        <tr>
+          <th scope="col"> Title</th>
+          <th scope="col"> Price</th>
+          <th scope="col"> Brand</th>
+          <th scope="col"> Color</th>
+          <th scope="col"> Count</th>
+          <th scope="col"> Shipping</th>
+        </tr>
+      </thead>
+      <tbody>
+        {order.products.map((p, i) => (
+          <tr key={i}>
+            <td>
+              <b>{p.product.title}</b>
+            </td>
+            <td>{p.product.price}</td>
+            <td>{p.product.brand}</td>
+            <td>{p.product.color}</td>
+            <td>{p.count}</td>
+            <td>
+              {p.product.shipping === "Yes" ? (
+                <CheckCircleOutlined style={{ color: "green" }} />
+              ) : (
+                <CheckCircleOutlined style={{ color: "red" }} />
+              )}
+            </td>
+          </tr>
+        ))}
+      </tbody>
+    </table>
+  );
   return (
     <div className="col">
       <h4>
