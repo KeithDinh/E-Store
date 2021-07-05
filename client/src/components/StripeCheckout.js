@@ -27,6 +27,7 @@ const StripeCheckout = ({ history }) => {
   const stripe = useStripe();
   const elements = useElements();
 
+  /* eslint-disable react-hooks/exhaustive-deps */
   useEffect(() => {
     if (user)
       createPaymentIntent(user.token, coupon).then((res) => {
@@ -128,6 +129,7 @@ const StripeCheckout = ({ history }) => {
                 objectFit: "cover",
                 marginBottom: "-50px",
               }}
+              alt="stripe card"
             />
           }
           actions={[
