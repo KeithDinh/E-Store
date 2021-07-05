@@ -1,7 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { toast } from "react-toastify";
-import ReactQuill from "react-quill";
 import "react-quill/dist/quill.snow.css";
 
 import {
@@ -13,9 +12,9 @@ import {
 import { applyCoupon } from "../functions/coupon";
 
 const Checkout = ({ history }) => {
-  const [loading, setLoading] = useState(false);
   const [products, setProducts] = useState([]);
   const [total, setTotal] = useState(0);
+  // eslint-disable-next-line
   const [address, setAdress] = useState("");
   const [savedAddress, setSavedAddress] = useState(false);
   const [couponName, setCouponName] = useState("");
@@ -41,7 +40,6 @@ const Checkout = ({ history }) => {
   }, [user]);
 
   const saveAddressToDB = () => {
-    console.log(address);
     saveUserAddress(user.token, address).then((res) => {
       if (res.data.ok) {
         setSavedAddress(address);
@@ -89,9 +87,6 @@ const Checkout = ({ history }) => {
   // Functions to display component
   const showAddress = () => (
     <>
-      {!loading && (
-        <ReactQuill theme="snow" value={address} onChange={setAdress} />
-      )}
       <button className="btn btn-primary mt-2" onClick={saveAddressToDB}>
         Save new address
       </button>

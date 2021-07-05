@@ -68,6 +68,8 @@
   - react-datepicker: calendar date picker
   - @stripe/stripe-js
   - @stripe/react-stripe-js
+  - @react-pdf/renderer: to generate a pdf for downloading
+  - @david.kucsai/react-pdf-table: to style table for @react-pdf/renderer
 
 ## GENERALS
 

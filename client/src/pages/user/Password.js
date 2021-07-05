@@ -3,8 +3,6 @@ import { useState } from "react";
 import { toast } from "react-toastify";
 import { validators, errorDiv } from "../../utils/PasswordValidator";
 
-import UserNav from "../../components/nav/UserNav";
-
 const Password = ({ history }) => {
   const [password, setPassword] = useState("");
   const [loading, setLoading] = useState(false);
